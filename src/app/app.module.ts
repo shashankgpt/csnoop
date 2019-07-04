@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialModule } from './material/material.module';
 import { LoginComponentComponent } from './components/login-component/login-component.component';
 import { RegisterComponentComponent } from './components/register-component/register-component.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RegisterComponentComponent } from './components/register-component/regi
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

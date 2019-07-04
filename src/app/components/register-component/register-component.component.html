@@ -1,1 +1,14 @@
-<p>register-component works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit">
+    <label>Email Id:
+        <input type="text" formControlName="emailId">
+    </label>
+    <label>
+        User Name:
+        <input type="text" formControlName="username">
+    </label>
+<label>
+Password:
+<input type="text" formControlName="password">
+</label>
+<button type="submit" [disabled]="!registerForm.valid">Register</button>
+</form>
