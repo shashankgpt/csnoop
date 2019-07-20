@@ -1,1 +1,13 @@
-<p>register works!</p>
+<mat-card>
+<div class="example-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Enter your username" formControlName="username">
+    <mat-error *ngIf="!f.username.valid && f.username.touched">
+      required
+    </mat-error>
+  </mat-form-field>
+  <button type="submit" [disabled]="!registerForm.valid" mat-flat-button color="primary">Submit</button>
+  </form>
+</div>
+</mat-card>

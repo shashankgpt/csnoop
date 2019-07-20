@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,16 +7,22 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
 
+  registerForm = new FormGroup({
+    username : new FormControl('', [Validators.required]),
+  });
+
+  hide = true;
   constructor() { }
 
   ngOnInit() {
   }
 
-  getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-        this.email.hasError('email') ? 'Not a valid email' :
-            '';
+  get f() {
+  return this.registerForm.controls;
+  }
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.registerForm.value);
   }
 }
