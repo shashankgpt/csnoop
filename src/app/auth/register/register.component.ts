@@ -7,7 +7,7 @@ import {FormControl, Validators, FormGroup} from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
+  value="test";
   registerForm = new FormGroup({
     username : new FormControl('', [Validators.required]),
     email : new FormControl('', [Validators.required,Validators.email]),

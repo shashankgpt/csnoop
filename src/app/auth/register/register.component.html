@@ -1,55 +1,48 @@
-<div class="example-container"
-fxLayout="row" fxLayoutAlign="center center"
-fxLayoutGap="10px"
-fxLayoutGap.xs="0">
-<div fxFlex="50" fxFlex.sm="70" fxFlex.xs="100">
-<mat-card >
-  <div >
-  <div >
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div>
-      <mat-form-field >
-        <input   matInput placeholder="Enter your username" formControlName="username">
-        <mat-error *ngIf="!f.username.valid && f.username.touched">
-          required
-        </mat-error>
-      </mat-form-field>
-    </div>
-  <div>
-      <mat-form-field>
-        <input matInput placeholder="Enter your email" formControlName="email">
-        <mat-error *ngIf="!f.email.valid && f.email.touched">
-          required
-        </mat-error>
-      </mat-form-field>
-    </div>
-      <div formGroupName="passwordForm">
+<app-form-view [title]="value">
+    <div class="main-form"> <div>
+        <div >
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div>
+            <mat-form-field >
+              <input   matInput placeholder="Enter your username" formControlName="username">
+              <mat-error *ngIf="!f.username.valid && f.username.touched">
+                required
+              </mat-error>
+            </mat-form-field>
+          </div>
         <div>
-        <mat-form-field>
-          <input matInput formControlName="password" placeholder="Enter your password"
-            [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <input matInput formControlName="confirmPassword" placeholder="Enter your password"
-            [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-      </div>
+            <mat-form-field>
+              <input matInput placeholder="Enter your email" formControlName="email">
+              <mat-error *ngIf="!f.email.valid && f.email.touched">
+                required
+              </mat-error>
+            </mat-form-field>
+          </div>
+            <div formGroupName="passwordForm">
+              <div>
+              <mat-form-field>
+                <input matInput formControlName="password" placeholder="Enter your password"
+                  [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <input matInput formControlName="confirmPassword" placeholder="Enter your password"
+                  [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            </div>
 
-      <button type="submit" [disabled]="!registerForm.valid" mat-flat-button color="primary">Submit</button>
-    </form>
-  </div>
-</div>
-</mat-card>
-</div>
-</div>
+            <button type="submit" [disabled]="!registerForm.valid" mat-flat-button color="primary">Submit</button>
+          </form>
+        </div>
+      </div></div>
+   </app-form-view>

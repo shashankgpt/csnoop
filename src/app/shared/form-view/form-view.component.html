@@ -1,3 +1,11 @@
-<h1>{{title}}</h1>
-<ng-content select=".main1"></ng-content>
-<ng-content select=".main2"></ng-content>
+<div class="example-container"
+fxLayout="row" fxLayoutAlign="center center"
+fxLayoutGap="10px"
+fxLayoutGap.xs="0">
+<div fxFlex="50" fxFlex.sm="70" fxFlex.xs="100">
+<mat-card>
+  {{title}}
+  <ng-content select=".main-form"></ng-content>
+</mat-card>
+</div>
+</div>
