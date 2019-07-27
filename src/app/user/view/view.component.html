@@ -1,1 +1,22 @@
-<p>view works!</p>
+<app-form-view [title]="value">
+  <div class="main-form">
+    <div *ngIf="profile?.firstName || profile?.lastName">
+      Name : {{profile.firstName}} {{profile.lastName}}
+    </div>
+    <div *ngIf="profile?.gender">
+      Gender : {{profile.gender}}
+    </div>
+    <div *ngIf="profile?.location">
+      Location : {{profile.location}}
+    </div>
+    <div *ngIf="profile?.website">
+      Website : {{profile.website}}
+    </div>
+    <div *ngIf="profile?.email">
+      Email : {{profile.email}}
+    </div>
+    <a [routerLink]="['/user/edit']" >
+      link to user component
+    </a>
+  </div>
+</app-form-view>

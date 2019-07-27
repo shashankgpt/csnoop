@@ -1,11 +1,18 @@
 export function reducer(state, action) {
   switch (action.type) {
-    case 'TOKEN_CODE':
+    case 'USER_DATA':
       console.log('existing state' + JSON.stringify(state));
       console.log('payload' + action.payload);
       return {
         ...state,
-        tokenCodeValue: action.payload
+        user: action.payload
+      };
+      case 'USER_NAME':
+      console.log('existing state' + JSON.stringify(state));
+      console.log('payload' + action.payload);
+      return {
+        ...state,
+        username: action.payload
       };
 
       default:

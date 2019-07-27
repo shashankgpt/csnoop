@@ -11,9 +11,6 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService ) { }
 
   ngOnInit() {
-    this.userService.getLoggedInUser().subscribe(data=>{
-      console.log(data);
-    });
   }
 
 }

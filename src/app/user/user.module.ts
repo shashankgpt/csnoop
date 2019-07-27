@@ -18,7 +18,7 @@ import { HomeComponent } from './home.component';
     UserRoutingModule,
     CoreModule,
     SharedModule,
-    StoreModule.forFeature('authentications', reducer)
+    StoreModule.forFeature('users', reducer)
   ]
 })
 export class UserModule { }

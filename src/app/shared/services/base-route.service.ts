@@ -20,7 +20,7 @@ export class BaseRouteService {
     });
   }
 
-  get<T>(url: string, paramVal: any): Observable<HttpResponse<T>> {
+  get<T>(url: string, paramVal: any): Observable<T> {
     return this.http.get<T>(`${this.apiUrl}/${url}`)
       .pipe(
         retry(3),
@@ -50,7 +50,7 @@ export class BaseRouteService {
         catchError(this.throwErrorMsg)
       );
   }
-  delete<T>(url: string, paramVal: any): Observable<HttpResponse<T>> {
+  delete<T>(url: string, paramVal: any): Observable<T> {
     return this.http.delete<T>(`${this.apiUrl}/${url}`)
       .pipe(
         retry(3),
