@@ -3,14 +3,18 @@ import { BaseRouteService } from '../../shared/services/base-route.service';
 import { IResponse } from '../../shared/dataTypes';
 import { ILogin, IRegister } from '../dataTypes/index';
 import { HttpHeaders } from '@angular/common/http';
+import { Store, select } from '@ngrx/store';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private baseRoute: BaseRouteService) { }
+  constructor(private baseRoute: BaseRouteService,private store: Store<any>) {
+
+  }
 
   login(username: string, password: string) {
+    localStorage.clear();
     const auth = btoa(username + ':' + password);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -27,3 +31,4 @@ export class AuthService {
   }
 
 }
+

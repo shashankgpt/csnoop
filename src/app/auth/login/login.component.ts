@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,14 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
   value = 'test2';
   durationInSeconds = 5;
-
+  spinner = false;
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
   hide = true;
-  constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService, private snackBar: MatSnackBar,
+              private store: Store<any>) { }
   get f() {
     return this.loginForm.controls;
   }
@@ -31,9 +33,16 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.f.username.value, this.f.password.value).subscribe(resData => {
       const loginData = resData.data;
-      localStorage.setItem('login', loginData.token);
-      this.openSnackBar(resData.Message, 'Login');
-
+      this.store.dispatch({
+        type: 'TOKEN_CODE',
+        payload: loginData.token
+      });
+      this.store.pipe(select('authentications')).subscribe(
+        authentications => {
+          localStorage.setItem('login', authentications.tokenCodeValue);
+          this.openSnackBar(resData.Message, 'Login');
+        }
+      );
     });
   }
 

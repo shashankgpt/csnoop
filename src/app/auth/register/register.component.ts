@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators, FormGroup} from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
 
@@ -9,13 +9,13 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  value="test";
+  value = "test";
   registerForm = new FormGroup({
-    username : new FormControl('', [Validators.required]),
-    email : new FormControl('', [Validators.required,Validators.email]),
+    username: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     passwordForm: new FormGroup({
-      password : new FormControl('', [Validators.required]),
-      confirmPassword : new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
     })
   });
 
@@ -31,14 +31,14 @@ export class RegisterComponent implements OnInit {
   }
 
   get f() {
-  return this.registerForm.controls;
+    return this.registerForm.controls;
   }
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.registerForm.value);
-    const {email,username,passwordForm} = this.registerForm.value;
+    const { email, username, passwordForm } = this.registerForm.value;
     console.log(passwordForm.password);
-    this.authService.register(username,passwordForm.password,email).subscribe(data => {
+    this.authService.register(username, passwordForm.password, email).subscribe(data => {
       this.openSnackBar(data.Message, 'Register');
     });
   }

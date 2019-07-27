@@ -8,6 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './state/authenticate.reducer';
+
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -15,7 +18,9 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     AuthRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('authentications', reducer)
   ]
 })
 export class AuthModule { }
+
