@@ -1,1 +1,25 @@
-<p>login works!</p>
+<app-form-view [title]="value">
+    <div class="main-form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div>
+                <mat-form-field >
+                  <input   matInput placeholder="Enter your username" formControlName="username">
+                  <mat-error *ngIf="!(f.username.valid && f.username.touched)">
+                    required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                  <mat-form-field>
+                    <input matInput formControlName="password" placeholder="Enter your password"
+                      [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+                <button type="submit" [disabled]="!loginForm.valid" mat-flat-button color="primary">Submit</button>
+          </form>
+        </div>
+   </app-form-view>

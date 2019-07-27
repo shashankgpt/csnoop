@@ -1,11 +1,10 @@
 <app-form-view [title]="value">
-    <div class="main-form"> <div>
-        <div >
+    <div class="main-form">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div>
             <mat-form-field >
               <input   matInput placeholder="Enter your username" formControlName="username">
-              <mat-error *ngIf="!f.username.valid && f.username.touched">
+              <mat-error *ngIf="!(f.username.valid && f.username.touched)">
                 required
               </mat-error>
             </mat-form-field>
@@ -13,7 +12,7 @@
         <div>
             <mat-form-field>
               <input matInput placeholder="Enter your email" formControlName="email">
-              <mat-error *ngIf="!f.email.valid && f.email.touched">
+              <mat-error *ngIf="!(f.email.valid && f.email.touched)">
                 required
               </mat-error>
             </mat-form-field>
@@ -44,5 +43,4 @@
             <button type="submit" [disabled]="!registerForm.valid" mat-flat-button color="primary">Submit</button>
           </form>
         </div>
-      </div></div>
    </app-form-view>
