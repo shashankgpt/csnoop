@@ -34,8 +34,6 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.registerForm.value);
     const { email, username, passwordForm } = this.registerForm.value;
     console.log(passwordForm.password);
     this.authService.register(username, passwordForm.password, email).subscribe(data => {
