@@ -4,14 +4,16 @@ import {FormViewComponent} from './form-view/form-view.component';
 import { CoreModule } from '../core/core.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptorService } from './services/app-interceptor.service';
-
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './state/shared.reducer';
 
 @NgModule({
   declarations: [FormViewComponent],
   imports: [
     CommonModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature('shared', reducer)
   ],
   exports: [
     FormViewComponent
@@ -25,3 +27,4 @@ import { AppInterceptorService } from './services/app-interceptor.service';
   ]
 })
 export class SharedModule { }
+
