@@ -4,6 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { IProfile, IPasswordChange } from '../dataTypes';
+import * as fromUser from '../state/user.reducer'
 
 @Component({
   selector: 'app-edit',
@@ -27,7 +28,7 @@ export class EditComponent implements OnInit {
     oldPassword: new FormControl('', [Validators.required]),
     newPassword: new FormControl('', [Validators.required])
   });
-  constructor(private userService: UserService, private store: Store<any>, private snackBar: MatSnackBar) { }
+  constructor(private userService: UserService, private store: Store<fromUser.State>, private snackBar: MatSnackBar) { }
   openSnackBar(msg, action) {
     this.snackBar.open(msg, action, {
       duration: 2000,

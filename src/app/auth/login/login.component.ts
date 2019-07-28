@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Store, select } from '@ngrx/store';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import * as fromAuth from '../state/authenticate.reducer'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,8 +19,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required])
   });
   hide = true;
-  constructor(private authService: AuthService, private snackBar: MatSnackBar,
-              private store: Store<any>) { }
+  constructor(private authService: AuthService, private snackBar: MatSnackBar,private router: Router,
+              private store: Store<fromAuth.State>) { }
   get f() {
     return this.loginForm.controls;
   }
@@ -37,10 +38,16 @@ export class LoginComponent implements OnInit {
         type: 'TOKEN_CODE',
         payload: loginData.token
       });
+      // this.store.dispatch({
+      //   type: 'LOGGED_IN',
+      //   payload: true
+      // });
+
       this.store.pipe(select('authentications')).subscribe(
         authentications => {
           localStorage.setItem('login', authentications.tokenCodeValue);
           this.openSnackBar(resData.Message, 'Login');
+          this.router.navigate(['/user/view']);
         }
       );
     });
