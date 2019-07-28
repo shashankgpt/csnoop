@@ -1,4 +1,3 @@
-<mat-spinner *ngIf="spinner"></mat-spinner>
 <app-form-view [title]="value" *ngIf="!spinner">
     <div class="main-form">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">

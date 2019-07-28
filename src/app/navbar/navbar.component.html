@@ -22,7 +22,8 @@
       </button>
       <span>CodeSnooper</span>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <mat-spinner *ngIf="spinner"></mat-spinner>
+    <router-outlet *ngIf="!spinner"></router-outlet>
     <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>
