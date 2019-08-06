@@ -5,7 +5,7 @@
                 <mat-form-field >
                   <input   matInput placeholder="Enter your username" formControlName="username">
                   <mat-error *ngIf="!(f.username.valid && f.username.touched)">
-                    required
+                    Username is Required
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -17,9 +17,15 @@
                       [attr.aria-pressed]="hide">
                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
+                     <mat-error *ngIf="!(f.password.valid && f.password.touched)">
+                    Password is Required
+                  </mat-error>
                   </mat-form-field>
                 </div>
-                <button type="submit" [disabled]="!loginForm.valid" mat-flat-button color="primary">Submit</button>
+                <div class="btn-div">
+                <button class="btn-pad"  type="submit" [disabled]="!loginForm.valid" mat-flat-button color="primary">Submit</button>
+                <button  type="reset"  mat-flat-button color="primary">Reset</button>
+          </div>
           </form>
         </div>
    </app-form-view>

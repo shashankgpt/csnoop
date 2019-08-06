@@ -14,7 +14,7 @@ import { ISnackbar } from 'src/app/user/dataTypes';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  value = 'test2';
+  value = 'Login';
   durationInSeconds = 5;
   spinner = false;
   loginForm = new FormGroup({
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.f.username.value, this.f.password.value).subscribe(resData => {
       const loginData = resData.data;
+      console.log(loginData);
       this.store.dispatch({
         type: 'TOKEN_CODE',
         payload: loginData.token
