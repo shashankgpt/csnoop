@@ -5,4 +5,16 @@ html,body
 {
     height: 100%;
     margin: 0%;
+    font-family: Arial, Helvetica, sans-serif;
 }
+.mat-form-field {
+  width: 100%
+}
+
+.btn-div {
+  //  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

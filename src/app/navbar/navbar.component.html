@@ -5,9 +5,11 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item routerLink="/contact" routerLinkActive="active">Contact Us</a>
+      <span *ngIf="!logged">
+      <a mat-list-item routerLink="/auth/login" routerLinkActive="active">Login</a>
+      <a mat-list-item routerLink="/auth/register" routerLinkActive="active">Register</a>
+    </span>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -18,10 +20,20 @@
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <mat-icon aria-label="Side nav toggle icon">Menu</mat-icon>
       </button>
-      <span>csnoop</span>
+      <span>CodeSnooper</span>
+      <div *ngIf="logged" class="move-right"><button mat-button [matMenuTriggerFor]="userMenu"><mat-icon aria-hidden="false" aria-label="Example face icon" class="icon-space">face</mat-icon>{{username}}</button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/user/view">View</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
     </mat-toolbar>
+    <div *ngIf="showSpinner || globalSpinner" class="spinner-center">
+    <mat-spinner ></mat-spinner>
+  </div>
+    <router-outlet *ngIf="!(showSpinner || globalSpinner)"></router-outlet>
     <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ngrok": "ng serve --disable-host-check"
   },
   "private": true,
   "dependencies": {
@@ -16,11 +17,14 @@
     "@angular/common": "~8.1.0",
     "@angular/compiler": "~8.1.0",
     "@angular/core": "~8.1.0",
+    "@angular/flex-layout": "^8.0.0-beta.26",
     "@angular/forms": "~8.1.0",
     "@angular/material": "^8.0.2",
     "@angular/platform-browser": "~8.1.0",
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
+    "@ngrx/store": "^8.1.0",
+    "@ngrx/store-devtools": "^8.1.0",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
