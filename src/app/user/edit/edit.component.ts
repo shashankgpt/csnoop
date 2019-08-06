@@ -19,6 +19,7 @@ export class EditComponent implements OnInit {
   head2 = 'Update Password';
   username: string;
   editPassword = false;
+  hide = true;
   profileForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
@@ -32,8 +33,9 @@ export class EditComponent implements OnInit {
     newPassword: new FormControl('', [Validators.required])
   });
   constructor(private userService: UserService, private store: Store<fromUser.State>, private snackBar: MatSnackBar,
-              private shareStore: Store<fromShared.State>,private router: Router) { }
-  openSnackBar(msg, action) {
+              private shareStore: Store<fromShared.State>, private router: Router) { }
+
+    openSnackBar(msg, action) {
     this.snackBar.open(msg, action, {
       duration: 2000,
     });
@@ -111,8 +113,8 @@ export class EditComponent implements OnInit {
       payload: true
     });
     const password: IPasswordChange = {
-     oldPassword: this.passwordForm.value.oldPassword,
-     newPassword: this.passwordForm.value.newPassword
+      oldPassword: this.passwordForm.value.oldPassword,
+      newPassword: this.passwordForm.value.newPassword
     };
     this.userService.updatePassword(password).subscribe(Response => {
       this.shareStore.dispatch({
