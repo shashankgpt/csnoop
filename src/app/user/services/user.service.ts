@@ -15,7 +15,7 @@ export class UserService {
     return this.baseRoute.get<IResponse>('user', {});
   }
   updateLoggedInUser(username: string, profile: IProfile) {
-    return this.baseRoute.put<IResponse, IProfile>(`user/${username}`, profile);
+    return this.baseRoute.put<IResponse, IProfile>('user', profile);
   }
   updatePassword(password: IPasswordChange) {
     return this.baseRoute.patch<IResponse, IPasswordChange >('user/updatePassword', password);

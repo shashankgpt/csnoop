@@ -1,22 +1,23 @@
-<app-form-view [title]="value">
+<app-form-view [title]="head">
   <div class="main-form">
-    <div *ngIf="profile?.firstName || profile?.lastName">
-      Name : {{profile.firstName}} {{profile.lastName}}
+      <img class="img-profile" src="https://www.w3schools.com//w3images/team2.jpg" alt="Jane">
+    <div class="ln-div" *ngIf="profile?.firstName || profile?.lastName">
+      <span class="name-head">{{profile.firstName}} {{profile.lastName}}</span>
     </div>
-    <div *ngIf="profile?.gender">
-      Gender : {{profile.gender}}
+    <div class="ln-div" *ngIf="profile?.email">
+        <span class="email-Id">{{profile.email}}</span>
+      </div>
+      <div class="ln-div" *ngIf="profile?.website">
+          <span class="email-Id">{{profile.website}}</span>
+        </div>
+    <div class="ln-div" *ngIf="profile?.gender">
+        <span class="name-bottom">  Gender : {{profile.gender}}</span>
     </div>
-    <div *ngIf="profile?.location">
-      Location : {{profile.location}}
+    <div class="ln-div" *ngIf="profile?.location">
+        <span class="name-bottom">Location : {{profile.location}}</span>
     </div>
-    <div *ngIf="profile?.website">
-      Website : {{profile.website}}
-    </div>
-    <div *ngIf="profile?.email">
-      Email : {{profile.email}}
-    </div>
-    <a [routerLink]="['/user/edit']" >
-      link to user component
-    </a>
+    <div class="btn-div">
+    <button mat-fab (click)="moveToEdit()" mat-button color="primary">Edit</button>
+  </div>
   </div>
 </app-form-view>

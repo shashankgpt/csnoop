@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { IProfile } from '../dataTypes';
 import { Store, select } from '@ngrx/store';
-import * as fromUser from '../state/user.reducer'
+import * as fromUser from '../state/user.reducer';
 import { UserState } from '../state/user.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss']
+  styleUrls: ['./view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit {
-  value = 'test3';
+  head = 'User Profile';
   profile: IProfile;
-  constructor(private userService: UserService, private store: Store<fromUser.State>) { }
+  constructor(private userService: UserService, private store: Store<fromUser.State>, private router: Router
+    ,         private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     // this.store.dispatch({
@@ -31,21 +34,12 @@ export class ViewComponent implements OnInit {
         payload: resData2.username
       });
       this.store.pipe(select('users')).subscribe((data: UserState) => {
-        // alert("token view" + data.tokenCodeValue);
-         const resData = data.profile;
-         this.profile = {
-          firstName: resData.firstName === undefined ? '' : resData.firstName,
-          lastName: resData.lastName === undefined ? '' : resData.lastName,
-          email: resData.email === undefined ? '' : resData.email,
-          gender: resData.gender === undefined ? '' : resData.gender,
-          location: resData.location === undefined ? '' : resData.location,
-          website: resData.website === undefined ? '' : resData.website
-        };
-         // alert(this.profile.firstName);
-        console.log(data);
+        this.profile = data.profile;
+        this.cd.detectChanges();
       });
     });
   }
-
+  moveToEdit() {
+    this.router.navigate(['/user/edit']);
+  }
 }
-

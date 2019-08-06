@@ -1,4 +1,4 @@
-<app-form-view [title]="value" *ngIf="!editPassword">
+<app-form-view [title]="head" *ngIf="!editPassword">
     <div class="main-form">
           <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
             <div>
@@ -55,7 +55,7 @@
           </form>
         </div>
    </app-form-view>
-   <app-form-view [title]="value" *ngIf="editPassword">
+   <app-form-view [title]="head2" *ngIf="editPassword">
       <div class="main-form">
             <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
               <div>

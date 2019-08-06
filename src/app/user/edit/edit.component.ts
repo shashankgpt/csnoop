@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material';
-import { IProfile, IPasswordChange } from '../dataTypes';
-import * as fromUser from '../state/user.reducer'
+import { IProfile, IPasswordChange, ISnackbar } from '../dataTypes';
+import * as fromUser from '../state/user.reducer';
+import * as fromShared from '../../shared/state/shared.reducer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent implements OnInit {
-  value = 'test';
+  head = 'Edit Profile';
+  head2 = 'Update Password';
   username: string;
-  editPassword= false;
+  editPassword = false;
   profileForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
@@ -23,12 +27,12 @@ export class EditComponent implements OnInit {
     location: new FormControl('', [Validators.required]),
     website: new FormControl('', [Validators.required]),
   });
-
   passwordForm = new FormGroup({
     oldPassword: new FormControl('', [Validators.required]),
     newPassword: new FormControl('', [Validators.required])
   });
-  constructor(private userService: UserService, private store: Store<fromUser.State>, private snackBar: MatSnackBar) { }
+  constructor(private userService: UserService, private store: Store<fromUser.State>, private snackBar: MatSnackBar,
+              private shareStore: Store<fromShared.State>,private router: Router) { }
   openSnackBar(msg, action) {
     this.snackBar.open(msg, action, {
       duration: 2000,
@@ -37,9 +41,8 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.store.pipe(select('users')).subscribe(
       users => {
-        console.log(users);
         this.username = users.username;
-        const { firstName, lastName, email, gender, location, website } = users.user;
+        const { firstName, lastName, email, gender, location, website } = users.profile;
         this.f.firstName.setValue(firstName);
         this.f.lastName.setValue(lastName);
         this.f.email.setValue(email);
@@ -72,11 +75,24 @@ export class EditComponent implements OnInit {
         type: 'USER_DATA',
         payload: response.data.user
       });
-      this.openSnackBar(response.Message, 'Register');
+      const snack1: ISnackbar = {
+        snackBarActive: true,
+        snackBarMessage: response.Message,
+        snackBarAction: 'Login'
+      };
+      this.shareStore.dispatch({
+        type: 'SET_NOTIFY',
+        payload: snack1
+      });
+      this.shareStore.dispatch({
+        type: 'SPINNER_ACTIVATE',
+        payload: false
+      });
+      this.router.navigate(['/user/view']);
     });
   }
 
-  delete(){
+  delete() {
     this.userService.deleteUser(this.username).subscribe(response => {
       console.log(response);
       this.store.dispatch({
@@ -86,17 +102,33 @@ export class EditComponent implements OnInit {
       this.openSnackBar(response.Message, 'Register');
     });
   }
-  updatePassword()
-  {
-    this.editPassword = !this.editPassword
+  updatePassword() {
+    this.editPassword = !this.editPassword;
   }
-  changePassword(){
+  changePassword() {
+    this.shareStore.dispatch({
+      type: 'SPINNER_ACTIVATE',
+      payload: true
+    });
     const password: IPasswordChange = {
      oldPassword: this.passwordForm.value.oldPassword,
      newPassword: this.passwordForm.value.newPassword
-    }
+    };
     this.userService.updatePassword(password).subscribe(Response => {
-      console.log(Response);
+      this.shareStore.dispatch({
+        type: 'SPINNER_ACTIVATE',
+        payload: false
+      });
+      const snack1: ISnackbar = {
+        snackBarActive: true,
+        snackBarMessage: Response.Message,
+        snackBarAction: 'Passport Reset'
+      };
+      this.shareStore.dispatch({
+        type: 'SET_NOTIFY',
+        payload: snack1
+      });
+      this.router.navigate(['/user/view']);
     });
   }
 }

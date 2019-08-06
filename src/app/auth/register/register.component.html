@@ -1,4 +1,4 @@
-<app-form-view [title]="value">
+<app-form-view [title]="head">
   <div class="main-form">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
@@ -47,9 +47,10 @@
         </div>
       </div>
       <div class="btn-div">
-      <button type="submit" class="btn-pad" [disabled]="!registerForm.valid" mat-flat-button color="primary">Submit</button>
-      <button type="reset" mat-flat-button color="primary">Reset</button>
-    </div>
+        <button type="submit" class="btn-pad" [disabled]="!registerForm.valid" mat-flat-button
+          color="primary">Submit</button>
+        <button type="reset" mat-flat-button color="primary">Reset</button>
+      </div>
     </form>
   </div>
 </app-form-view>
