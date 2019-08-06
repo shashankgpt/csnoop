@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
@@ -6,10 +6,11 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit {
-  value = "Register";
+  value = 'Register';
   registerForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -33,7 +34,12 @@ export class RegisterComponent implements OnInit {
   get f() {
     return this.registerForm.controls;
   }
+  get f2() {
+    // TO DO: need to fix
+    return this.registerForm.controls.passwordForm['controls'];
+  }
   onSubmit() {
+    console.log(this.f.email);
     const { email, username, passwordForm } = this.registerForm.value;
     console.log(passwordForm.password);
     this.authService.register(username, passwordForm.password, email).subscribe(data => {

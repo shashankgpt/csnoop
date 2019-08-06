@@ -6,9 +6,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptorService } from './services/app-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/shared.reducer';
+import { CompareFieldValidatorDirective } from './services/compare-field-validator.directive';
 
 @NgModule({
-  declarations: [FormViewComponent],
+  declarations: [FormViewComponent, CompareFieldValidatorDirective],
   imports: [
     CommonModule,
     CoreModule,
@@ -16,7 +17,8 @@ import { reducer } from './state/shared.reducer';
     StoreModule.forFeature('shared', reducer)
   ],
   exports: [
-    FormViewComponent
+    FormViewComponent,
+    CompareFieldValidatorDirective
   ],
   providers: [
     {

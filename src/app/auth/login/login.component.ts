@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,7 +11,8 @@ import { ISnackbar } from 'src/app/user/dataTypes';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
   value = 'Login';
@@ -41,12 +42,6 @@ export class LoginComponent implements OnInit {
     });
 
     this.authService.login(this.f.username.value, this.f.password.value).subscribe(resData => {
-      const loginData = resData.data;
-      console.log(loginData);
-      this.store.dispatch({
-        type: 'TOKEN_CODE',
-        payload: loginData.token
-      });
       this.shareStore.dispatch({
         type: 'LOGGED_IN',
         payload: true

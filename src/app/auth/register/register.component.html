@@ -1,46 +1,55 @@
 <app-form-view [title]="value">
-    <div class="main-form">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <div>
-            <mat-form-field >
-              <input   matInput placeholder="Enter your username" formControlName="username">
-              <mat-error *ngIf="!(f.username.valid && f.username.touched)">
-                required
-              </mat-error>
-            </mat-form-field>
-          </div>
+  <div class="main-form">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Enter your username" formControlName="username">
+          <mat-error *ngIf="!(f.username.valid && f.username.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input id="email" matInput placeholder="Enter your email" formControlName="email">
+          <mat-error *ngIf="!(f.email.valid && f.email.touched)">
+            <span *ngIf="(f.email.errors.required)">Email is required</span>
+            <span *ngIf="(f.email.errors.email)">Email format is incorrect</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div formGroupName="passwordForm" appCompareFieldValidator>
         <div>
-            <mat-form-field>
-              <input matInput placeholder="Enter your email" formControlName="email">
-              <mat-error *ngIf="!(f.email.valid && f.email.touched)">
-                required
-              </mat-error>
-            </mat-form-field>
-          </div>
-            <div formGroupName="passwordForm">
-              <div>
-              <mat-form-field>
-                <input matInput formControlName="password" placeholder="Enter your password"
-                  [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-form-field>
-                <input matInput formControlName="confirmPassword" placeholder="Enter your password"
-                  [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-              </mat-form-field>
-            </div>
-            </div>
-
-            <button type="submit" [disabled]="!registerForm.valid" mat-flat-button color="primary">Submit</button>
-          </form>
+          <mat-form-field>
+            <input matInput formControlName="password" placeholder="Enter your password"
+              [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="!(f2.password.valid && f2.password.touched)">
+              Password is Required
+            </mat-error>
+          </mat-form-field>
         </div>
-   </app-form-view>
+        <div>
+          <mat-form-field>
+            <input matInput formControlName="confirmPassword" placeholder="Enter your password"
+              [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="!(f2.confirmPassword.valid && f2.confirmPassword.touched)">
+              Confirm Password is Required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="btn-div">
+      <button type="submit" class="btn-pad" [disabled]="!registerForm.valid" mat-flat-button color="primary">Submit</button>
+      <button type="reset" mat-flat-button color="primary">Reset</button>
+    </div>
+    </form>
+  </div>
+</app-form-view>

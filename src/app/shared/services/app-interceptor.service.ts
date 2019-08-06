@@ -23,7 +23,7 @@ export class AppInterceptorService implements HttpInterceptor {
     });
      const snack1: ISnackbar = {
       snackBarActive: true,
-      snackBarMessage: error.error.Message,
+      snackBarMessage: error.error.Message ? error.error.Message : 'Connection Failed',
       snackBarAction: 'Login'
     };
      this.shareStore.dispatch({
@@ -33,11 +33,6 @@ export class AppInterceptorService implements HttpInterceptor {
    });
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // this.store.pipe(select('authentications')).subscribe(
-    //   authentications => {
-    //     alert('my token12');
-    //     alert('my token23'+ authentications.tokenCodeValue);
-    //   });
     if (localStorage.getItem('login')) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${localStorage.getItem('login')}`

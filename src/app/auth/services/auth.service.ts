@@ -4,6 +4,7 @@ import { IResponse } from '../../shared/dataTypes';
 import { ILogin, IRegister } from '../dataTypes/index';
 import { HttpHeaders } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +23,12 @@ export class AuthService {
         Authorization: `Basic ${auth}`
       })
     };
-    return this.baseRoute.post<IResponse, object>('public/login', {}, httpOptions);
+    return this.baseRoute.post<IResponse, object>('public/login', {}, httpOptions).pipe(tap(gwt => {
+      this.store.dispatch({
+        type: 'TOKEN_CODE',
+        payload: gwt.data.token
+      });
+    }));
   }
 
   register(username: string, password: string, email: string) {
