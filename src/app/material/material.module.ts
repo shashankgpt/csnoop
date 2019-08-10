@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatInputModule, MatCardModule,MatMenuModule,
+import { MatInputModule, MatCardModule,MatMenuModule,MatRadioModule,
   MatFormFieldModule, MatToolbarModule, MatSnackBarModule,MatProgressSpinnerModule,
    MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCheckbox, MatCheckboxModule } from '@angular/material';
 
@@ -14,6 +14,7 @@ import { MatInputModule, MatCardModule,MatMenuModule,
   ],
   exports: [
     LayoutModule,
+    MatRadioModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,

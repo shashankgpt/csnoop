@@ -1,2 +1,3 @@
 export {IProfile,IPasswordChange} from './profile';
-export {ISnackbar} from './snackbar'
+export {ISnackbar} from './snackbar';
+export {roleObj} from './user-info';

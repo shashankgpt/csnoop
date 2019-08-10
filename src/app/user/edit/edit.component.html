@@ -3,9 +3,9 @@
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
       <div>
         <mat-form-field>
-          <input matInput placeholder="Enter your firstName" formControlName="firstName">
+          <input matInput placeholder="Enter your First name" formControlName="firstName">
           <mat-error *ngIf="!(f.firstName.valid && f.firstName.touched)">
-            required
+            First Name is required
           </mat-error>
         </mat-form-field>
       </div>
@@ -13,7 +13,7 @@
         <mat-form-field>
           <input matInput placeholder="Enter your lastName" formControlName="lastName">
           <mat-error *ngIf="!(f.lastName.valid && f.lastName.touched)">
-            required
+              Last Name is required
           </mat-error>
         </mat-form-field>
       </div>
@@ -21,17 +21,23 @@
         <mat-form-field>
           <input matInput placeholder="Enter your email" formControlName="email">
           <mat-error *ngIf="!(f.email.valid && f.email.touched)">
-            required
-          </mat-error>
+              <span *ngIf="(f.email.errors.required)">Email is required</span>
+              <span *ngIf="(f.email.errors.email)">Email format is incorrect</span>
+            </mat-error>
         </mat-form-field>
       </div>
-      <div>
-        <mat-form-field>
-          <input matInput placeholder="Enter your gender" formControlName="gender">
-          <mat-error *ngIf="!(f.gender.valid && f.gender.touched)">
-            required
-          </mat-error>
-        </mat-form-field>
+      <div class="pad-next">
+        <div class="pad-div">
+          <label  id="example-radio-group-label">Select your Gender</label>
+        </div>
+          <mat-radio-group aria-label="Select an option" formControlName="gender">
+              <mat-radio-button value="1" >Male</mat-radio-button>
+              <mat-radio-button value="2" >Female</mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="!(f.gender.valid && f.gender.touched)">
+                required
+              </mat-error>
+
       </div>
       <div>
         <mat-form-field>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { IProfile } from '../dataTypes';
+import {roleObj} from '../dataTypes/user-info';
 import { Store, select } from '@ngrx/store';
 import * as fromUser from '../state/user.reducer';
 import { UserState } from '../state/user.state';
@@ -34,7 +35,15 @@ export class ViewComponent implements OnInit {
         payload: resData2.username
       });
       this.store.pipe(select('users')).subscribe((data: UserState) => {
-        this.profile = data.profile;
+        const resData = data.profile;
+        this.profile = {
+         firstName: resData.firstName === undefined ? '' : resData.firstName,
+         lastName: resData.lastName === undefined ? '' : resData.lastName,
+         email: resData.email === undefined ? '' : resData.email,
+         gender: resData.gender === undefined ? '' : roleObj[resData.gender],
+         location: resData.location === undefined ? '' : resData.location,
+         website: resData.website === undefined ? '' : resData.website
+       };
         this.cd.detectChanges();
       });
     });

@@ -23,7 +23,7 @@ export class EditComponent implements OnInit {
   profileForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     gender: new FormControl('', [Validators.required]),
     location: new FormControl('', [Validators.required]),
     website: new FormControl('', [Validators.required]),
@@ -63,6 +63,7 @@ export class EditComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.profileForm.value);
+    // return;
     const profile: IProfile = {
       firstName: this.profileForm.value.firstName,
       lastName: this.profileForm.value.lastName,
