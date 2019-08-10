@@ -1,5 +1,7 @@
 import * as fromRoot from '../../state/app.state';
-import { UserState, profileInitialState,roleInitialState } from './user.state';
+import { UserState, profileInitialState, roleInitialState } from './user.state';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { UserActions, userActionTypes } from './user.action';
 
 const initialState: UserState = {
   username: '',
@@ -9,22 +11,28 @@ const initialState: UserState = {
 export interface State extends fromRoot.State {
   user: UserState;
 }
-
-export function reducer(state: UserState= initialState, action): UserState  {
-  console.log('user state' + JSON.stringify(state));
-  console.log('payload' + action.payload);
+const getUserFeatureState = createFeatureSelector<UserState>('users');
+export const getUserData = createSelector(getUserFeatureState,
+  state => state.profile
+);
+export const getUserName = createSelector(getUserFeatureState,
+  state => state.username
+);
+export function reducer(state= initialState, action: UserActions): UserState  {
+ // console.log('user state' + JSON.stringify(state));
+  // console.log('payload' + action.payload);
   switch (action.type) {
-    case 'USER_NAME':
+    case userActionTypes.SetCurrentUsername:
       return {
         ...state,
         username: action.payload
       };
-      case 'USER_DATA':
+      case userActionTypes.SetCurrentUserProfile:
           return {
             ...state,
-            profile: action.payload
+            profile: {...action.payload}
       };
-      case 'ROLE_UPDATE':
+      case userActionTypes.SetCurrentUserRole:
           return {
             ...state,
             role: action.payload,
@@ -34,3 +42,4 @@ export function reducer(state: UserState= initialState, action): UserState  {
   }
 
 }
+

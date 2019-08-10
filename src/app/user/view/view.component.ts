@@ -6,6 +6,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromUser from '../state/user.reducer';
 import { UserState } from '../state/user.state';
 import { Router } from '@angular/router';
+import * as UserActions  from '../state/user.action';
 
 @Component({
   selector: 'app-view',
@@ -26,14 +27,16 @@ export class ViewComponent implements OnInit {
     // });
     this.userService.getLoggedInUser().subscribe(response => {
       const resData2 = response.data.user;
-      this.store.dispatch({
-        type: 'USER_DATA',
-        payload: resData2
-      });
-      this.store.dispatch({
-        type: 'USER_NAME',
-        payload: resData2.username
-      });
+      this.store.dispatch(new UserActions.SetCurrentUserProfile(resData2));
+      this.store.dispatch(new UserActions.SetCurrentUsername(resData2.username));
+      // this.store.dispatch({
+      //   type: 'USER_DATA',
+      //   payload: resData2
+      // });
+      // this.store.dispatch({
+      //   type: 'USER_NAME',
+      //   payload: resData2.username
+      // });
       this.store.pipe(select('users')).subscribe((data: UserState) => {
         const resData = data.profile;
         this.profile = {

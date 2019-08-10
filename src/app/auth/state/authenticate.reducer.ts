@@ -8,7 +8,7 @@ const initialState: AuthState = {
 export interface State extends fromRoot.State {
   auth: AuthState;
 }
-export function reducer(state: AuthState = initialState, action): AuthState {
+export function reducer(state = initialState, action): AuthState {
   console.log('existing state' + JSON.stringify(state));
   console.log('payload' + action.payload);
   switch (action.type) {
@@ -27,3 +27,4 @@ export function reducer(state: AuthState = initialState, action): AuthState {
   }
 
 }
+

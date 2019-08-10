@@ -7,6 +7,7 @@ import { IProfile, IPasswordChange, ISnackbar } from '../dataTypes';
 import * as fromUser from '../state/user.reducer';
 import * as fromShared from '../../shared/state/shared.reducer';
 import { Router } from '@angular/router';
+import * as UserActions  from '../state/user.action';
 
 @Component({
   selector: 'app-edit',
@@ -41,10 +42,9 @@ export class EditComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.store.pipe(select('users')).subscribe(
-      users => {
-        this.username = users.username;
-        const { firstName, lastName, email, gender, location, website } = users.profile;
+    this.store.pipe(select(fromUser.getUserData)).subscribe(
+      profile => {
+        const { firstName, lastName, email, gender, location, website } = profile;
         this.f.firstName.setValue(firstName);
         this.f.lastName.setValue(lastName);
         this.f.email.setValue(email);
@@ -52,6 +52,9 @@ export class EditComponent implements OnInit {
         this.f.location.setValue(location);
         this.f.website.setValue(website);
       }
+    );
+    this.store.pipe(select(fromUser.getUserName)).subscribe(
+      username => this.username = username
     );
   }
   get f() {
@@ -74,10 +77,11 @@ export class EditComponent implements OnInit {
     };
     this.userService.updateLoggedInUser(this.username, profile).subscribe(response => {
       console.log(response);
-      this.store.dispatch({
-        type: 'USER_DATA',
-        payload: response.data.user
-      });
+      this.store.dispatch(new UserActions.SetCurrentUserProfile(response.data.user));
+      // this.store.dispatch({
+      //   type: 'USER_DATA',
+      //   payload: response.data.user
+      // });
       const snack1: ISnackbar = {
         snackBarActive: true,
         snackBarMessage: response.Message,
