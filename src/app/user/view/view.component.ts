@@ -3,7 +3,7 @@ import { UserService } from '../services/user.service';
 import { IProfile } from '../dataTypes';
 import {roleObj} from '../dataTypes/user-info';
 import { Store, select } from '@ngrx/store';
-import * as fromUser from '../state/user.reducer';
+import * as fromUser from '../state';
 import { UserState } from '../state/user.state';
 import { Router } from '@angular/router';
 import * as UserActions  from '../state/user.action';

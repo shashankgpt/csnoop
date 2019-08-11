@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { IProfile, IPasswordChange, ISnackbar } from '../dataTypes';
-import * as fromUser from '../state/user.reducer';
+import * as fromUser from '../state';
 import * as fromShared from '../../shared/state/shared.reducer';
 import { Router } from '@angular/router';
 import * as UserActions  from '../state/user.action';

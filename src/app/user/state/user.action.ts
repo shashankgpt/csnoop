@@ -46,7 +46,6 @@ export class UpdateUserSuccess implements Action {
   readonly type = userActionTypes.UpdateUserSuccess;
   constructor(public payload: IResponse) {
     console.log("in action");
-    alert(this.payload.Message);
     console.log(this.payload);
   }
 }
