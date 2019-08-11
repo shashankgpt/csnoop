@@ -13,8 +13,8 @@ export interface State extends fromRoot.State {
 }
 
 export function reducer(state: SharedState = initialState, action): SharedState{
-  console.log('shared state' + JSON.stringify(state));
-  console.log('payload' + action.payload);
+  // console.log('shared state' + JSON.stringify(state));
+  // console.log('payload' + action.payload);
   switch (action.type) {
     case 'SPINNER_ACTIVATE':
       return {

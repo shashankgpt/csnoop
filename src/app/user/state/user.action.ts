@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { IProfile } from '../dataTypes';
 import { RoleState } from './user.state';
+import { IResponse } from 'src/app/shared/dataTypes';
 
 export enum userActionTypes {
   SetCurrentUsername = '[User] Set Current Username',
@@ -29,11 +30,14 @@ export class LoadUser implements Action {
 }
 export class LoadUserSuccess implements Action {
   readonly type = userActionTypes.LoadUserSuccess;
-  constructor(public payload: string) { }
+  constructor(public payload: IProfile) {
+    console.log("in action");
+    console.log(this.payload);
+  }
 }
 export class LoadUserFail implements Action {
   readonly type = userActionTypes.LoadUserFail;
-  constructor(public payload: RoleState) { }
+  constructor(public payload: string) { }
 }
 
 export type UserActions = SetCurrentUsername |

@@ -9,8 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { UserRoutingModule } from './user-routing.module';
 import { reducer } from './state/user.reducer';
 import { HomeComponent } from './home.component';
-
-
+import { EffectsModule } from '@ngrx/effects';
+import {UserEffects } from './state/user.effects';
 @NgModule({
   declarations: [ViewComponent, EditComponent, HomeComponent],
   imports: [
@@ -18,7 +18,8 @@ import { HomeComponent } from './home.component';
     UserRoutingModule,
     CoreModule,
     SharedModule,
-    StoreModule.forFeature('users', reducer)
+    StoreModule.forFeature('users', reducer),
+    EffectsModule.forFeature([UserEffects])
   ]
 })
 export class UserModule { }

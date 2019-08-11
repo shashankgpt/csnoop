@@ -4,6 +4,8 @@ export interface UserState {
   username: string;
   profile: IProfile;
   role: RoleState;
+  error: string;
+  updateError: string;
 }
 
 export interface RoleState {

@@ -12,6 +12,7 @@ export class UserService {
   constructor(private baseRoute: BaseRouteService) { }
 
   getLoggedInUser() {
+    console.log("test get")
     return this.baseRoute.get<IResponse>('user', {});
   }
   updateLoggedInUser(username: string, profile: IProfile) {

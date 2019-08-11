@@ -16,16 +16,13 @@ export class BaseRouteService {
               private configHandler: ConfigHandlerService) {
     this.throwErrorMsg = (error => {
       console.log(error);
+      throw new error("unable load");
       // const errorMsg = this.configHandler.handleError(error);
     });
   }
 
   get<T>(url: string, paramVal: any): Observable<T> {
     return this.http.get<T>(`${this.apiUrl}/${url}`)
-      .pipe(
-        retry(3),
-        catchError(this.throwErrorMsg)
-      );
   }
 
   post<T1, T2>(url: string, paramVal: T2, header: any = {}): Observable<T1> {

@@ -30,6 +30,7 @@ export class AppInterceptorService implements HttpInterceptor {
       type: 'SET_NOTIFY',
       payload: snack1
     });
+     throw new Error('hello');
    });
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
