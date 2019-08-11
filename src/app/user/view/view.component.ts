@@ -62,7 +62,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   moveToEdit() {
     this.router.navigate(['/user/edit']);
   }
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.componentActive = false;
   }
 }

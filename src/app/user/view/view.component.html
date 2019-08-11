@@ -1,31 +1,23 @@
 <app-form-view [title]="head">
   <div class="main-form">
-      <!-- <img class="img-profile" src="https://www.w3schools.com//w3images/team2.jpg" alt="Jane"> -->
-      <!-- method 2 -->
-      <div class="ln-div" *ngIf="errorMessage$ | async as error1">
-          {{error1}}
-        </div>
-       <!-- <div class="ln-div" *ngIf="profile$ | async as profile1">
-        <span class="name-head">{{profile1.firstName}} {{profile1.lastName}}</span>
-      </div> -->
-      <div class="ln-div" *ngIf="profile?.firstName || profile?.lastName">
+    <div class="ln-div" *ngIf="profile?.firstName || profile?.lastName">
       <span class="name-head">{{profile.firstName}} {{profile.lastName}}</span>
     </div>
     <div class="ln-div" *ngIf="profile?.email">
-        <span class="email-Id">{{profile.email}}</span>
-      </div>
-      <div class="ln-div" *ngIf="profile?.website">
-          <span class="email-Id">{{profile.website}}</span>
-        </div>
+      <span class="email-Id">{{profile.email}}</span>
+    </div>
+    <div class="ln-div" *ngIf="profile?.website">
+      <span class="email-Id">{{profile.website}}</span>
+    </div>
     <div class="ln-div" *ngIf="profile?.gender">
-        <span class="name-bottom">  Gender : {{profile.gender}}</span>
+      <span class="name-bottom"> Gender : {{profile.gender}}</span>
     </div>
     <div class="ln-div" *ngIf="profile?.location">
-        <span class="name-bottom">Location : {{profile.location}}</span>
+      <span class="name-bottom">Location : {{profile.location}}</span>
     </div>
     <div class="btn-div">
-    <button mat-fab (click)="moveToEdit()" mat-button color="primary">Edit</button>
-  </div>
+      <button mat-fab (click)="moveToEdit()" mat-button color="primary">Edit</button>
+    </div>
   </div>
 
 </app-form-view>
