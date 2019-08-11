@@ -21,15 +21,6 @@ export class AppInterceptorService implements HttpInterceptor {
       type: 'SPINNER_ACTIVATE',
       payload: false
     });
-     const snack1: ISnackbar = {
-      snackBarActive: true,
-      snackBarMessage: error.error.Message ? error.error.Message : 'Connection Failed',
-      snackBarAction: 'Login'
-    };
-     this.shareStore.dispatch({
-      type: 'SET_NOTIFY',
-      payload: snack1
-    });
      throw new Error('hello');
    });
   }

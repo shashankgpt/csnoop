@@ -5,15 +5,14 @@ const initialState: UserState = {
   username: '',
   profile: profileInitialState,
   role: roleInitialState,
-  error: '',
-  updateError: '',
+  latestErrorMessage: '',
   message: ''
 };
 
 
 export function reducer(state= initialState, action: UserActions): UserState  {
-  console.log('user state' + JSON.stringify(state));
-   console.log('payload' + action);
+  // console.log('user state' + JSON.stringify(state));
+  //  console.log('payload' + action);
   switch (action.type) {
     case userActionTypes.SetCurrentUsername:
       return {
@@ -45,12 +44,12 @@ export function reducer(state= initialState, action: UserActions): UserState  {
           return {
             ...state,
             profile: null,
-            error: action.payload,
+            latestErrorMessage: action.payload,
       };
       case userActionTypes.UpdateUserFail:
           return {
             ...state,
-            updateError: action.payload,
+            latestErrorMessage: action.payload,
       };
     default:
       return state;

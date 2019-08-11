@@ -6,29 +6,24 @@ import { mergeMap, map, catchError } from 'rxjs/operators';
 import { IProfile } from '../dataTypes';
 import { IResponse } from 'src/app/shared/dataTypes';
 import { of } from 'rxjs';
+import { IProfileExtended } from '../dataTypes/profile';
 
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions,
-              private userService: UserService) { }
+  constructor(private actions$: Actions, private userService: UserService) { }
 
   @Effect()
   loadUser$ = this.actions$.pipe(
     ofType(UserActions.userActionTypes.LoadUser),
     mergeMap((action: UserActions.LoadUser) => this.userService.getLoggedInUser().pipe(
       map((res: IResponse) => new UserActions.LoadUserSuccess(res.data.user)),
-    catchError(err => of(new UserActions.LoadUserFail("new issue")))
-    )
-  )
-  );
+      catchError(err => of(new UserActions.LoadUserFail('Unable to load User'))))));
+
   @Effect()
   updateUser$ = this.actions$.pipe(
     ofType(UserActions.userActionTypes.UpdateUser),
     map((action: UserActions.UpdateUser) => action.payload),
-    mergeMap((user: any) => this.userService.updateLoggedInUser(user.username,user).pipe(
+    mergeMap((profile: IProfile) => this.userService.updateLoggedInUser(profile).pipe(
       map((res: IResponse) => new UserActions.UpdateUserSuccess(res)),
-    catchError(err => of(new UserActions.UpdateUserFail("new issue2")))
-    )
-  )
-  )
+      catchError(err => of(new UserActions.UpdateUserFail('Unable to update User'))))));
 }

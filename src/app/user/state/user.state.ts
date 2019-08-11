@@ -1,11 +1,11 @@
-import { IProfile } from '../dataTypes';
+import { IProfile} from '../dataTypes';
+import {roleObject, role} from '../dataTypes/role-info';
 
 export interface UserState {
   username: string;
   profile: IProfile;
   role: RoleState;
-  error: string;
-  updateError: string;
+  latestErrorMessage: string;
   message: string;
 }
 
@@ -23,7 +23,7 @@ export const profileInitialState: IProfile = {
   website: ''
 };
 
-export const roleInitialState: RoleState ={
-roleCode: 0,
-roleName: 'user'
+export const roleInitialState: RoleState = {
+  roleCode: role.user,
+  roleName: roleObject[role.user]
 };

@@ -7,6 +7,11 @@ export interface IProfile {
   location: string;
 }
 
+export interface IProfileExtended {
+  username: string;
+  profile: IProfile;
+}
+
 export interface IPasswordChange {
 newPassword: string;
 oldPassword: string;

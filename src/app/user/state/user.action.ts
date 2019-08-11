@@ -2,17 +2,18 @@ import { Action } from '@ngrx/store';
 import { IProfile } from '../dataTypes';
 import { RoleState } from './user.state';
 import { IResponse } from 'src/app/shared/dataTypes';
+import { IProfileExtended } from '../dataTypes/profile';
 
 export enum userActionTypes {
   SetCurrentUsername = '[User] Set Current Username',
   SetCurrentUserProfile = '[User] Set Current User Profile',
   SetCurrentUserRole = '[User] Set Current User Role',
-  LoadUser = '[User] Load Current User',
-  LoadUserSuccess = '[User] Load Current User Success',
-  LoadUserFail = '[User] Load Current User Fail',
-  UpdateUser = '[User] Update Current User',
-  UpdateUserSuccess = '[User] Update Current User Success',
-  UpdateUserFail = '[User] Update Current User Fail',
+  LoadUser = '[User Api] Load Current User',
+  LoadUserSuccess = '[User Api] Load Current User Success',
+  LoadUserFail = '[User Api] Load Current User Fail',
+  UpdateUser = '[User Api] Update Current User',
+  UpdateUserSuccess = '[User Api] Update Current User Success',
+  UpdateUserFail = '[User Api] Update Current User Fail',
 }
 
 export class SetCurrentUsername implements Action {
@@ -33,20 +34,16 @@ export class LoadUser implements Action {
 }
 export class UpdateUser implements Action {
   readonly type = userActionTypes.UpdateUser;
-  constructor(public payload: IProfile){}
+  constructor(public payload: IProfile) { }
 }
 export class LoadUserSuccess implements Action {
   readonly type = userActionTypes.LoadUserSuccess;
   constructor(public payload: IProfile) {
-    console.log("in action");
-    console.log(this.payload);
   }
 }
 export class UpdateUserSuccess implements Action {
   readonly type = userActionTypes.UpdateUserSuccess;
   constructor(public payload: IResponse) {
-    console.log("in action");
-    console.log(this.payload);
   }
 }
 export class LoadUserFail implements Action {
