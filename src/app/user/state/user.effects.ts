@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, act } from '@ngrx/effects';
 import { UserService } from '../services/user.service';
 import * as UserActions from '../state/user.action';
 import { mergeMap, map, catchError } from 'rxjs/operators';
@@ -21,4 +21,14 @@ export class UserEffects {
     )
   )
   );
+  @Effect()
+  updateUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.UpdateUser),
+    map((action: UserActions.UpdateUser) => action.payload),
+    mergeMap((user: any) => this.userService.updateLoggedInUser(user.username,user).pipe(
+      map((res: IResponse) => new UserActions.UpdateUserSuccess(res)),
+    catchError(err => of(new UserActions.UpdateUserFail("new issue2")))
+    )
+  )
+  )
 }

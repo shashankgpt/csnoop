@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { UserService } from '../services/user.service';
@@ -8,6 +8,7 @@ import * as fromUser from '../state/user.reducer';
 import * as fromShared from '../../shared/state/shared.reducer';
 import { Router } from '@angular/router';
 import * as UserActions  from '../state/user.action';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit',
@@ -15,7 +16,7 @@ import * as UserActions  from '../state/user.action';
   styleUrls: ['./edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
   head = 'Edit Profile';
   head2 = 'Update Password';
   username: string;
@@ -33,8 +34,10 @@ export class EditComponent implements OnInit {
     oldPassword: new FormControl('', [Validators.required]),
     newPassword: new FormControl('', [Validators.required])
   });
+  componentActive = true;
   constructor(private userService: UserService, private store: Store<fromUser.State>, private snackBar: MatSnackBar,
-              private shareStore: Store<fromShared.State>, private router: Router) { }
+              private shareStore: Store<fromShared.State>, private router: Router,
+              private cd: ChangeDetectorRef) { }
 
     openSnackBar(msg, action) {
     this.snackBar.open(msg, action, {
@@ -42,7 +45,8 @@ export class EditComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.store.pipe(select(fromUser.getUserData)).subscribe(
+    this.store.pipe(select(fromUser.getUserData),
+    takeWhile(() => this.componentActive)).subscribe(
       profile => {
         const { firstName, lastName, email, gender, location, website } = profile;
         this.f.firstName.setValue(firstName);
@@ -51,11 +55,26 @@ export class EditComponent implements OnInit {
         this.f.gender.setValue(gender);
         this.f.location.setValue(location);
         this.f.website.setValue(website);
+        this.cd.detectChanges();
       }
     );
+    // this.store.pipe(select(fromUser.getUserData)).subscribe(
+    //   profile => {
+    //     const { firstName, lastName, email, gender, location, website } = profile;
+    //     this.f.firstName.setValue(firstName);
+    //     this.f.lastName.setValue(lastName);
+    //     this.f.email.setValue(email);
+    //     this.f.gender.setValue(gender);
+    //     this.f.location.setValue(location);
+    //     this.f.website.setValue(website);
+    //   }
+    // );
     this.store.pipe(select(fromUser.getUserName)).subscribe(
       username => this.username = username
     );
+  }
+  ngOnDestroy() {
+    this.componentActive = false;
   }
   get f() {
     return this.profileForm.controls;
@@ -75,28 +94,50 @@ export class EditComponent implements OnInit {
       location: this.profileForm.value.location,
       website: this.profileForm.value.website
     };
-    this.userService.updateLoggedInUser(this.username, profile).subscribe(response => {
-      console.log(response);
-      this.store.dispatch(new UserActions.SetCurrentUserProfile(response.data.user));
-      // this.store.dispatch({
-      //   type: 'USER_DATA',
-      //   payload: response.data.user
-      // });
+    const p = { username: this.username, ...profile };
+    this.store.dispatch(new UserActions.UpdateUser(p));
+    this.store.pipe(select(fromUser.getUserMessage),
+    takeWhile(() => this.componentActive)).subscribe((response) => {
+      if(response){
       const snack1: ISnackbar = {
-        snackBarActive: true,
-        snackBarMessage: response.Message,
-        snackBarAction: 'Login'
-      };
+            snackBarActive: true,
+            snackBarMessage: response,
+            snackBarAction: 'Login'
+          };
       this.shareStore.dispatch({
-        type: 'SET_NOTIFY',
-        payload: snack1
-      });
+            type: 'SET_NOTIFY',
+            payload: snack1
+          });
       this.shareStore.dispatch({
-        type: 'SPINNER_ACTIVATE',
-        payload: false
-      });
+            type: 'SPINNER_ACTIVATE',
+            payload: false
+          });
       this.router.navigate(['/user/view']);
+        }
+      // this.cd.detectChanges();
     });
+    // this.userService.updateLoggedInUser(this.username, profile).subscribe(response => {
+    //   console.log(response);
+    //   this.store.dispatch(new UserActions.SetCurrentUserProfile(response.data.user));
+    //   // this.store.dispatch({
+    //   //   type: 'USER_DATA',
+    //   //   payload: response.data.user
+    //   // });
+    //   const snack1: ISnackbar = {
+    //     snackBarActive: true,
+    //     snackBarMessage: response.Message,
+    //     snackBarAction: 'Login'
+    //   };
+    //   this.shareStore.dispatch({
+    //     type: 'SET_NOTIFY',
+    //     payload: snack1
+    //   });
+    //   this.shareStore.dispatch({
+    //     type: 'SPINNER_ACTIVATE',
+    //     payload: false
+    //   });
+    //   this.router.navigate(['/user/view']);
+    // });
   }
 
   delete() {

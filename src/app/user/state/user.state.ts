@@ -6,6 +6,7 @@ export interface UserState {
   role: RoleState;
   error: string;
   updateError: string;
+  message: string;
 }
 
 export interface RoleState {

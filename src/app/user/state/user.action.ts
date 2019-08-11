@@ -10,6 +10,9 @@ export enum userActionTypes {
   LoadUser = '[User] Load Current User',
   LoadUserSuccess = '[User] Load Current User Success',
   LoadUserFail = '[User] Load Current User Fail',
+  UpdateUser = '[User] Update Current User',
+  UpdateUserSuccess = '[User] Update Current User Success',
+  UpdateUserFail = '[User] Update Current User Fail',
 }
 
 export class SetCurrentUsername implements Action {
@@ -28,6 +31,10 @@ export class SetCurrentUserRole implements Action {
 export class LoadUser implements Action {
   readonly type = userActionTypes.LoadUser;
 }
+export class UpdateUser implements Action {
+  readonly type = userActionTypes.UpdateUser;
+  constructor(public payload: IProfile){}
+}
 export class LoadUserSuccess implements Action {
   readonly type = userActionTypes.LoadUserSuccess;
   constructor(public payload: IProfile) {
@@ -35,8 +42,20 @@ export class LoadUserSuccess implements Action {
     console.log(this.payload);
   }
 }
+export class UpdateUserSuccess implements Action {
+  readonly type = userActionTypes.UpdateUserSuccess;
+  constructor(public payload: IResponse) {
+    console.log("in action");
+    alert(this.payload.Message);
+    console.log(this.payload);
+  }
+}
 export class LoadUserFail implements Action {
   readonly type = userActionTypes.LoadUserFail;
+  constructor(public payload: string) { }
+}
+export class UpdateUserFail implements Action {
+  readonly type = userActionTypes.UpdateUserFail;
   constructor(public payload: string) { }
 }
 
@@ -45,4 +64,7 @@ export type UserActions = SetCurrentUsername |
   SetCurrentUserRole |
   LoadUser |
   LoadUserSuccess |
-  LoadUserFail;
+  LoadUserFail |
+  UpdateUser |
+  UpdateUserSuccess |
+  UpdateUserFail;
