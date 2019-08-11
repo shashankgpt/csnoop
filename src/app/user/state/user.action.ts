@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 import { IProfile } from '../dataTypes';
 import { RoleState } from './user.state';
 import { IResponse } from 'src/app/shared/dataTypes';
-import { IProfileExtended } from '../dataTypes/profile';
 
 export enum userActionTypes {
   SetCurrentUsername = '[User] Set Current Username',
