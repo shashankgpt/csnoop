@@ -1,30 +1,43 @@
 import * as fromRoot from '../../state/app.state';
-import { AuthState } from './auth.state';
+import { AuthState, initialState } from './auth.state';
 
-const initialState: AuthState = {
-  tokenCodeValue: 0,
-  justRegister: false,
-}
+import { AuthActions, authActionTypes } from './auth.action';
+
 export interface State extends fromRoot.State {
   auth: AuthState;
 }
-export function reducer(state = initialState, action): AuthState {
-  console.log('existing state' + JSON.stringify(state));
-  console.log('payload' + action.payload);
+export function reducer(state = initialState, action: AuthActions): AuthState {
+  // console.log('existing state' + JSON.stringify(state));
+  // console.log('payload' + action.payload);
   switch (action.type) {
-    case 'TOKEN_CODE':
+    case authActionTypes.LoginUserSuccess:
       return {
         ...state,
-        tokenCodeValue: action.payload
+        tokenCodeValue: action.payload.data.token,
+        message: action.payload.Message
       };
-    case 'JUST_REGISTER':
+      case authActionTypes.LoginUserFail:
       return {
         ...state,
-        justRegister: action.payload
+        tokenCodeValue: 0,
+        latestErrorMessage: action.payload
+      };
+      case authActionTypes.RegisterUserSuccess:
+      return {
+        ...state,
+        justRegister: true,
+        message: action.payload.Message
+      };
+      case authActionTypes.RegisterUserFail:
+      return {
+        ...state,
+        justRegister: false,
+        latestErrorMessage: action.payload
       };
     default:
       return state;
   }
 
 }
+
 

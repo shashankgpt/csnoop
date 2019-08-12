@@ -10,6 +10,8 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/authenticate.reducer';
+import { AuthEffects } from './state/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { reducer } from './state/authenticate.reducer';
     AuthRoutingModule,
     CoreModule,
     SharedModule,
-    StoreModule.forFeature('authentications', reducer)
+    StoreModule.forFeature('authentications', reducer),
+    EffectsModule.forFeature([AuthEffects])
   ]
 })
 export class AuthModule { }
