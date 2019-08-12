@@ -34,4 +34,12 @@ export class UserEffects {
     mergeMap((passwordObj: IPasswordChange) => this.userService.updatePassword(passwordObj).pipe(
       map((res: IResponse) => new UserActions.UpdateUserPasswordSuccess(res)),
       catchError(err => of(new UserActions.UpdateUserFail('Unable to update User Password'))))));
+
+  @Effect()
+  deleteUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.DeleteUser),
+    map((action: UserActions.UpdateUserPassword) => action.payload),
+    mergeMap((passwordObj: IPasswordChange) => this.userService.deleteUser().pipe(
+      map((res: IResponse) => new UserActions.DeleteUserSuccess(res)),
+      catchError(err => of(new UserActions.DeleteUserFail('Unable to delete User'))))));
 }

@@ -20,7 +20,7 @@ export class UserService {
   updatePassword(password: IPasswordChange) {
     return this.baseRoute.patch<IResponse, IPasswordChange >('user/updatePassword', password);
   }
-  deleteUser(username: string) {
-    return this.baseRoute.delete<IResponse>(`user/${username}`, {});
+  deleteUser() {
+    return this.baseRoute.delete<IResponse>(`user`, {});
   }
 }

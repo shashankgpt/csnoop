@@ -68,46 +68,46 @@ export class EditComponent implements OnInit, OnDestroy {
   }
   subscribeUserMessage() {
     this.store.pipe(select(fromUser.getUserMessage),
-    takeWhile(() => this.componentActive)).subscribe((response) => {
-      this.shareStore.dispatch({
-        type: 'SPINNER_ACTIVATE',
-        payload: false
-      });
-      if (response) {
-        const snack1: ISnackbar = {
-          snackBarActive: true,
-          snackBarMessage: response,
-          snackBarAction: 'Login'
-        };
+      takeWhile(() => this.componentActive)).subscribe((response) => {
         this.shareStore.dispatch({
-          type: 'SET_NOTIFY',
-          payload: snack1
+          type: 'SPINNER_ACTIVATE',
+          payload: false
         });
-        this.store.dispatch(new UserActions.SetMessage(''));
-        // this.cd.detectChanges();
-        this.router.navigate(['/user/view']);
-      }
+        if (response) {
+          const snack1: ISnackbar = {
+            snackBarActive: true,
+            snackBarMessage: response,
+            snackBarAction: 'Login'
+          };
+          this.shareStore.dispatch({
+            type: 'SET_NOTIFY',
+            payload: snack1
+          });
+          this.store.dispatch(new UserActions.SetMessage(''));
+          // this.cd.detectChanges();
+          this.router.navigate(['/user/view']);
+        }
 
-    });
+      });
     this.store.pipe(select(fromUser.getUserError),
-    takeWhile(() => this.componentActive)).subscribe((error) => {
-      if (error) {
-        // need to be strong type
-      const snack1: ISnackbar = {
-        snackBarActive: true,
-        snackBarMessage: error,
-        snackBarAction: 'Edit'
-      };
-      this.shareStore.dispatch({
-        type: 'SET_NOTIFY',
-        payload: snack1
+      takeWhile(() => this.componentActive)).subscribe((error) => {
+        if (error) {
+          // need to be strong type
+          const snack1: ISnackbar = {
+            snackBarActive: true,
+            snackBarMessage: error,
+            snackBarAction: 'Edit'
+          };
+          this.shareStore.dispatch({
+            type: 'SET_NOTIFY',
+            payload: snack1
+          });
+          this.shareStore.dispatch({
+            type: 'SPINNER_ACTIVATE',
+            payload: false
+          });
+        }
       });
-      this.shareStore.dispatch({
-        type: 'SPINNER_ACTIVATE',
-        payload: false
-      });
-    }
-  });
   }
   get f() {
     return this.profileForm.controls;
@@ -116,11 +116,11 @@ export class EditComponent implements OnInit, OnDestroy {
     return this.passwordForm.controls;
   }
   onSubmit() {
-     this.shareStore.dispatch({
-       type: 'SPINNER_ACTIVATE',
-       payload: true
-     });
-     const profile: IProfile = {
+    this.shareStore.dispatch({
+      type: 'SPINNER_ACTIVATE',
+      payload: true
+    });
+    const profile: IProfile = {
       firstName: this.profileForm.value.firstName,
       lastName: this.profileForm.value.lastName,
       email: this.profileForm.value.email,
@@ -128,21 +128,19 @@ export class EditComponent implements OnInit, OnDestroy {
       location: this.profileForm.value.location,
       website: this.profileForm.value.website
     };
-     const p: IProfileExtended = { username: this.username, profile: { ...profile } };
-     this.store.dispatch(new UserActions.UpdateUser(profile));
-    this.subscribeUserMessage()
+    const p: IProfileExtended = { username: this.username, profile: { ...profile } };
+    this.store.dispatch(new UserActions.UpdateUser(profile));
+    this.subscribeUserMessage();
 
   }
 
   delete() {
-    this.userService.deleteUser(this.username).subscribe(response => {
-      console.log(response);
-      this.store.dispatch({
-        type: 'USER_DATA',
-        payload: response.data.user
-      });
-      this.openSnackBar(response.Message, 'Register');
+    this.shareStore.dispatch({
+      type: 'SPINNER_ACTIVATE',
+      payload: true
     });
+    this.store.dispatch(new UserActions.DeleteUser());
+    this.subscribeUserMessage();
   }
   updatePassword() {
     this.editPassword = !this.editPassword;
