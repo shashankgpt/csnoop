@@ -6,7 +6,7 @@ import { mergeMap, map, catchError } from 'rxjs/operators';
 import { IProfile } from '../dataTypes';
 import { IResponse } from 'src/app/shared/dataTypes';
 import { of } from 'rxjs';
-import { IProfileExtended } from '../dataTypes/profile';
+import { IProfileExtended, IPasswordChange } from '../dataTypes/profile';
 
 @Injectable()
 export class UserEffects {
@@ -26,4 +26,12 @@ export class UserEffects {
     mergeMap((profile: IProfile) => this.userService.updateLoggedInUser(profile).pipe(
       map((res: IResponse) => new UserActions.UpdateUserSuccess(res)),
       catchError(err => of(new UserActions.UpdateUserFail('Unable to update User'))))));
+
+  @Effect()
+  updateUserPassword$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.UpdateUserPassword),
+    map((action: UserActions.UpdateUserPassword) => action.payload),
+    mergeMap((passwordObj: IPasswordChange) => this.userService.updatePassword(passwordObj).pipe(
+      map((res: IResponse) => new UserActions.UpdateUserPasswordSuccess(res)),
+      catchError(err => of(new UserActions.UpdateUserFail('Unable to update User Password'))))));
 }

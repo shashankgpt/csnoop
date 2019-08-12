@@ -19,6 +19,11 @@ export function reducer(state= initialState, action: UserActions): UserState  {
         ...state,
         username: action.payload
       };
+      case userActionTypes.SetMessage:
+      return {
+        ...state,
+        message: action.payload
+      };
       case userActionTypes.SetCurrentUserProfile:
           return {
             ...state,
@@ -40,6 +45,19 @@ export function reducer(state= initialState, action: UserActions): UserState  {
             profile: action.payload.data.user,
             message: action.payload.Message
       };
+      case userActionTypes.UpdateUserPasswordSuccess:
+        return {
+          ...state,
+          message: action.payload.Message
+    };
+    case userActionTypes.DeleteUserSuccess:
+      return {
+        ...state,
+        username: null,
+        profile: null,
+        role: null,
+        message: action.payload.Message
+  };
       case userActionTypes.LoadUserFail:
           return {
             ...state,
@@ -47,6 +65,16 @@ export function reducer(state= initialState, action: UserActions): UserState  {
             latestErrorMessage: action.payload,
       };
       case userActionTypes.UpdateUserFail:
+          return {
+            ...state,
+            latestErrorMessage: action.payload,
+      };
+      case userActionTypes.UpdateUserPasswordFail:
+          return {
+            ...state,
+            latestErrorMessage: action.payload,
+      };
+      case userActionTypes.DeleteUserFail:
           return {
             ...state,
             latestErrorMessage: action.payload,
