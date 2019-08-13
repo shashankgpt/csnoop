@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
-import * as fromShared from '../../shared/state/shared.reducer';
+import * as fromShared from '../../shared/state';
 import * as fromAuth from '../state';
 import * as AuthActions from '../state/auth.action';
 import { Store, select } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { takeWhile } from 'rxjs/operators';
 import { ISnackbar } from 'src/app/user/dataTypes';
 import { IRegister } from '../dataTypes';
 import { Router } from '@angular/router';
+import * as SharedActions from '../../shared/state/shared.action';
 
 @Component({
   selector: 'app-register',
@@ -46,7 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
   get f2() {
     // TO DO: need to fix
-    return this.registerForm.controls.passwordForm.controls;
+    return this.registerForm.controls.passwordForm['controls'];
   }
   onSubmit() {
     console.log(this.f.email);
@@ -66,11 +67,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   subscribeUserMessage() {
     this.store.pipe(select(fromAuth.getAuthMessage),
       takeWhile(() => this.componentActive)).subscribe((response) => {
-        if (response) {
-        this.shareStore.dispatch({
-          type: 'SPINNER_ACTIVATE',
-          payload: false
-        });
+        // if (response) {
+        // this.shareStore.dispatch({
+        //   type: 'SPINNER_ACTIVATE',
+        //   payload: false
+        // });
         if (response) {
           const snack1: ISnackbar = {
             snackBarActive: true,
@@ -81,11 +82,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
             type: 'SET_NOTIFY',
             payload: snack1
           });
+          this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+          this.router.navigate(['/auth/login']);
         }
           // this.store.dispatch(new AuthActions.SetMessage(''));
           // this.cd.detectChanges();
-        this.router.navigate(['/auth/login']);
-        }
+        // this.router.navigate(['/auth/login']);
+       // }
 
       });
     this.store.pipe(select(fromAuth.getAuthError),
@@ -97,14 +100,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
             snackBarMessage: error,
             snackBarAction: 'Edit'
           };
-          this.shareStore.dispatch({
-            type: 'SET_NOTIFY',
-            payload: snack1
-          });
-          this.shareStore.dispatch({
-            type: 'SPINNER_ACTIVATE',
-            payload: false
-          });
+          // this.shareStore.dispatch({
+          //   type: 'SET_NOTIFY',
+          //   payload: snack1
+          // });
+          // this.shareStore.dispatch({
+          //   type: 'SPINNER_ACTIVATE',
+          //   payload: false
+          // });
+          this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+          // this.router.navigate(['/auth/login']);
         }
       });
   }

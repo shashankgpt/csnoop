@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ConfigHandlerService } from './config-handler.service';
 import { catchError, retry } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import * as fromShared from '../state/shared.reducer';
+import * as fromShared from '../state';
 import { ISnackbar } from 'src/app/user/dataTypes/snackbar';
 
 @Injectable({
@@ -16,11 +16,11 @@ export class AppInterceptorService implements HttpInterceptor {
               private shareStore: Store<fromShared.State>) {
     this.throwErrorMsg = (error => {
      console.log(error.error.Message);
-     const errorMsg = this.configHandler.handleError(error);
-     this.shareStore.dispatch({
-      type: 'SPINNER_ACTIVATE',
-      payload: false
-    });
+    //  const errorMsg = this.configHandler.handleError(error);
+    //  this.shareStore.dispatch({
+    //   type: 'SPINNER_ACTIVATE',
+    //   payload: false
+    // });
      throw new Error('hello');
    });
   }

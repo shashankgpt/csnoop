@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import * as UserActions from '../state/user.action';
 import { takeWhile } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import * as fromShared from '../../shared/state/shared.reducer';
+import * as fromShared from '../../shared/state';
+import * as SharedActions from '../../shared/state/shared.action';
 
 @Component({
   selector: 'app-view',
@@ -48,14 +49,15 @@ export class ViewComponent implements OnInit, OnDestroy {
           snackBarMessage: error,
           snackBarAction: 'View'
         };
-        this.shareStore.dispatch({
-          type: 'SET_NOTIFY',
-          payload: snack1
-        });
-        this.shareStore.dispatch({
-          type: 'SPINNER_ACTIVATE',
-          payload: false
-        });
+        // this.shareStore.dispatch({
+        //   type: 'SET_NOTIFY',
+        //   payload: snack1
+        // });
+        // this.shareStore.dispatch({
+        //   type: 'SPINNER_ACTIVATE',
+        //   payload: false
+        // });
+        this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
       }
     });
   }

@@ -12,3 +12,10 @@ export const snack: ISnackbar = {
   snackBarMessage: '',
   snackBarAction: ''
 }
+
+export const initialState: SharedState = {
+  loggedIn: false,
+  spinnerActive: false,
+  snackBar: snack,
+  username: ''
+};

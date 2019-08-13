@@ -4,10 +4,10 @@ import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store, select } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as fromShared from '../../shared/state/shared.reducer';
+import * as fromShared from '../../shared/state';
 import * as fromAuth from '../state';
 import * as AuthActions from '../state/auth.action';
-
+import * as SharedActions from '../../shared/state/shared.action';
 import { ISnackbar } from 'src/app/user/dataTypes';
 import { ILogin } from '../dataTypes';
 import { takeWhile } from 'rxjs/operators';
@@ -42,26 +42,28 @@ export class LoginComponent implements OnInit, OnDestroy {
   subscribeUserMessage() {
     this.store.pipe(select(fromAuth.getAuthMessage),
       takeWhile(() => this.componentActive)).subscribe((response) => {
-        if (response) {
-        this.shareStore.dispatch({
-          type: 'SPINNER_ACTIVATE',
-          payload: false
-        });
+        // if (response) {
+        // this.shareStore.dispatch({
+        //   type: 'SPINNER_ACTIVATE',
+        //   payload: false
+        // });
         if (response) {
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: response,
             snackBarAction: 'Login'
           };
-          this.shareStore.dispatch({
-            type: 'SET_NOTIFY',
-            payload: snack1
-          });
+          // this.shareStore.dispatch({
+          //   type: 'SET_NOTIFY',
+          //   payload: snack1
+          // });
+          this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+          this.router.navigate(['/user/view']);
         }
           // this.store.dispatch(new AuthActions.SetMessage(''));
           // this.cd.detectChanges();
-        this.router.navigate(['/user/view']);
-        }
+        // this.router.navigate(['/user/view']);
+        // }
 
       });
     this.store.pipe(select(fromAuth.getAuthError),
@@ -73,14 +75,15 @@ export class LoginComponent implements OnInit, OnDestroy {
             snackBarMessage: error,
             snackBarAction: 'Edit'
           };
-          this.shareStore.dispatch({
-            type: 'SET_NOTIFY',
-            payload: snack1
-          });
-          this.shareStore.dispatch({
-            type: 'SPINNER_ACTIVATE',
-            payload: false
-          });
+          // this.shareStore.dispatch({
+          //   type: 'SET_NOTIFY',
+          //   payload: snack1
+          // });
+          // this.shareStore.dispatch({
+          //   type: 'SPINNER_ACTIVATE',
+          //   payload: false
+          // });
+          this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
         }
       });
   }
@@ -94,6 +97,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.pipe(select(fromAuth.getToken),
       takeWhile(() => this.componentActive)).subscribe((response) => {
         localStorage.setItem('login', response.toString());
+        this.shareStore.dispatch(new SharedActions.IsLoggedIn());
+        this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username))
       });
     this.subscribeUserMessage();
     // this.authService.login(this.f.username.value, this.f.password.value).subscribe(resData => {

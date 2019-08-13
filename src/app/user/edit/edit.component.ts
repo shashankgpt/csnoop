@@ -5,11 +5,12 @@ import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { IProfile, IPasswordChange, ISnackbar } from '../dataTypes';
 import * as fromUser from '../state';
-import * as fromShared from '../../shared/state/shared.reducer';
+import * as fromShared from '../../shared/state';
 import { Router } from '@angular/router';
 import * as UserActions from '../state/user.action';
 import { takeWhile } from 'rxjs/operators';
 import { IProfileExtended } from '../dataTypes/profile';
+import * as SharedActions from '../../shared/state/shared.action';
 
 @Component({
   selector: 'app-edit',
@@ -79,10 +80,11 @@ export class EditComponent implements OnInit, OnDestroy {
             snackBarMessage: response,
             snackBarAction: 'Login'
           };
-          this.shareStore.dispatch({
-            type: 'SET_NOTIFY',
-            payload: snack1
-          });
+          // this.shareStore.dispatch({
+          //   type: 'SET_NOTIFY',
+          //   payload: snack1
+          // });
+          this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
           this.store.dispatch(new UserActions.SetMessage(''));
           // this.cd.detectChanges();
           this.router.navigate(['/user/view']);
@@ -93,19 +95,20 @@ export class EditComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe((error) => {
         if (error) {
           // need to be strong type
-          const snack1: ISnackbar = {
-            snackBarActive: true,
-            snackBarMessage: error,
-            snackBarAction: 'Edit'
-          };
-          this.shareStore.dispatch({
-            type: 'SET_NOTIFY',
-            payload: snack1
-          });
-          this.shareStore.dispatch({
-            type: 'SPINNER_ACTIVATE',
-            payload: false
-          });
+          // const snack1: ISnackbar = {
+          //   snackBarActive: true,
+          //   snackBarMessage: error,
+          //   snackBarAction: 'Edit'
+          // };
+          // this.shareStore.dispatch({
+          //   type: 'SET_NOTIFY',
+          //   payload: snack1
+          // });
+          // this.shareStore.dispatch({
+          //   type: 'SPINNER_ACTIVATE',
+          //   payload: false
+          // });
+          this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
         }
       });
   }
@@ -116,10 +119,16 @@ export class EditComponent implements OnInit, OnDestroy {
     return this.passwordForm.controls;
   }
   onSubmit() {
-    this.shareStore.dispatch({
-      type: 'SPINNER_ACTIVATE',
-      payload: true
-    });
+    const snack1: ISnackbar = {
+      snackBarActive: true,
+      snackBarMessage: 'Edit User',
+      snackBarAction: 'Login'
+    };
+    // this.shareStore.dispatch({
+    //   type: 'SPINNER_ACTIVATE',
+    //   payload: true
+    // });
+    this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
     const profile: IProfile = {
       firstName: this.profileForm.value.firstName,
       lastName: this.profileForm.value.lastName,
@@ -130,6 +139,7 @@ export class EditComponent implements OnInit, OnDestroy {
     };
     const p: IProfileExtended = { username: this.username, profile: { ...profile } };
     this.store.dispatch(new UserActions.UpdateUser(profile));
+    this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
     this.subscribeUserMessage();
 
   }
