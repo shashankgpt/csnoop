@@ -12,13 +12,21 @@ export function reducer(state: SharedState = initialState, action: SharedActions
     case sharedActionTypes.ActivateSpinner:
       return {
         ...state,
-        spinnerActive: true,
-        snackBar: action.payload
+        spinnerActive: true
       };
       case sharedActionTypes.DeactivateSpinner:
       return {
         ...state,
-        spinnerActive: false,
+        spinnerActive: false
+      };
+      case sharedActionTypes.ActivateSnackBar:
+      return {
+        ...state,
+        snackBar: action.payload
+      };
+      case sharedActionTypes.DeactivateSnackBar:
+      return {
+        ...state,
         snackBar: initialState.snackBar
       };
       case sharedActionTypes.IsLoggedIn:

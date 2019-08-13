@@ -56,10 +56,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // });
   }
   ngOnInit() {
+    this.sharedStore.pipe(select(fromShared.Spinner),
+      takeWhile(() => this.componentActive)).subscribe((message) => {
+        this.globalSpinner = message;
+      })
     this.sharedStore.pipe(select(fromShared.getSnackbarMessage),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message.snackBarActive) {
-          this.sharedStore.dispatch(new SharedActions.DeactivateSpinner());
+          this.sharedStore.dispatch(new SharedActions.DeactivateSnackBar());
           this.openSnackBar(message.snackBarMessage, message.snackBarAction);
         }
       });
@@ -101,7 +105,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // });
     // this.sharedStore.dispatch(new SharedActions.SetCurrentUsername(''));
     this.sharedStore.dispatch(new SharedActions.IsLoggedOut());
-    this.sharedStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+    this.sharedStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
     this.router.navigate(['/auth/login']);
   }
   ngOnDestroy() {

@@ -70,21 +70,21 @@ export class EditComponent implements OnInit, OnDestroy {
   subscribeUserMessage() {
     this.store.pipe(select(fromUser.getUserMessage),
       takeWhile(() => this.componentActive)).subscribe((response) => {
-        this.shareStore.dispatch({
-          type: 'SPINNER_ACTIVATE',
-          payload: false
-        });
+        // this.shareStore.dispatch({
+        //   type: 'SPINNER_ACTIVATE',
+        //   payload: false
+        // });
         if (response) {
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: response,
-            snackBarAction: 'Login'
+            snackBarAction: 'Edit'
           };
           // this.shareStore.dispatch({
           //   type: 'SET_NOTIFY',
           //   payload: snack1
           // });
-          this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
           this.store.dispatch(new UserActions.SetMessage(''));
           // this.cd.detectChanges();
           this.router.navigate(['/user/view']);
@@ -108,7 +108,7 @@ export class EditComponent implements OnInit, OnDestroy {
           //   type: 'SPINNER_ACTIVATE',
           //   payload: false
           // });
-          this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+          this.shareStore.dispatch(new SharedActions.DeactivateSnackBar());
         }
       });
   }
@@ -119,16 +119,16 @@ export class EditComponent implements OnInit, OnDestroy {
     return this.passwordForm.controls;
   }
   onSubmit() {
-    const snack1: ISnackbar = {
-      snackBarActive: true,
-      snackBarMessage: 'Edit User',
-      snackBarAction: 'Login'
-    };
+    // const snack1: ISnackbar = {
+    //   snackBarActive: true,
+    //   snackBarMessage: 'Edit User',
+    //   snackBarAction: 'Login'
+    // };
     // this.shareStore.dispatch({
     //   type: 'SPINNER_ACTIVATE',
     //   payload: true
     // });
-    this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+    // this.shareStore.dispatch(new SharedActions.ActivateSpinner());
     const profile: IProfile = {
       firstName: this.profileForm.value.firstName,
       lastName: this.profileForm.value.lastName,
@@ -139,7 +139,7 @@ export class EditComponent implements OnInit, OnDestroy {
     };
     const p: IProfileExtended = { username: this.username, profile: { ...profile } };
     this.store.dispatch(new UserActions.UpdateUser(profile));
-    this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+    // this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
     this.subscribeUserMessage();
 
   }

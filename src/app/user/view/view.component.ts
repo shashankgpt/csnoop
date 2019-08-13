@@ -57,7 +57,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         //   type: 'SPINNER_ACTIVATE',
         //   payload: false
         // });
-        this.shareStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+        this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
       }
     });
   }

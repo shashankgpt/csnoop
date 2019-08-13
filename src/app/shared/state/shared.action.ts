@@ -5,6 +5,8 @@ export enum sharedActionTypes {
   SetCurrentUsername = '[Shared] Set Current Username',
   ActivateSpinner = '[Shared] Activate Spinner',
   DeactivateSpinner = '[Shared] Deactivate Spinner',
+  ActivateSnackBar = '[Shared] Activate Snack bar',
+  DeactivateSnackBar = '[Shared] Deactivate Snack bar',
   IsLoggedIn = '[Shared] Set Logged In',
   IsLoggedOut = '[Shared] Set Logged Out',
 }
@@ -13,9 +15,15 @@ export class SetCurrentUsername implements Action {
   readonly type = sharedActionTypes.SetCurrentUsername;
   constructor(public payload: string) { }
 }
+export class ActivateSnackBar implements Action {
+  readonly type = sharedActionTypes.ActivateSnackBar;
+  constructor(public payload: ISnackbar) { }
+}
+export class DeactivateSnackBar implements Action {
+  readonly type = sharedActionTypes.DeactivateSnackBar;
+}
 export class ActivateSpinner implements Action {
   readonly type = sharedActionTypes.ActivateSpinner;
-  constructor(public payload: ISnackbar) { }
 }
 export class DeactivateSpinner implements Action {
   readonly type = sharedActionTypes.DeactivateSpinner;
@@ -31,4 +39,6 @@ export type SharedActions = SetCurrentUsername
 | ActivateSpinner
 | DeactivateSpinner
 | IsLoggedIn
-| IsLoggedOut;
+| IsLoggedOut
+| ActivateSnackBar
+| DeactivateSnackBar;
