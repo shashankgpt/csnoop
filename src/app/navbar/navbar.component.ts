@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.snackBar.open(msg, action, {
       duration: 2000,
     });
-    this.sharedStore.dispatch(new SharedActions.DeactivateSpinner());
+    // this.sharedStore.dispatch(new SharedActions.DeactivateSpinner());
     // const snack1: ISnackbar = {
     //   snackBarActive: false,
     //   snackBarMessage: '',
@@ -59,6 +59,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sharedStore.pipe(select(fromShared.getSnackbarMessage),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message.snackBarActive) {
+          this.sharedStore.dispatch(new SharedActions.DeactivateSpinner());
           this.openSnackBar(message.snackBarMessage, message.snackBarAction);
         }
       });
@@ -98,10 +99,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     //   type: 'SET_USERNAME',
     //   payload: ''
     // });
-    this.sharedStore.dispatch(new SharedActions.ActivateSpinner(snack1));
     // this.sharedStore.dispatch(new SharedActions.SetCurrentUsername(''));
     this.sharedStore.dispatch(new SharedActions.IsLoggedOut());
-    // this.router.navigate(['/auth/login']);
+    this.sharedStore.dispatch(new SharedActions.ActivateSpinner(snack1));
+    this.router.navigate(['/auth/login']);
   }
   ngOnDestroy() {
     this.componentActive = false;

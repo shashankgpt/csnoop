@@ -19,7 +19,7 @@ export function reducer(state: SharedState = initialState, action: SharedActions
       return {
         ...state,
         spinnerActive: false,
-        snackBar: null
+        snackBar: initialState.snackBar
       };
       case sharedActionTypes.IsLoggedIn:
       return {
