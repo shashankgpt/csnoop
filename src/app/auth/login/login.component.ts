@@ -15,7 +15,7 @@ import { takeWhile } from 'rxjs/operators';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
- // changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
   value = 'Login';
@@ -42,47 +42,25 @@ export class LoginComponent implements OnInit, OnDestroy {
   subscribeUserMessage() {
     this.store.pipe(select(fromAuth.getAuthMessage),
       takeWhile(() => this.componentActive)).subscribe((response) => {
-        // if (response) {
-        // this.shareStore.dispatch({
-        //   type: 'SPINNER_ACTIVATE',
-        //   payload: false
-        // });
         if (response) {
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: response,
             snackBarAction: 'Login'
           };
-          // this.shareStore.dispatch({
-          //   type: 'SET_NOTIFY',
-          //   payload: snack1
-          // });
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
           // this.router.navigate(['/user/view']);
         }
-          // this.store.dispatch(new AuthActions.SetMessage(''));
-          // this.cd.detectChanges();
-        // this.router.navigate(['/user/view']);
-        // }
 
       });
     this.store.pipe(select(fromAuth.getAuthError),
       takeWhile(() => this.componentActive)).subscribe((error) => {
         if (error) {
-          // need to be strong type
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: error,
             snackBarAction: 'Edit'
           };
-          // this.shareStore.dispatch({
-          //   type: 'SET_NOTIFY',
-          //   payload: snack1
-          // });
-          // this.shareStore.dispatch({
-          //   type: 'SPINNER_ACTIVATE',
-          //   payload: false
-          // });
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
         }
       });
@@ -90,49 +68,19 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
 
     const credential: ILogin = {
-      username : this.f.username.value,
+      username: this.f.username.value,
       password: this.f.password.value
     };
     this.store.dispatch(new AuthActions.LoginUser(credential));
     this.store.pipe(select(fromAuth.getToken),
       takeWhile(() => this.componentActive)).subscribe((response) => {
         if (response.toString() !== '0') {
-        localStorage.setItem('login', response.toString());
-        this.shareStore.dispatch(new SharedActions.IsLoggedIn());
-        this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username));
+          localStorage.setItem('login', response.toString());
+          this.shareStore.dispatch(new SharedActions.IsLoggedIn());
+          this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username));
+          this.subscribeUserMessage();
         }
       });
-    this.subscribeUserMessage();
-    // this.authService.login(this.f.username.value, this.f.password.value).subscribe(resData => {
-    //   this.shareStore.dispatch({
-    //     type: 'LOGGED_IN',
-    //     payload: true
-    //   });
-    //   this.shareStore.dispatch({
-    //     type: 'SET_USERNAME',
-    //     payload: this.f.username.value
-    //   });
-    //   this.store.pipe(select('authentications')).subscribe(
-    //     authentications => {
-    //       localStorage.setItem('login', authentications.tokenCodeValue);
-    //       // this.openSnackBar(resData.Message, 'Login');
-    //       const snack1: ISnackbar = {
-    //         snackBarActive: true,
-    //         snackBarMessage: resData.Message,
-    //         snackBarAction: 'Login'
-    //       };
-    //       this.shareStore.dispatch({
-    //         type: 'SET_NOTIFY',
-    //         payload: snack1
-    //       });
-    //       this.shareStore.dispatch({
-    //         type: 'SPINNER_ACTIVATE',
-    //         payload: false
-    //       });
-    //       this.router.navigate(['/user/view']);
-    //     }
-    //   );
-    // });
   }
   ngOnDestroy() {
     this.componentActive = false;

@@ -17,31 +17,30 @@ export class AppInterceptorService implements HttpInterceptor {
   constructor(private configHandler: ConfigHandlerService, private store: Store<any>,
               private shareStore: Store<fromShared.State>) {
     this.throwErrorMsg = (error => {
-     console.log(error.error.Message);
-    //  const errorMsg = this.configHandler.handleError(error);
-    //  this.shareStore.dispatch({
-    //   type: 'SPINNER_ACTIVATE',
-    //   payload: false
-    // });
-     this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
-     throw new Error('hello');
-   });
+      console.log(error.error.Message);
+      this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+      throw new Error(error.error.Message);
+    });
     this.disableSpinner = (el => {
+      this.shareStore.pipe(select(fromShared.Spinner),
+        takeWhile(() => this.componentActive)).subscribe((message) => {
+          if (message) {
+            this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+          }
+        });
+
+    });
+  }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.shareStore.dispatch(new SharedActions.ActivateSpinner());
+    setTimeout(() => {
       this.shareStore.pipe(select(fromShared.Spinner),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message) {
-        // this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+          this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
         }
       });
-
-  });
-  }
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // this.shareStore.dispatch(new SharedActions.ActivateSpinner());
-    // setTimeout(() => {
-    //   this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
-    // }, 2000);
-    // this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+    }, 2000);
     if (localStorage.getItem('login')) {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${localStorage.getItem('login')}`
@@ -50,18 +49,27 @@ export class AppInterceptorService implements HttpInterceptor {
       const clone = req.clone({
         headers
       });
-     // alert("t1");
       return next.handle(clone).pipe(
         retry(3),
-        // tap(el => this.shareStore.dispatch(new SharedActions.DeactivateSpinner())),
+        tap({
+          next: val => {
+            // on next 11, etc.
+            // console.log('on next', val);
+          },
+          error: error => {
+            console.log(error);
+            this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+          },
+          complete: () => this.shareStore.dispatch(new SharedActions.DeactivateSpinner())
+        }),
         catchError(this.throwErrorMsg)
       );
     }
     return next.handle(req).pipe(
-        retry(3),
-        tap(this.disableSpinner),
-        catchError(this.throwErrorMsg)
-      );
+      retry(3),
+      tap(this.disableSpinner),
+      catchError(this.throwErrorMsg)
+    );
   }
 
 }
