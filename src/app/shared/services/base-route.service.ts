@@ -10,7 +10,7 @@ import { ConfigHandlerService } from './config-handler.service';
 export class BaseRouteService {
   private apiUrl = 'http://localhost:3000';
   private throwErrorMsg;
-
+  retry = 1;
   constructor(private http: HttpClient,
               private router: Router,
               private configHandler: ConfigHandlerService) {
@@ -23,7 +23,7 @@ export class BaseRouteService {
 
   get<T>(url: string, paramVal: any): Observable<T> {
     return this.http.get<T>(`${this.apiUrl}/${url}`).pipe(
-      retry(3),
+      retry(this.retry),
       catchError(this.throwErrorMsg)
     );
   }
@@ -31,7 +31,7 @@ export class BaseRouteService {
   post<T1, T2>(url: string, paramVal: T2, header: any = {}): Observable<T1> {
     return this.http.post<T1>(`${this.apiUrl}/${url}`, paramVal, header)
       .pipe(
-        retry(3),
+        retry(this.retry),
         catchError(this.throwErrorMsg)
       );
   }
@@ -39,21 +39,21 @@ export class BaseRouteService {
   put<T1, T2>(url: string, paramVal: T2, header: any = {}): Observable<T1> {
     return this.http.put<any>(`${this.apiUrl}/${url}`, paramVal, header)
       .pipe(
-        retry(3),
+        retry(this.retry),
         catchError(this.throwErrorMsg)
       );
   }
   patch<T1, T2>(url: string, paramVal: T2, header: any = {}): Observable<T1> {
     return this.http.patch<T1>(`${this.apiUrl}/${url}`, paramVal, header)
       .pipe(
-        retry(3),
+        retry(this.retry),
         catchError(this.throwErrorMsg)
       );
   }
   delete<T>(url: string, paramVal: any): Observable<T> {
     return this.http.delete<T>(`${this.apiUrl}/${url}`)
       .pipe(
-        retry(3),
+        retry(this.retry),
         catchError(this.throwErrorMsg)
       );
   }
