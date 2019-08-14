@@ -15,7 +15,7 @@ import { takeWhile } from 'rxjs/operators';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+ // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
   value = 'Login';
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           //   payload: snack1
           // });
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          this.router.navigate(['/user/view']);
+          // this.router.navigate(['/user/view']);
         }
           // this.store.dispatch(new AuthActions.SetMessage(''));
           // this.cd.detectChanges();
@@ -96,9 +96,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AuthActions.LoginUser(credential));
     this.store.pipe(select(fromAuth.getToken),
       takeWhile(() => this.componentActive)).subscribe((response) => {
+        if (response.toString() !== '0') {
         localStorage.setItem('login', response.toString());
         this.shareStore.dispatch(new SharedActions.IsLoggedIn());
-        this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username))
+        this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username));
+        }
       });
     this.subscribeUserMessage();
     // this.authService.login(this.f.username.value, this.f.password.value).subscribe(resData => {

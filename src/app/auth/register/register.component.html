@@ -13,8 +13,8 @@
         <mat-form-field>
           <input id="email" matInput placeholder="Enter your email" formControlName="email">
           <mat-error *ngIf="!(f.email.valid && f.email.touched)">
-            <span *ngIf="(f.email.errors.required)">Email is required</span>
-            <span *ngIf="(f.email.errors.email)">Email format is incorrect</span>
+            <!-- <span *ngIf="(f.email.errors.required)">Email is required</span>
+            <span *ngIf="(f.email.errors.email)">Email format is incorrect</span> -->
           </mat-error>
         </mat-form-field>
       </div>
