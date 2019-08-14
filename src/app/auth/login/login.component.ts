@@ -42,36 +42,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  subscribeSuccessUserMessage() {
-    this.store.pipe(select(fromAuth.getAuthMessage),
-      takeWhile(() => this.componentActive)).subscribe((response) => {
-        if (response) {
-          const snack1: ISnackbar = {
-            snackBarActive: true,
-            snackBarMessage: response,
-            snackBarAction: 'Login'
-          };
-          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          this.store.dispatch(new AuthActions.DeleteAllMessages());
-          this.router.navigate(['/user/view']);
-        }
-      });
-    }
-    subscribeUnsuccessUserMessage(){
-    this.store.pipe(select(fromAuth.getAuthError),
-      takeWhile(() => this.componentActive)).subscribe((error) => {
-        if (error) {
-          const snack1: ISnackbar = {
-            snackBarActive: true,
-            snackBarMessage: error,
-            snackBarAction: 'Edit'
-          };
-          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          this.store.dispatch(new AuthActions.DeleteAllMessages());
-          this.router.navigate(['/auth/login']);
-        }
-      });
-  }
 
   onSubmit() {
     const credential: ILogin = {
@@ -85,10 +55,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem('login', response.toString());
           this.shareStore.dispatch(new SharedActions.IsLoggedIn());
           this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username));
-          this.subscribeSuccessUserMessage();
+          // this.subscribeSuccessUserMessage();
           return true;
         }
-        this.subscribeUnsuccessUserMessage();
+        // this.subscribeUnsuccessUserMessage();
       });
   }
 

@@ -58,34 +58,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       password: passwordForm.password
     };
     this.store.dispatch(new AuthActions.RegisterUser(reg));
-    this.subscribeUserMessage();
-  }
-  subscribeUserMessage() {
-    this.store.pipe(select(fromAuth.getAuthMessage),
-      takeWhile(() => this.componentActive)).subscribe((response) => {
-        if (response) {
-          const snack1: ISnackbar = {
-            snackBarActive: true,
-            snackBarMessage: response,
-            snackBarAction: 'Register'
-          };
-          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          this.router.navigate(['/auth/login']);
-        }
-      });
-    this.store.pipe(select(fromAuth.getAuthError),
-      takeWhile(() => this.componentActive)).subscribe((error) => {
-        if (error) {
-          // need to be strong type
-          const snack1: ISnackbar = {
-            snackBarActive: true,
-            snackBarMessage: error,
-            snackBarAction: 'Edit'
-          };
-          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          this.router.navigate(['/auth/login']);
-        }
-      });
+    // this.subscribeUserMessage();
   }
   ngOnDestroy() {
     this.componentActive = false;
