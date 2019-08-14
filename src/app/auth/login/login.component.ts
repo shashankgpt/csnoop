@@ -29,17 +29,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   componentActive = true;
   constructor(private authService: AuthService, private snackBar: MatSnackBar, private router: Router,
               private store: Store<fromAuth.State>, private shareStore: Store<fromShared.State>) { }
+  ngOnInit() {
+  }
+
   get f() {
     return this.loginForm.controls;
   }
+
   openSnackBar(msg, action) {
     this.snackBar.open(msg, action, {
       duration: 2000,
     });
   }
-  ngOnInit() {
-  }
-  subscribeUserMessage() {
+
+  subscribeSuccessUserMessage() {
     this.store.pipe(select(fromAuth.getAuthMessage),
       takeWhile(() => this.componentActive)).subscribe((response) => {
         if (response) {
@@ -49,10 +52,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             snackBarAction: 'Login'
           };
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          // this.router.navigate(['/user/view']);
+          this.store.dispatch(new AuthActions.DeleteAllMessages());
+          this.router.navigate(['/user/view']);
         }
-
       });
+    }
+    subscribeUnsuccessUserMessage(){
     this.store.pipe(select(fromAuth.getAuthError),
       takeWhile(() => this.componentActive)).subscribe((error) => {
         if (error) {
@@ -62,11 +67,13 @@ export class LoginComponent implements OnInit, OnDestroy {
             snackBarAction: 'Edit'
           };
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
+          this.store.dispatch(new AuthActions.DeleteAllMessages());
+          this.router.navigate(['/auth/login']);
         }
       });
   }
-  onSubmit() {
 
+  onSubmit() {
     const credential: ILogin = {
       username: this.f.username.value,
       password: this.f.password.value
@@ -78,10 +85,13 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem('login', response.toString());
           this.shareStore.dispatch(new SharedActions.IsLoggedIn());
           this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username));
-          this.subscribeUserMessage();
+          this.subscribeSuccessUserMessage();
+          return true;
         }
+        this.subscribeUnsuccessUserMessage();
       });
   }
+
   ngOnDestroy() {
     this.componentActive = false;
   }

@@ -34,6 +34,12 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
         justRegister: false,
         latestErrorMessage: action.payload
       };
+      case authActionTypes.DeleteAllMessages:
+      return {
+        ...state,
+        latestErrorMessage: '',
+        message: ''
+      };
     default:
       return state;
   }

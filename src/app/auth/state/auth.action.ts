@@ -9,11 +9,16 @@ export enum authActionTypes {
   LoginUser = '[Login Api] Login User',
   LoginUserSuccess = '[Login Api] Login User Success',
   LoginUserFail = '[Login Api] Login User Failure',
+  DeleteAllMessages = '[Login] Delete all Messages',
 }
 
 export class RegisterUser implements Action {
   readonly type = authActionTypes.RegisterUser;
   constructor(public payload: IRegister) { }
+}
+
+export class DeleteAllMessages implements Action {
+  readonly type = authActionTypes.DeleteAllMessages;
 }
 
 export class RegisterUserSuccess implements Action {
@@ -45,4 +50,5 @@ export type AuthActions = RegisterUser
 | RegisterUserFail
 | LoginUser
 | LoginUserSuccess
-| LoginUserFail;
+| LoginUserFail
+| DeleteAllMessages;

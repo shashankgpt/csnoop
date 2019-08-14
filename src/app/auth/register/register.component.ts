@@ -57,39 +57,21 @@ export class RegisterComponent implements OnInit, OnDestroy {
       username,
       password: passwordForm.password
     };
-    console.log(passwordForm.password);
     this.store.dispatch(new AuthActions.RegisterUser(reg));
     this.subscribeUserMessage();
-    // this.authService.register(username, passwordForm.password, email).subscribe(data => {
-    //   this.openSnackBar(data.Message, 'Register');
-    // });
   }
   subscribeUserMessage() {
     this.store.pipe(select(fromAuth.getAuthMessage),
       takeWhile(() => this.componentActive)).subscribe((response) => {
-        // if (response) {
-        // this.shareStore.dispatch({
-        //   type: 'SPINNER_ACTIVATE',
-        //   payload: false
-        // });
         if (response) {
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: response,
             snackBarAction: 'Register'
           };
-          this.shareStore.dispatch({
-            type: 'SET_NOTIFY',
-            payload: snack1
-          });
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
           this.router.navigate(['/auth/login']);
         }
-          // this.store.dispatch(new AuthActions.SetMessage(''));
-          // this.cd.detectChanges();
-        // this.router.navigate(['/auth/login']);
-       // }
-
       });
     this.store.pipe(select(fromAuth.getAuthError),
       takeWhile(() => this.componentActive)).subscribe((error) => {
@@ -100,16 +82,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
             snackBarMessage: error,
             snackBarAction: 'Edit'
           };
-          // this.shareStore.dispatch({
-          //   type: 'SET_NOTIFY',
-          //   payload: snack1
-          // });
-          // this.shareStore.dispatch({
-          //   type: 'SPINNER_ACTIVATE',
-          //   payload: false
-          // });
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          // this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/login']);
         }
       });
   }
