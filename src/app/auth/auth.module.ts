@@ -44,10 +44,11 @@ export class AuthModule {
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: response,
-            snackBarAction: 'Register'
+            snackBarAction: 'Register',
+            redirectUrl: '/user/view',
           };
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          this.router.navigate(['/user/view']);
+         // this.router.navigate(['/user/view']);
         }
       });
     this.store.pipe(select(fromAuth.getAuthError),
@@ -57,10 +58,11 @@ export class AuthModule {
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: error,
-            snackBarAction: 'Edit'
+            snackBarAction: 'Edit',
+            redirectUrl: '/auth/login',
           };
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          this.router.navigate(['/auth/login']);
+          // this.router.navigate(['/auth/login']);
         }
       });
   }

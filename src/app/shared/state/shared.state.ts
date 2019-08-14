@@ -10,7 +10,8 @@ export interface SharedState {
 export const snack: ISnackbar = {
   snackBarActive: false,
   snackBarMessage: '',
-  snackBarAction: ''
+  snackBarAction: '',
+  redirectUrl: ''
 }
 
 export const initialState: SharedState = {

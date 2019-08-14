@@ -10,5 +10,6 @@ export interface State {
 export const snack: ISnackbar = {
   snackBarActive: false,
   snackBarMessage: '',
-  snackBarAction: ''
+  snackBarAction: '',
+  redirectUrl: '',
 }

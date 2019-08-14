@@ -78,7 +78,8 @@ export class EditComponent implements OnInit, OnDestroy {
           const snack1: ISnackbar = {
             snackBarActive: true,
             snackBarMessage: response,
-            snackBarAction: 'Edit'
+            snackBarAction: 'Edit',
+            redirectUrl: '/user/view',
           };
           // this.shareStore.dispatch({
           //   type: 'SET_NOTIFY',
@@ -87,7 +88,7 @@ export class EditComponent implements OnInit, OnDestroy {
           this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
           this.store.dispatch(new UserActions.SetMessage(''));
           // this.cd.detectChanges();
-          this.router.navigate(['/user/view']);
+          // this.router.navigate(['/user/view']);
         }
 
       });
@@ -145,10 +146,10 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.shareStore.dispatch({
-      type: 'SPINNER_ACTIVATE',
-      payload: true
-    });
+    // this.shareStore.dispatch({
+    //   type: 'SPINNER_ACTIVATE',
+    //   payload: true
+    // });
     this.store.dispatch(new UserActions.DeleteUser());
     this.subscribeUserMessage();
   }
@@ -156,10 +157,10 @@ export class EditComponent implements OnInit, OnDestroy {
     this.editPassword = !this.editPassword;
   }
   changePassword() {
-    this.shareStore.dispatch({
-      type: 'SPINNER_ACTIVATE',
-      payload: true
-    });
+    // this.shareStore.dispatch({
+    //   type: 'SPINNER_ACTIVATE',
+    //   payload: true
+    // });
     const password: IPasswordChange = {
       oldPassword: this.passwordForm.value.oldPassword,
       newPassword: this.passwordForm.value.newPassword

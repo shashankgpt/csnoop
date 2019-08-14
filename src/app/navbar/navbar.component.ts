@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private breakpointObserver: BreakpointObserver,
               private snackBar: MatSnackBar,
               private sharedStore: Store<fromShared.State>,
-              private router: Router
+              private router: Router,
   ) {
     this.router.events.subscribe((routerEvent: Event) => {
       if (routerEvent instanceof NavigationStart) {
@@ -40,20 +40,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     .pipe(
       map(result => result.matches)
     );
-  openSnackBar(msg, action) {
+  openSnackBar(msg, action,url) {
     this.snackBar.open(msg, action, {
       duration: 2000,
     });
-    // this.sharedStore.dispatch(new SharedActions.DeactivateSpinner());
-    // const snack1: ISnackbar = {
-    //   snackBarActive: false,
-    //   snackBarMessage: '',
-    //   snackBarAction: ''
-    // };
-    // this.sharedStore.dispatch({
-    //   type: 'SET_NOTIFY',
-    //   payload: snack1
-    // });
+    this.router.navigate([url]);
   }
   ngOnInit() {
     this.sharedStore.pipe(select(fromShared.Spinner),
@@ -64,7 +55,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message.snackBarActive) {
           this.sharedStore.dispatch(new SharedActions.DeactivateSnackBar());
-          this.openSnackBar(message.snackBarMessage, message.snackBarAction);
+          this.openSnackBar(message.snackBarMessage, message.snackBarAction,message.redirectUrl);
         }
       });
     this.sharedStore.pipe(select(fromShared.getLoggedUserName),
@@ -89,7 +80,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const snack1: ISnackbar = {
       snackBarActive: true,
       snackBarMessage: 'Logout Successfully',
-      snackBarAction: 'Logout'
+      snackBarAction: 'Logout',
+      redirectUrl: '/auth/login',
     };
     // this.sharedStore.dispatch({
     //   type: 'SET_NOTIFY',
@@ -106,7 +98,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // this.sharedStore.dispatch(new SharedActions.SetCurrentUsername(''));
     this.sharedStore.dispatch(new SharedActions.IsLoggedOut());
     this.sharedStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-    this.router.navigate(['/auth/login']);
+    // this.router.navigate(['/auth/login']);
   }
   ngOnDestroy() {
     this.componentActive = false;

@@ -47,7 +47,8 @@ export class ViewComponent implements OnInit, OnDestroy {
         const snack1: ISnackbar = {
           snackBarActive: true,
           snackBarMessage: error,
-          snackBarAction: 'View'
+          snackBarAction: 'View',
+          redirectUrl: ''
         };
         // this.shareStore.dispatch({
         //   type: 'SET_NOTIFY',
