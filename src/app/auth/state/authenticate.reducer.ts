@@ -2,6 +2,7 @@ import * as fromRoot from '../../state/app.state';
 import { AuthState, initialState } from './auth.state';
 
 import { AuthActions, authActionTypes } from './auth.action';
+import { ISnackbar } from 'src/app/user/dataTypes';
 
 export interface State extends fromRoot.State {
   auth: AuthState;
@@ -11,34 +12,76 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
   // console.log('payload' + action.payload);
   switch (action.type) {
     case authActionTypes.LoginUserSuccess:
+      const messageLoginSuccess: ISnackbar = {
+        snackBarActive: true,
+        snackBarAction: 'Login',
+        snackBarMessage: action.payload.Message,
+        redirectUrl: '/user/view'
+      };
       return {
         ...state,
+        message: messageLoginSuccess,
         tokenCodeValue: action.payload.data.token,
-        message: action.payload.Message
       };
       case authActionTypes.LoginUserFail:
-      return {
+       const messageLoginFail: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Login',
+            snackBarMessage: action.payload,
+            redirectUrl: '/auth/login'
+          };
+       return {
         ...state,
-        tokenCodeValue: 0,
-        latestErrorMessage: action.payload
+        message: messageLoginFail,
+        tokenCodeValue: 0
       };
       case authActionTypes.RegisterUserSuccess:
-      return {
+       const messageRegisterSuccess: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Register',
+            snackBarMessage: action.payload.Message,
+            redirectUrl: '/auth/login'
+          };
+       return {
         ...state,
-        justRegister: true,
-        message: action.payload.Message
+        message: messageRegisterSuccess,
+        justRegister: true
       };
       case authActionTypes.RegisterUserFail:
-      return {
+       const messageRegisterFail: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Register',
+            snackBarMessage: action.payload,
+            redirectUrl: '/auth/register'
+          };
+       return {
         ...state,
-        justRegister: false,
-        latestErrorMessage: action.payload
+        message : messageRegisterFail,
+        justRegister: false
       };
       case authActionTypes.DeleteAllMessages:
-      return {
+       const resetMessage: ISnackbar = {
+            snackBarActive: false,
+            snackBarAction: '',
+            snackBarMessage: '',
+            redirectUrl: ''
+          };
+       return {
         ...state,
-        latestErrorMessage: '',
-        message: ''
+        message: resetMessage
+      };
+      case authActionTypes.LogoutUser:
+       const resetMessageAll: ISnackbar = {
+            snackBarActive: false,
+            snackBarAction: '',
+            snackBarMessage: '',
+            redirectUrl: ''
+          };
+       return {
+        ...state,
+        message: resetMessageAll,
+        tokenCodeValue: 0,
+        justRegister: false,
       };
     default:
       return state;

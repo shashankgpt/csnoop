@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent } from '@angular/router';
 import { ISnackbar } from '../user/dataTypes';
 import * as SharedActions from '../shared/state/shared.action';
+import * as AuthActions from '../auth/state/auth.action';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -44,6 +45,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.snackBar.open(msg, action, {
       duration: 2000,
     });
+    this.sharedStore.dispatch(new SharedActions.DeactivateSnackBar());
     this.router.navigate([url]);
   }
   ngOnInit() {
@@ -54,7 +56,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sharedStore.pipe(select(fromShared.getSnackbarMessage),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message.snackBarActive) {
-          this.sharedStore.dispatch(new SharedActions.DeactivateSnackBar());
           this.openSnackBar(message.snackBarMessage, message.snackBarAction,message.redirectUrl);
         }
       });
@@ -98,6 +99,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // this.sharedStore.dispatch(new SharedActions.SetCurrentUsername(''));
     this.sharedStore.dispatch(new SharedActions.IsLoggedOut());
     this.sharedStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
+    this.sharedStore.dispatch(new AuthActions.LogoutUser());
     // this.router.navigate(['/auth/login']);
   }
   ngOnDestroy() {

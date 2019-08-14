@@ -10,6 +10,7 @@ export enum authActionTypes {
   LoginUserSuccess = '[Login Api] Login User Success',
   LoginUserFail = '[Login Api] Login User Failure',
   DeleteAllMessages = '[Login] Delete all Messages',
+  LogoutUser = '[Logout User] Logout User',
 }
 
 export class RegisterUser implements Action {
@@ -20,7 +21,9 @@ export class RegisterUser implements Action {
 export class DeleteAllMessages implements Action {
   readonly type = authActionTypes.DeleteAllMessages;
 }
-
+export class LogoutUser implements Action {
+  readonly type = authActionTypes.LogoutUser;
+}
 export class RegisterUserSuccess implements Action {
   readonly type = authActionTypes.RegisterUserSuccess;
   constructor(public payload: IResponse) {
@@ -51,4 +54,5 @@ export type AuthActions = RegisterUser
 | LoginUser
 | LoginUserSuccess
 | LoginUserFail
-| DeleteAllMessages;
+| DeleteAllMessages
+| LogoutUser;

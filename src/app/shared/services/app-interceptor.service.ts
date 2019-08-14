@@ -14,11 +14,13 @@ export class AppInterceptorService implements HttpInterceptor {
   private throwErrorMsg;
   private disableSpinner;
   componentActive = true;
+  retry = 1;
   constructor(private configHandler: ConfigHandlerService, private store: Store<any>,
               private shareStore: Store<fromShared.State>) {
     this.throwErrorMsg = (error => {
       console.log(error.error.Message);
-      this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+      this.deactivateSpinner();
+      // this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
       throw new Error(error.error.Message);
     });
     this.disableSpinner = (el => {
@@ -26,7 +28,7 @@ export class AppInterceptorService implements HttpInterceptor {
     });
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.shareStore.dispatch(new SharedActions.ActivateSpinner());
+    // this.shareStore.dispatch(new SharedActions.ActivateSpinner());
     setTimeout(() => {
       this.shareStore.pipe(select(fromShared.Spinner),
       takeWhile(() => this.componentActive)).subscribe((message) => {
@@ -44,7 +46,7 @@ export class AppInterceptorService implements HttpInterceptor {
         headers
       });
       return next.handle(clone).pipe(
-        retry(3),
+        retry(this.retry),
         tap({
           next: val => {
             // on next 11, etc.
@@ -66,6 +68,7 @@ export class AppInterceptorService implements HttpInterceptor {
     );
   }
  deactivateSpinner() {
+   return;
   this.shareStore.pipe(select(fromShared.Spinner),
   takeWhile(() => this.componentActive)).subscribe((message) => {
     if (message) {

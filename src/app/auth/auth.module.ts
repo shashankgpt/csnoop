@@ -39,30 +39,9 @@ export class AuthModule {
   componentActive = true;
   constructor(private store: Store<fromAuth.State>, private shareStore: Store<fromShared.State>,private router: Router){
     this.store.pipe(select(fromAuth.getAuthMessage),
-      takeWhile(() => this.componentActive)).subscribe((response) => {
-        if (response) {
-          const snack1: ISnackbar = {
-            snackBarActive: true,
-            snackBarMessage: response,
-            snackBarAction: 'Register',
-            redirectUrl: '/user/view',
-          };
-          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-         // this.router.navigate(['/user/view']);
-        }
-      });
-    this.store.pipe(select(fromAuth.getAuthError),
-      takeWhile(() => this.componentActive)).subscribe((error) => {
-        if (error) {
-          // need to be strong type
-          const snack1: ISnackbar = {
-            snackBarActive: true,
-            snackBarMessage: error,
-            snackBarAction: 'Edit',
-            redirectUrl: '/auth/login',
-          };
-          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-          // this.router.navigate(['/auth/login']);
+      takeWhile(() => this.componentActive)).subscribe((snackResponse) => {
+        if (snackResponse.snackBarActive) {
+          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snackResponse));
         }
       });
   }

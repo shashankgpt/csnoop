@@ -17,6 +17,4 @@ export const getAuthMessage = createSelector(getAuthFeatureState,
 export const justRegister = createSelector(getAuthFeatureState,
   state => state.justRegister
 );
-export const getAuthError = createSelector(getAuthFeatureState,
-  state => state.latestErrorMessage
-);
+
