@@ -1,13 +1,7 @@
-import { UserState, profileInitialState, roleInitialState } from './user.state';
+import { UserState, profileInitialState, roleInitialState, initialState } from './user.state';
 import { UserActions, userActionTypes } from './user.action';
-
-const initialState: UserState = {
-  username: '',
-  profile: profileInitialState,
-  role: roleInitialState,
-  latestErrorMessage: '',
-  message: ''
-};
+import { ISnackbar } from '../dataTypes';
+import { act } from '@ngrx/effects';
 
 
 export function reducer(state= initialState, action: UserActions): UserState  {
@@ -18,11 +12,6 @@ export function reducer(state= initialState, action: UserActions): UserState  {
       return {
         ...state,
         username: action.payload
-      };
-      case userActionTypes.SetMessage:
-      return {
-        ...state,
-        message: action.payload
       };
       case userActionTypes.SetCurrentUserProfile:
           return {
@@ -40,44 +29,86 @@ export function reducer(state= initialState, action: UserActions): UserState  {
             profile: action.payload,
       };
       case userActionTypes.UpdateUserSuccess:
-          return {
+        const messageUpdateUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Edit User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/user/view'
+        };
+        return {
             ...state,
             profile: action.payload.data.user,
-            message: action.payload.Message
+            message: messageUpdateUserSuccess
       };
       case userActionTypes.UpdateUserPasswordSuccess:
-        return {
+          const messageUpdatePasswordSuccess: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Edit User',
+            snackBarMessage: action.payload.Message,
+            redirectUrl: '/user/view'
+          };
+          return {
           ...state,
-          message: action.payload.Message
+          message: messageUpdatePasswordSuccess
     };
     case userActionTypes.DeleteUserSuccess:
-      return {
+        const messageDeleteUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Edit User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/auth/login'
+        };
+        return {
         ...state,
         username: null,
         profile: null,
         role: null,
-        message: action.payload.Message
+        message: messageDeleteUserSuccess
   };
       case userActionTypes.LoadUserFail:
+          const messageLoadUserFail: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'View User',
+            snackBarMessage: action.payload,
+            redirectUrl: '/auth/login'
+          };
           return {
             ...state,
             profile: null,
-            latestErrorMessage: action.payload,
+            message: messageLoadUserFail
       };
       case userActionTypes.UpdateUserFail:
+          const messageUpdateUserFail: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Edit User',
+            snackBarMessage: action.payload,
+            redirectUrl: '/user/edit'
+          };
           return {
             ...state,
-            latestErrorMessage: action.payload,
+            message: messageUpdateUserFail,
       };
       case userActionTypes.UpdateUserPasswordFail:
+          const messageUpdatePasswordFail: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Edit User',
+            snackBarMessage: action.payload,
+            redirectUrl: ''
+          };
           return {
             ...state,
-            latestErrorMessage: action.payload,
+            message: messageUpdatePasswordFail,
       };
       case userActionTypes.DeleteUserFail:
+          const messageUpdateDeleteFail: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Edit User',
+            snackBarMessage: action.payload,
+            redirectUrl: '/user/edit'
+          };
           return {
             ...state,
-            latestErrorMessage: action.payload,
+            message: messageUpdateDeleteFail,
       };
     default:
       return state;

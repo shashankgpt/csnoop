@@ -17,6 +17,3 @@ export const getUserMessage = createSelector(getUserFeatureState,
 export const getUserName = createSelector(getUserFeatureState,
   state => state.username
 );
-export const getUserError = createSelector(getUserFeatureState,
-  state => state.latestErrorMessage
-);

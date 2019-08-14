@@ -1,12 +1,11 @@
-import { IProfile} from '../dataTypes';
+import { IProfile, ISnackbar} from '../dataTypes';
 import {roleObject, role} from '../dataTypes/role-info';
 
 export interface UserState {
   username: string;
   profile: IProfile;
   role: RoleState;
-  latestErrorMessage: string;
-  message: string;
+  message: ISnackbar;
 }
 
 export interface RoleState {
@@ -22,8 +21,19 @@ export const profileInitialState: IProfile = {
   location: '',
   website: ''
 };
-
 export const roleInitialState: RoleState = {
   roleCode: role.user,
   roleName: roleObject[role.user]
+};
+const message: ISnackbar ={
+  snackBarActive: false,
+  snackBarAction: '',
+  snackBarMessage: '',
+  redirectUrl: ''
+}
+export const initialState: UserState = {
+  message,
+  username: '',
+  profile: profileInitialState,
+  role: roleInitialState,
 };

@@ -46,7 +46,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       duration: 2000,
     });
     this.sharedStore.dispatch(new SharedActions.DeactivateSnackBar());
+    if (url) {
     this.router.navigate([url]);
+    }
   }
   ngOnInit() {
     this.sharedStore.pipe(select(fromShared.Spinner),
@@ -84,23 +86,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       snackBarAction: 'Logout',
       redirectUrl: '/auth/login',
     };
-    // this.sharedStore.dispatch({
-    //   type: 'SET_NOTIFY',
-    //   payload: snack1
-    // });
-    // this.sharedStore.dispatch({
-    //   type: 'LOGGED_IN',
-    //   payload: false
-    // });
-    // this.sharedStore.dispatch({
-    //   type: 'SET_USERNAME',
-    //   payload: ''
-    // });
-    // this.sharedStore.dispatch(new SharedActions.SetCurrentUsername(''));
     this.sharedStore.dispatch(new SharedActions.IsLoggedOut());
     this.sharedStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
     this.sharedStore.dispatch(new AuthActions.LogoutUser());
-    // this.router.navigate(['/auth/login']);
   }
   ngOnDestroy() {
     this.componentActive = false;

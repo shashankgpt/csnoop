@@ -7,7 +7,6 @@ export enum userActionTypes {
   SetCurrentUsername = '[User] Set Current Username',
   SetCurrentUserProfile = '[User] Set Current User Profile',
   SetCurrentUserRole = '[User] Set Current User Role',
-  SetMessage = '[User] Set Message',
   LoadUser = '[User Api] Load Current User',
   LoadUserSuccess = '[User Api] Load Current User Success',
   LoadUserFail = '[User Api] Load Current User Fail',
@@ -24,10 +23,6 @@ export enum userActionTypes {
 
 export class SetCurrentUsername implements Action {
   readonly type = userActionTypes.SetCurrentUsername;
-  constructor(public payload: string) { }
-}
-export class SetMessage implements Action {
-  readonly type = userActionTypes.SetMessage;
   constructor(public payload: string) { }
 }
 export class SetCurrentUserProfile implements Action {
@@ -103,5 +98,4 @@ export type UserActions = SetCurrentUsername |
   UpdateUserPasswordFail |
   DeleteUser |
   DeleteUserSuccess |
-  DeleteUserFail |
-  SetMessage;
+  DeleteUserFail;
