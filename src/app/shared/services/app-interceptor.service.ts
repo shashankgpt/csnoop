@@ -30,14 +30,14 @@ export class AppInterceptorService implements HttpInterceptor {
       this.shareStore.pipe(select(fromShared.Spinner),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message) {
-        this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+        // this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
         }
       });
 
   });
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.shareStore.dispatch(new SharedActions.ActivateSpinner());
+    // this.shareStore.dispatch(new SharedActions.ActivateSpinner());
     // setTimeout(() => {
     //   this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
     // }, 2000);
