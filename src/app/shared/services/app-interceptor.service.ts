@@ -22,13 +22,7 @@ export class AppInterceptorService implements HttpInterceptor {
       throw new Error(error.error.Message);
     });
     this.disableSpinner = (el => {
-      this.shareStore.pipe(select(fromShared.Spinner),
-        takeWhile(() => this.componentActive)).subscribe((message) => {
-          if (message) {
-            this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
-          }
-        });
-
+      this.deactivateSpinner();
     });
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -37,7 +31,7 @@ export class AppInterceptorService implements HttpInterceptor {
       this.shareStore.pipe(select(fromShared.Spinner),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message) {
-          this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+          this.deactivateSpinner();
         }
       });
     }, 2000);
@@ -58,9 +52,9 @@ export class AppInterceptorService implements HttpInterceptor {
           },
           error: error => {
             console.log(error);
-            this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+            this.deactivateSpinner();
           },
-          complete: () => this.shareStore.dispatch(new SharedActions.DeactivateSpinner())
+          complete: () => this.deactivateSpinner()
         }),
         catchError(this.throwErrorMsg)
       );
@@ -71,5 +65,12 @@ export class AppInterceptorService implements HttpInterceptor {
       catchError(this.throwErrorMsg)
     );
   }
-
+ deactivateSpinner() {
+  this.shareStore.pipe(select(fromShared.Spinner),
+  takeWhile(() => this.componentActive)).subscribe((message) => {
+    if (message) {
+      this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
+    }
+  });
+ }
 }
