@@ -12,7 +12,7 @@ export const snack: ISnackbar = {
   snackBarMessage: '',
   snackBarAction: '',
   redirectUrl: ''
-}
+};
 
 export const initialState: SharedState = {
   loggedIn: false,

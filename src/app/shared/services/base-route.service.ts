@@ -15,8 +15,8 @@ export class BaseRouteService {
               private router: Router,
               private configHandler: ConfigHandlerService) {
     this.throwErrorMsg = (error => {
-      console.log(error);
-      throw new error("unable load");
+      // console.log(error);
+      throw new error('Base Url Service Issue');
       // const errorMsg = this.configHandler.handleError(error);
     });
   }
