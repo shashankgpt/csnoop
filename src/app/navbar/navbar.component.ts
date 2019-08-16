@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, from } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
@@ -12,7 +12,8 @@ import * as AuthActions from '../auth/state/auth.action';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   showSpinner = false;
@@ -41,7 +42,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     .pipe(
       map(result => result.matches)
     );
-  openSnackBar(msg, action,url) {
+  openSnackBar(msg, action, url) {
     this.snackBar.open(msg, action, {
       duration: 2000,
     });
@@ -54,11 +55,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sharedStore.pipe(select(fromShared.Spinner),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         this.globalSpinner = message;
-      })
+      });
     this.sharedStore.pipe(select(fromShared.getSnackbarMessage),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         if (message.snackBarActive) {
-          this.openSnackBar(message.snackBarMessage, message.snackBarAction,message.redirectUrl);
+          this.openSnackBar(message.snackBarMessage, message.snackBarAction, message.redirectUrl);
         }
       });
     this.sharedStore.pipe(select(fromShared.getLoggedUserName),
@@ -69,15 +70,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe((message) => {
           this.logged = message;
       });
-    // this.sharedStore.pipe(select('shared')).subscribe((data: fromShared.State) => {
-    //   this.globalSpinner = data.spinnerActive;
-    //   this.logged = data.loggedIn;
-    //   this.username = data.username;
-    //   if (data.snackBar.snackBarActive) {
-    //       this.openSnackBar(data.snackBar.snackBarMessage, data.snackBar.snackBarAction);
-    //   }
-    // });
   }
+
   logout() {
     localStorage.clear();
     const snack1: ISnackbar = {
@@ -90,7 +84,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sharedStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
     this.sharedStore.dispatch(new AuthActions.LogoutUser());
   }
+
   ngOnDestroy() {
     this.componentActive = false;
   }
-  }
+}

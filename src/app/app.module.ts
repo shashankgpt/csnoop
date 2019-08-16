@@ -11,12 +11,11 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducer } from './state/app.reducer';
+// For Development Only
+import {StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import {StoreDevtoolsModule } from '@ngrx/store-devtools'
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,11 +30,11 @@ import {StoreDevtoolsModule } from '@ngrx/store-devtools'
     AuthModule,
     BrowserAnimationsModule,
     SharedModule,
-    StoreModule.forRoot(reducer),
+    StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
-      name:'codesnoop1',
-      maxAge:25,
+      name: 'codesnoop1',
+      maxAge: 25,
     })
   ],
   providers: [],
