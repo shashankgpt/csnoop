@@ -1,6 +1,6 @@
 import { UserState, profileInitialState, roleInitialState, initialState } from './user.state';
 import { UserActions, userActionTypes } from './user.action';
-import { ISnackbar } from '../dataTypes';
+import { ISnackbar } from '../../dataTypes/snackbar';
 import { act } from '@ngrx/effects';
 
 

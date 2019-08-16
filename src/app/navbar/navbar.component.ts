@@ -6,7 +6,7 @@ import * as fromShared from '../shared/state';
 import { Store, select } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent } from '@angular/router';
-import { ISnackbar } from '../user/dataTypes';
+import { ISnackbar } from '../dataTypes/snackbar';
 import * as SharedActions from '../shared/state/shared.action';
 import * as AuthActions from '../auth/state/auth.action';
 @Component({

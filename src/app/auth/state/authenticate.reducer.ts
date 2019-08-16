@@ -2,7 +2,7 @@ import * as fromRoot from '../../state/app.state';
 import { AuthState, initialState } from './auth.state';
 
 import { AuthActions, authActionTypes } from './auth.action';
-import { ISnackbar } from 'src/app/user/dataTypes';
+import { ISnackbar } from 'src/app/dataTypes/snackbar';
 
 export interface State extends fromRoot.State {
   auth: AuthState;

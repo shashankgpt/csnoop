@@ -1,4 +1,4 @@
-import { ISnackbar } from 'src/app/user/dataTypes';
+import { ISnackbar } from 'src/app/dataTypes/snackbar';
 
 export interface AuthState {
   tokenCodeValue: string | number;

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ISnackbar } from 'src/app/user/dataTypes';
+import { ISnackbar } from 'src/app/dataTypes/snackbar';
 
 export enum sharedActionTypes {
   SetCurrentUsername = '[Shared] Set Current Username',

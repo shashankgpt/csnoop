@@ -1,4 +1,4 @@
-import { ISnackbar } from '../../user/dataTypes';
+import { ISnackbar } from '../../dataTypes/snackbar';
 
 export interface SharedState {
   loggedIn: boolean;

@@ -1,4 +1,5 @@
-import { IProfile, ISnackbar} from '../dataTypes';
+import { IProfile} from '../dataTypes';
+import {ISnackbar} from '../../dataTypes/snackbar'
 import {roleObject, role} from '../dataTypes/role-info';
 
 export interface UserState {
