@@ -23,7 +23,7 @@ export class AuthEffects {
   loginUser$ = this.actions$.pipe(
     ofType(AuthActions.authActionTypes.LoginUser),
     map((action: AuthActions.LoginUser) => action.payload),
-    mergeMap((login: ILogin) => this.authService.login(login.username,login.password).pipe(
+    mergeMap((login: ILogin) => this.authService.login(login.username, login.password).pipe(
       map((res: IResponse) => new AuthActions.LoginUserSuccess(res)),
       catchError(err => of(new AuthActions.LoginUserFail('Unable to Login'))))));
 
