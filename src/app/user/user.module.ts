@@ -29,12 +29,16 @@ import * as SharedActions from '../shared/state/shared.action';
 })
 export class UserModule {
   componentActive = true;
-  constructor(private store: Store<fromUser.State>, private shareStore: Store<fromShared.State>){
+  constructor(private store: Store<fromUser.State>, private shareStore: Store<fromShared.State>) {
+  this.subscribeNotification();
+  }
+
+  subscribeNotification() {
     this.store.pipe(select(fromUser.getUserMessage),
-      takeWhile(() => this.componentActive)).subscribe((snackResponse) => {
-        if (snackResponse.snackBarActive) {
-          this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snackResponse));
-        }
-      });
+    takeWhile(() => this.componentActive)).subscribe((snackResponse) => {
+      if (snackResponse.snackBarActive) {
+        this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snackResponse));
+      }
+    })
   }
  }
