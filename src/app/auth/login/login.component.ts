@@ -44,8 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe((response) => {
         if (response.toString() !== '0') {
           localStorage.setItem('login', response.toString());
-          this.shareStore.dispatch(new SharedActions.IsLoggedIn());
-          this.shareStore.dispatch(new SharedActions.SetCurrentUsername(credential.username));
+          this.shareStore.dispatch(new SharedActions.IsLoggedIn(credential.username));
           return true;
         }
       });

@@ -30,6 +30,7 @@ export class DeactivateSpinner implements Action {
 }
 export class IsLoggedIn implements Action {
   readonly type = sharedActionTypes.IsLoggedIn;
+  constructor(public payload: string) { }
 }
 export class IsLoggedOut implements Action {
   readonly type = sharedActionTypes.IsLoggedOut;

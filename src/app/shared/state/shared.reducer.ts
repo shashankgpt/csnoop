@@ -32,7 +32,8 @@ export function reducer(state: SharedState = initialState, action: SharedActions
       case sharedActionTypes.IsLoggedIn:
       return {
         ...state,
-        loggedIn: true
+        loggedIn: true,
+        username: action.payload
       };
       case sharedActionTypes.IsLoggedOut:
       return {

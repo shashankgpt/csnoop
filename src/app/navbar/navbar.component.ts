@@ -65,10 +65,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sharedStore.pipe(select(fromShared.getLoggedUserName),
       takeWhile(() => this.componentActive)).subscribe((message) => {
           this.username = message;
-      });
-    this.sharedStore.pipe(select(fromShared.LoggedIn),
-      takeWhile(() => this.componentActive)).subscribe((message) => {
-          this.logged = message;
+          this.logged = message ? true : false;
       });
   }
 
