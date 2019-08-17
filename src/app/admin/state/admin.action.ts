@@ -3,6 +3,7 @@ import { IProfileAdmin } from '../dataTypes';
 import { IResponse } from 'src/app/shared/dataTypes';
 
 export enum userActionTypes {
+  SetActiveUsername = '[Admin] Set Active Username',
   LoadAllUser = '[Admin Api] Load All User',
   LoadAllUserSuccess = '[Admin Api] Load All User Success',
   LoadAllUserFail = '[Admin Api] Load All User Fail',
@@ -20,6 +21,10 @@ export enum userActionTypes {
   DeactivateUserFail = '[Admin Api] deactivate User Fail',
 }
 
+export class SetActiveUsername implements Action {
+  readonly type = userActionTypes.SetActiveUsername;
+  constructor(public payload: string) { }
+}
 
 export class LoadAllUser implements Action {
   readonly type = userActionTypes.LoadAllUser;
@@ -92,7 +97,8 @@ export class DeactivateUserFail implements Action {
   readonly type = userActionTypes.DeactivateUserFail;
   constructor(public payload: string) { }
 }
-export type UserActions = LoadAllUser |
+export type UserActions = SetActiveUsername |
+LoadAllUser |
 LoadAllUserSuccess |
 LoadAllUserFail |
 LockUser |

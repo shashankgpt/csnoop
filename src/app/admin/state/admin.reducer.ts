@@ -5,6 +5,11 @@ import { ISnackbar } from '../../dataTypes/snackbar';
 
 export function reducer(state= initialState, action: UserActions): AdminState  {
   switch (action.type) {
+    case userActionTypes.SetActiveUsername:
+          return {
+            ...state,
+            activeUsername: action.payload,
+      };
       case userActionTypes.LoadAllUserSuccess:
           return {
             ...state,

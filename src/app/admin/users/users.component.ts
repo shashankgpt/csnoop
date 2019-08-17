@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { IProfileAdmin } from '../dataTypes';
 import { Store, select } from '@ngrx/store';
-import * as fromAuth from '../state';
+import * as fromAdmin from '../state';
 import { Router } from '@angular/router';
 import * as AdminActions from '../state/admin.action';
 import { takeWhile } from 'rxjs/operators';
@@ -30,12 +30,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   columnsToDisplay: string[] = ['username', 'email', 'role', 'createdAt'];
   lock = false;
   dataSource: Observable<IProfileAdmin[]>;
-  constructor(private store: Store<fromAuth.State>, private shareStore: Store<fromShared.State>, private router: Router
+  constructor(private store: Store<fromAdmin.State>, private shareStore: Store<fromShared.State>, private router: Router
     ,         private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadAllUsers();
-    this.store.pipe(select(fromAuth.getUsersData),
+    this.store.pipe(select(fromAdmin.getUsersData),
       takeWhile(() => this.componentActive)).subscribe((profile) => {
         console.log(profile);
         if (profile[0].email) {
@@ -66,5 +66,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
   loadAllUsers() {
     this.store.dispatch(new AdminActions.LoadAllUser());
+  }
+  moveToEditUser(user: IProfileAdmin) {
+    this.store.dispatch(new AdminActions.SetActiveUsername(user.username));
+    this.router.navigate([`admin/editUser/${user.username}`]);
   }
 }

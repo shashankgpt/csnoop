@@ -31,6 +31,9 @@
       [checked]="element.active" (click)="activeUser(element)"
       >{{element.active?  'Deactivate' : 'Activate'}} User</mat-slide-toggle>
       </div>
+      <div>
+      <a mat-fab (click)="moveToEditUser(element)">Edit User</a>
+    </div>
    </div>
  </div>
 </td>

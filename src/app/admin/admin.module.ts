@@ -14,10 +14,11 @@ import { takeWhile } from 'rxjs/operators';
 import * as SharedActions from '../shared/state/shared.action';
 import { UsersComponent } from './users/users.component';
 import * as AdminActions from './state/admin.action';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 @NgModule({
-  declarations: [AdminComponent, UsersComponent],
+  declarations: [AdminComponent, UsersComponent, EditUserComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
