@@ -19,6 +19,9 @@ export enum userActionTypes {
   DeleteUser = '[User Api] Delete Current User',
   DeleteUserSuccess = '[User Api] Delete Current User Success',
   DeleteUserFail = '[User Api] Delete Current User Fail',
+  LogoutUser = '[User Api] Logout Current User',
+  LogoutUserSuccess = '[User Api] Logout Current User Success',
+  LogoutUserFail = '[User Api] Logout Current User Fail',
 }
 
 export class SetCurrentUsername implements Action {
@@ -39,6 +42,9 @@ export class LoadUser implements Action {
 export class DeleteUser implements Action {
   readonly type = userActionTypes.DeleteUser;
 }
+export class LogoutUser implements Action {
+  readonly type = userActionTypes.LogoutUser;
+}
 export class UpdateUser implements Action {
   readonly type = userActionTypes.UpdateUser;
   constructor(public payload: IProfile) { }
@@ -55,6 +61,12 @@ export class LoadUserSuccess implements Action {
 export class DeleteUserSuccess implements Action {
   readonly type = userActionTypes.DeleteUserSuccess;
   constructor(public payload: IResponse) {
+  }
+}
+export class LogoutUserSuccess implements Action {
+  readonly type = userActionTypes.LogoutUserSuccess;
+  constructor(public payload: IResponse) {
+    localStorage.clear();
   }
 }
 export class UpdateUserPasswordSuccess implements Action {
@@ -83,6 +95,10 @@ export class DeleteUserFail implements Action {
   readonly type = userActionTypes.DeleteUserFail;
   constructor(public payload: string) { }
 }
+export class LogoutUserFail implements Action {
+  readonly type = userActionTypes.LogoutUserFail;
+  constructor(public payload: string) { }
+}
 
 export type UserActions = SetCurrentUsername |
   SetCurrentUserProfile |
@@ -98,4 +114,7 @@ export type UserActions = SetCurrentUsername |
   UpdateUserPasswordFail |
   DeleteUser |
   DeleteUserSuccess |
-  DeleteUserFail;
+  DeleteUserFail |
+  LogoutUser |
+  LogoutUserSuccess |
+  LogoutUserFail;

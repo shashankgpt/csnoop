@@ -69,18 +69,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
       });
   }
 
-  logout() {
-    localStorage.clear();
-    const snack1: ISnackbar = {
-      snackBarActive: true,
-      snackBarMessage: 'Logout Successfully',
-      snackBarAction: 'Logout',
-      redirectUrl: '/auth/login',
-    };
-    this.sharedStore.dispatch(new SharedActions.IsLoggedOut());
-    this.sharedStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
-    this.sharedStore.dispatch(new AuthActions.LogoutUser());
-  }
+  // logout() {
+  //   localStorage.clear();
+  //   const snack1: ISnackbar = {
+  //     snackBarActive: true,
+  //     snackBarMessage: 'Logout Successfully',
+  //     snackBarAction: 'Logout',
+  //     redirectUrl: '/auth/login',
+  //   };
+  //   this.sharedStore.dispatch(new SharedActions.IsLoggedOut());
+  //   this.sharedStore.dispatch(new SharedActions.ActivateSnackBar(snack1));
+  //   this.sharedStore.dispatch(new AuthActions.LogoutUser());
+  // }
 
   ngOnDestroy() {
     this.componentActive = false;

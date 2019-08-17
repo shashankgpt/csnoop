@@ -28,6 +28,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.store.dispatch(new UserActions.LoadUser());
     this.store.pipe(select(fromUser.getUserData),
       takeWhile(() => this.componentActive)).subscribe((profile) => {
+        if (profile.email) {
         this.profile = {
           firstName : profile.firstName,
           lastName: profile.lastName,
@@ -37,6 +38,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           website: profile.website,
         };
         this.cd.detectChanges();
+      }
       });
   }
   moveToEdit() {

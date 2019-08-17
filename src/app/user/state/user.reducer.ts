@@ -28,6 +28,20 @@ export function reducer(state= initialState, action: UserActions): UserState  {
             ...state,
             profile: action.payload,
       };
+      case userActionTypes.LogoutUserSuccess:
+          const messageLogoutUserSuccess: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Logout User',
+            snackBarMessage: action.payload.Message,
+            redirectUrl: '/auth/login'
+          };
+          return {
+          ...state,
+          username: '',
+          profile: profileInitialState,
+          role: roleInitialState,
+          message: messageLogoutUserSuccess
+    };
       case userActionTypes.UpdateUserSuccess:
         const messageUpdateUserSuccess: ISnackbar = {
           snackBarActive: true,
@@ -60,9 +74,9 @@ export function reducer(state= initialState, action: UserActions): UserState  {
         };
         return {
         ...state,
-        username: null,
-        profile: null,
-        role: null,
+        username: '',
+        profile: profileInitialState,
+        role: roleInitialState,
         message: messageDeleteUserSuccess
   };
       case userActionTypes.LoadUserFail:
@@ -74,8 +88,19 @@ export function reducer(state= initialState, action: UserActions): UserState  {
           };
           return {
             ...state,
-            profile: null,
+            profile: profileInitialState,
             message: messageLoadUserFail
+      };
+      case userActionTypes.LogoutUserFail:
+          const messageLogoutUserFail: ISnackbar = {
+            snackBarActive: true,
+            snackBarAction: 'Logout User',
+            snackBarMessage: action.payload,
+            redirectUrl: ''
+          };
+          return {
+            ...state,
+            message: messageLogoutUserFail
       };
       case userActionTypes.UpdateUserFail:
           const messageUpdateUserFail: ISnackbar = {

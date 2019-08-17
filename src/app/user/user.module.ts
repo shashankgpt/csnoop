@@ -15,9 +15,10 @@ import * as fromShared from '../shared/state';
 import * as fromUser from './state';
 import { takeWhile } from 'rxjs/operators';
 import * as SharedActions from '../shared/state/shared.action';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
-  declarations: [ViewComponent, EditComponent, HomeComponent],
+  declarations: [ViewComponent, EditComponent, HomeComponent, LogoutComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

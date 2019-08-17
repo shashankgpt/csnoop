@@ -20,6 +20,13 @@ export class UserEffects {
       catchError(err => of(new UserActions.LoadUserFail('Unable to load User'))))));
 
   @Effect()
+  logoutUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.LogoutUser),
+    mergeMap((action: UserActions.LogoutUser) => this.userService.logoutUser().pipe(
+      map((res: IResponse) => new UserActions.LogoutUserSuccess(res)),
+      catchError(err => of(new UserActions.LoadUserFail('Unable to logout User'))))));
+
+  @Effect()
   updateUser$ = this.actions$.pipe(
     ofType(UserActions.userActionTypes.UpdateUser),
     map((action: UserActions.UpdateUser) => action.payload),

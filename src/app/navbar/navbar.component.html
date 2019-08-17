@@ -26,7 +26,7 @@
       <div *ngIf="logged" class="move-right"><button mat-button [matMenuTriggerFor]="userMenu"><mat-icon aria-hidden="false" aria-label="Example face icon" class="icon-space">face</mat-icon>{{username}}</button>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item routerLink="/user/view">View</button>
-          <button mat-menu-item (click)="logout()">Logout</button>
+          <button mat-menu-item routerLink="/user/logout">Logout</button>
         </mat-menu>
       </div>
     </mat-toolbar>

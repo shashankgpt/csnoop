@@ -14,6 +14,9 @@ export class UserService {
   getLoggedInUser() {
     return this.baseRoute.get<IResponse>('user', {});
   }
+  logoutUser() {
+    return this.baseRoute.get<IResponse>('user/logout', {});
+  }
   updateLoggedInUser(profile: IProfile) {
     return this.baseRoute.put<IResponse, IProfile>('user', profile);
   }
