@@ -7,11 +7,19 @@ import * as AdminActions from '../state/admin.action';
 import { takeWhile } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import * as fromShared from '../../shared/state';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class UsersComponent implements OnInit {
   componentActive = true;
@@ -19,7 +27,8 @@ export class UsersComponent implements OnInit {
   error = '';
   errorMessage$: Observable<string>;
   expandedElement: IProfileAdmin | null;
-  displayedColumns: string[] = ['username', 'email', 'role', 'firstName', 'lastName', 'location', 'website'];
+  columnsToDisplay: string[] = ['username', 'email', 'role', 'createdAt'];
+  lock= false;
   dataSource: Observable<IProfileAdmin[]>;
   constructor(private store: Store<fromAuth.State>, private shareStore: Store<fromShared.State>, private router: Router
     ,         private cd: ChangeDetectorRef) { }
@@ -31,6 +40,7 @@ export class UsersComponent implements OnInit {
         console.log(profile);
         if(profile[0].email) {
         this.dataSource = of(profile);
+        this.cd.detectChanges();
         }
       });
   }
@@ -39,5 +49,14 @@ export class UsersComponent implements OnInit {
   }
   ngOnDestroy() {
     this.componentActive = false;
+  }
+  lockUser(val) {
+    alert(val);
+    alert("ok");
+    this.lock = true;
+  }
+  activeUser(val) {
+    alert(val);
+    alert("ok");
   }
 }

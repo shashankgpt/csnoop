@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatInputModule, MatCardModule,MatMenuModule,MatRadioModule,MatTableModule,
+import { MatInputModule, MatCardModule,MatMenuModule,MatRadioModule,MatTableModule,MatSlideToggleModule,
   MatFormFieldModule, MatToolbarModule, MatSnackBarModule,MatProgressSpinnerModule,
    MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCheckbox, MatCheckboxModule } from '@angular/material';
 
@@ -28,6 +28,7 @@ import { MatInputModule, MatCardModule,MatMenuModule,MatRadioModule,MatTableModu
     MatProgressSpinnerModule,
     MatMenuModule,
     MatTableModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule { }
