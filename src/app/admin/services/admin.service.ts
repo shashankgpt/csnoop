@@ -10,6 +10,6 @@ export class AdminService {
   constructor(private baseRoute: BaseRouteService) { }
 
   getAllUsers() {
-    return this.baseRoute.get<IResponse>('user', {});
+    return this.baseRoute.get<IResponse>('admin/listOfUser', {});
   }
 }

@@ -14,7 +14,7 @@ export class AdminEffects {
   loadAllUsers$ = this.actions$.pipe(
     ofType(UserActions.userActionTypes.LoadAllUser),
     mergeMap((action: UserActions.LoadAllUser) => this.adminService.getAllUsers().pipe(
-      map((res: IResponse) => new UserActions.LoadAllUserSuccess(res.data.user)),
+      map((res: IResponse) => new UserActions.LoadAllUserSuccess(res.data.users)),
       catchError(err => of(new UserActions.LoadAllUserFail('Unable to load All User'))))));
 
 }

@@ -1,4 +1,4 @@
-import { AdminState, profileInitialState, initialState } from './admin.state';
+import { AdminState, InitialStateUsers, initialState } from './admin.state';
 import { UserActions, userActionTypes } from './admin.action';
 import { ISnackbar } from '../../dataTypes/snackbar';
 
@@ -19,7 +19,7 @@ export function reducer(state= initialState, action: UserActions): AdminState  {
           };
           return {
             ...state,
-            profiles: profileInitialState,
+            profiles: InitialStateUsers,
             message: messageLoadUserFail
       };
     default:

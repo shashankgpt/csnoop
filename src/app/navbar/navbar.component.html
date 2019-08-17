@@ -6,6 +6,7 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/contact" routerLinkActive="active">Contact Us</a>
+      <a mat-list-item routerLink="/admin/allUsers" routerLinkActive="active">Admin</a>
       <span *ngIf="!logged">
       <a mat-list-item routerLink="/auth/login" routerLinkActive="active">Login</a>
       <a mat-list-item routerLink="/auth/register" routerLinkActive="active">Register</a>

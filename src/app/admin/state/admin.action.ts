@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IProfile } from '../../user/dataTypes';
+import { IProfileAdmin } from '../dataTypes';
 import { IResponse } from 'src/app/shared/dataTypes';
 
 export enum userActionTypes {
@@ -15,7 +15,7 @@ export class LoadAllUser implements Action {
 
 export class LoadAllUserSuccess implements Action {
   readonly type = userActionTypes.LoadAllUserSuccess;
-  constructor(public payload: IProfile[]) {}
+  constructor(public payload: IProfileAdmin[]) {}
 }
 
 export class LoadAllUserFail implements Action {

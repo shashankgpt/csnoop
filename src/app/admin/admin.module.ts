@@ -22,7 +22,7 @@ import { UsersComponent } from './users/users.component';
     AdminRoutingModule,
     CoreModule,
     SharedModule,
-    StoreModule.forFeature('users', reducer),
+    StoreModule.forFeature('admins', reducer),
     EffectsModule.forFeature([AdminEffects])
   ]
 })

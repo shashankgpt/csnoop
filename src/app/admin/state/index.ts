@@ -6,7 +6,7 @@ export interface State extends fromRoot.State {
   admin: AdminState;
 }
 
-const getAdminFeatureState = createFeatureSelector<AdminState>('Admins');
+const getAdminFeatureState = createFeatureSelector<AdminState>('admins');
 
 export const getUsersData = createSelector(getAdminFeatureState,
   state => state.profiles

@@ -1,29 +1,38 @@
-import { IProfile} from '../../user/dataTypes';
+import { IProfileAdmin , CompleteProfile} from '../dataTypes';
 import {ISnackbar} from '../../dataTypes/snackbar';
 
 export interface AdminState {
   activeUsername: string;
-  profiles: IProfile[];
+  profiles: IProfileAdmin[];
   message: ISnackbar;
 }
-
-export const profileInitialState: IProfile[] = [{
+export const profileInitialState: CompleteProfile = {
   firstName: '',
   lastName: '',
-  email: '',
-  gender: '',
   location: '',
-  website: ''
+  website: '',
+  gender: 1
+};
+export const InitialStateUsers: IProfileAdmin[] = [{
+  lock: false,
+  active: false,
+  role: 4,
+  username: '',
+  email: '',
+  createdAt: '',
+  updatedAt: '',
+  profile: profileInitialState,
+  _id: '',
 }];
 
-const message: ISnackbar ={
+const message: ISnackbar = {
   snackBarActive: false,
   snackBarAction: '',
   snackBarMessage: '',
   redirectUrl: ''
-}
+};
 export const initialState: AdminState = {
   message,
   activeUsername: '',
-  profiles: profileInitialState,
+  profiles: InitialStateUsers,
 };
