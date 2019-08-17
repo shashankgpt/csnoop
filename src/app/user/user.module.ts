@@ -40,6 +40,6 @@ export class UserModule {
       if (snackResponse.snackBarActive) {
         this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snackResponse));
       }
-    })
+    });
   }
  }

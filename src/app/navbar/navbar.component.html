@@ -30,10 +30,10 @@
         </mat-menu>
       </div>
     </mat-toolbar>
-    <div *ngIf="showSpinner || globalSpinner" class="spinner-center">
+    <!-- <div *ngIf="showSpinner || globalSpinner" class="spinner-center">
     <mat-spinner ></mat-spinner>
-  </div>
-    <router-outlet *ngIf="!(showSpinner || globalSpinner)"></router-outlet>
+  </div> -->
+    <router-outlet ></router-outlet>
     <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>
