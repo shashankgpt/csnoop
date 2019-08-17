@@ -17,4 +17,35 @@ export class AdminEffects {
       map((res: IResponse) => new UserActions.LoadAllUserSuccess(res.data.users)),
       catchError(err => of(new UserActions.LoadAllUserFail('Unable to load All User'))))));
 
+  @Effect()
+  lockUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.LockUser),
+    map((action: UserActions.LockUser) => action.payload),
+    mergeMap((username: string) => this.adminService.lockUser(username).pipe(
+      map((res: IResponse) => new UserActions.LockUserSuccess(res)),
+      catchError(err => of(new UserActions.LockUserFail('Unable to lock User -' + username))))));
+
+  @Effect()
+  unlockUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.UnlockUser),
+    map((action: UserActions.UnlockUser) => action.payload),
+    mergeMap((username: string) => this.adminService.unlockUser(username).pipe(
+      map((res: IResponse) => new UserActions.UnlockUserSuccess(res)),
+      catchError(err => of(new UserActions.UnlockUserFail('Unable to unlock User -' + username))))));
+
+  @Effect()
+  activateUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.ActivateUser),
+    map((action: UserActions.ActivateUser) => action.payload),
+    mergeMap((username: string) => this.adminService.activateUser(username).pipe(
+      map((res: IResponse) => new UserActions.ActivateUserSuccess(res)),
+      catchError(err => of(new UserActions.ActivateUserFail('Unable to activate User -' + username))))));
+
+  @Effect()
+  deactivateUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.DeactivateUser),
+    map((action: UserActions.DeactivateUser) => action.payload),
+    mergeMap((username: string) => this.adminService.deactivateUser(username).pipe(
+      map((res: IResponse) => new UserActions.DeactivateUserSuccess(res)),
+      catchError(err => of(new UserActions.DeactivateUserFail('Unable to deactivate User -' + username))))));
 }

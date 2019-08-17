@@ -12,4 +12,16 @@ export class AdminService {
   getAllUsers() {
     return this.baseRoute.get<IResponse>('admin/listOfUser', {});
   }
+  lockUser(userName) {
+    return this.baseRoute.patch<IResponse, object>(`admin/lockUser/${userName}`, {});
+  }
+  unlockUser(userName) {
+    return this.baseRoute.patch<IResponse, object>(`admin/unlockUser/${userName}`, {});
+  }
+  activateUser(userName) {
+    return this.baseRoute.patch<IResponse, object>(`admin/activateUser/${userName}`, {});
+  }
+  deactivateUser(userName) {
+    return this.baseRoute.patch<IResponse, object>(`admin/deactivateUser/${userName}`, {});
+  }
 }

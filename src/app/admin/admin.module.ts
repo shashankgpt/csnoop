@@ -13,6 +13,7 @@ import * as fromAdmin from './state';
 import { takeWhile } from 'rxjs/operators';
 import * as SharedActions from '../shared/state/shared.action';
 import { UsersComponent } from './users/users.component';
+import * as AdminActions from './state/admin.action';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ export class AdminModule {
     takeWhile(() => this.componentActive)).subscribe((snackResponse) => {
       if (snackResponse.snackBarActive) {
         this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snackResponse));
+        this.store.dispatch(new AdminActions.LoadAllUser());
       }
     });
   }

@@ -22,13 +22,13 @@
   </div>
   <div>
       Locked: <mat-slide-toggle
-      [checked]="element.lock" (click)="lockUser(element.username)"
+      [checked]="element.lock" (click)="lockUser(element)"
       >{{element.lock?  'Unlock' : 'Lock'}} User</mat-slide-toggle>
     </div>
     <div>
         Active:
         <mat-slide-toggle
-      [checked]="element.active" (click)="activeUser(element.username)"
+      [checked]="element.active" (click)="activeUser(element)"
       >{{element.active?  'Deactivate' : 'Activate'}} User</mat-slide-toggle>
       </div>
    </div>

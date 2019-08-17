@@ -22,6 +22,94 @@ export function reducer(state= initialState, action: UserActions): AdminState  {
             profiles: InitialStateUsers,
             message: messageLoadUserFail
       };
+      case userActionTypes.LockUserSuccess:
+        const messageLockUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageLockUserSuccess
+      };
+      case userActionTypes.LockUserFail:
+        const messageLockUserFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageLockUserFail
+      };
+      case userActionTypes.UnlockUserSuccess:
+        const messageUnlockUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageUnlockUserSuccess
+      };
+      case userActionTypes.UnlockUserFail:
+        const messageUnlockUserFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageUnlockUserFail
+      };
+      case userActionTypes.ActivateUserSuccess:
+        const messageActivateUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageActivateUserSuccess
+      };
+      case userActionTypes.ActivateUserFail:
+        const messageActivateUserFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageActivateUserFail
+      };
+      case userActionTypes.DeactivateUserSuccess:
+        const messageDeactivateUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageDeactivateUserSuccess
+      };
+      case userActionTypes.DeactivateUserFail:
+        const messageDeactivateUserFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Edit User',
+          snackBarMessage: action.payload,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageDeactivateUserFail
+      };
     default:
       return state;
   }
