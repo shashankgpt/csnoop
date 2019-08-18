@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 import { IProfileAdmin } from '../dataTypes';
 import { IResponse } from 'src/app/shared/dataTypes';
+import { IProfile } from 'src/app/user/dataTypes';
+import { IProfileExtended } from 'src/app/user/dataTypes/profile';
 
 export enum userActionTypes {
   SetActiveUsername = '[Admin] Set Active Username',
@@ -19,6 +21,9 @@ export enum userActionTypes {
   DeactivateUser = '[Admin Api] deactivate User',
   DeactivateUserSuccess = '[Admin Api] deactivate User Success',
   DeactivateUserFail = '[Admin Api] deactivate User Fail',
+  UpdateUser = '[Admin Api] Update User',
+  UpdateUserSuccess = '[Admin Api] Update User Success',
+  UpdateUserFail = '[Admin Api] Update User Fail',
 }
 
 export class SetActiveUsername implements Action {
@@ -97,6 +102,20 @@ export class DeactivateUserFail implements Action {
   readonly type = userActionTypes.DeactivateUserFail;
   constructor(public payload: string) { }
 }
+export class UpdateUser implements Action {
+  readonly type = userActionTypes.UpdateUser;
+  constructor(public payload: IProfileExtended) { }
+}
+
+export class UpdateUserSuccess implements Action {
+  readonly type = userActionTypes.UpdateUserSuccess;
+  constructor(public payload: IResponse) {}
+}
+
+export class UpdateUserFail implements Action {
+  readonly type = userActionTypes.UpdateUserFail;
+  constructor(public payload: string) { }
+}
 export type UserActions = SetActiveUsername |
 LoadAllUser |
 LoadAllUserSuccess |
@@ -112,4 +131,7 @@ ActivateUserSuccess |
 ActivateUserFail |
 DeactivateUser |
 DeactivateUserSuccess |
-DeactivateUserFail ;
+DeactivateUserFail |
+UpdateUser |
+UpdateUserSuccess |
+UpdateUserFail ;

@@ -5,6 +5,7 @@ import * as UserActions from './admin.action';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { IResponse } from 'src/app/shared/dataTypes';
 import { of } from 'rxjs';
+import { IProfileExtended } from 'src/app/user/dataTypes/profile';
 
 @Injectable()
 export class AdminEffects {
@@ -48,4 +49,12 @@ export class AdminEffects {
     mergeMap((username: string) => this.adminService.deactivateUser(username).pipe(
       map((res: IResponse) => new UserActions.DeactivateUserSuccess(res)),
       catchError(err => of(new UserActions.DeactivateUserFail('Unable to deactivate User -' + username))))));
+
+  @Effect()
+  updateUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.UpdateUser),
+    map((action: UserActions.UpdateUser) => action.payload),
+    mergeMap((profile: IProfileExtended) => this.adminService.updateUser(profile).pipe(
+      map((res: IResponse) => new UserActions.UpdateUserSuccess(res)),
+      catchError(err => of(new UserActions.UpdateUserFail('Unable to deactivate User -' + profile.username))))));
 }

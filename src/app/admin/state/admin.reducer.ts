@@ -115,6 +115,28 @@ export function reducer(state= initialState, action: UserActions): AdminState  {
             ...state,
             message: messageDeactivateUserFail
       };
+      case userActionTypes.UpdateUserSuccess:
+        const messageUpdateUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Update User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageUpdateUserSuccess
+      };
+      case userActionTypes.UpdateUserFail:
+        const messageUpdateUserFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Update User',
+          snackBarMessage: action.payload,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageUpdateUserFail
+      };
     default:
       return state;
   }
