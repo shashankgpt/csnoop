@@ -20,7 +20,7 @@ export function reducer(state= initialState, action: UserActions): AdminState  {
             snackBarActive: true,
             snackBarAction: 'View All User',
             snackBarMessage: action.payload,
-            redirectUrl: '/admin/view'
+            redirectUrl: ''
           };
           return {
             ...state,
@@ -158,6 +158,28 @@ export function reducer(state= initialState, action: UserActions): AdminState  {
         return {
             ...state,
             message: messageDeleteUserFail
+      };
+      case userActionTypes.LogoutUserSuccess:
+        const messageLogoutUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Logout User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageLogoutUserSuccess
+      };
+      case userActionTypes.LogoutUserFail:
+        const messageLogoutUserFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Logout User',
+          snackBarMessage: action.payload,
+          redirectUrl: ''
+        };
+        return {
+            ...state,
+            message: messageLogoutUserFail
       };
     default:
       return state;

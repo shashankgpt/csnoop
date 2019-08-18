@@ -32,4 +32,7 @@ export class AdminService {
   deleteUser(userName: string) {
     return this.baseRoute.delete<IResponse>(`admin/${userName}`, {});
   }
+  logoutUser(userName: string) {
+    return this.baseRoute.get<IResponse>(`admin/logoutAll/${userName}`, {});
+  }
 }

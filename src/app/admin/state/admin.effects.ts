@@ -64,5 +64,13 @@ export class AdminEffects {
     map((action: UserActions.DeleteUser) => action.payload),
     mergeMap((username: string) => this.adminService.deleteUser(username).pipe(
       map((res: IResponse) => new UserActions.DeleteUserSuccess(res)),
-      catchError(err => of(new UserActions.DeactivateUserFail('Unable to Delete User -' + username))))));
+      catchError(err => of(new UserActions.DeleteUserFail('Unable to Delete User -' + username))))));
+
+  @Effect()
+  logoutUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.LogoutUser),
+    map((action: UserActions.LogoutUser) => action.payload),
+    mergeMap((username: string) => this.adminService.logoutUser(username).pipe(
+      map((res: IResponse) => new UserActions.LogoutUserSuccess(res)),
+      catchError(err => of(new UserActions.LogoutUserFail('Unable to logout User -' + username))))));
 }

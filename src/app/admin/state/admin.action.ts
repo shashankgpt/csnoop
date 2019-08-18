@@ -27,6 +27,9 @@ export enum userActionTypes {
   DeleteUser = '[Admin Api] Delete User',
   DeleteUserSuccess = '[Admin Api] Delete User Success',
   DeleteUserFail = '[Admin Api] Delete User Fail',
+  LogoutUser = '[Admin Api] Logout User',
+  LogoutUserSuccess = '[Admin Api] Logout User Success',
+  LogoutUserFail = '[Admin Api] Logout User Fail',
 }
 
 export class SetActiveUsername implements Action {
@@ -135,6 +138,22 @@ export class DeleteUserFail implements Action {
   constructor(public payload: string) { }
 }
 
+export class LogoutUser implements Action {
+  readonly type = userActionTypes.LogoutUser;
+  constructor(public payload: string) { }
+}
+
+export class LogoutUserSuccess implements Action {
+  readonly type = userActionTypes.LogoutUserSuccess;
+  constructor(public payload: IResponse) {}
+}
+
+export class LogoutUserFail implements Action {
+  readonly type = userActionTypes.LogoutUserFail;
+  constructor(public payload: string) { }
+}
+
+
 export type UserActions = SetActiveUsername |
 LoadAllUser |
 LoadAllUserSuccess |
@@ -156,4 +175,8 @@ UpdateUserSuccess |
 UpdateUserFail |
 DeleteUser |
 DeleteUserSuccess |
-DeleteUserFail;
+DeleteUserFail |
+LogoutUser |
+LogoutUserSuccess |
+LogoutUserFail;
+
