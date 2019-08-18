@@ -67,7 +67,7 @@
       <div class="btn-div">
         <button class="btn-pad" type="submit" [disabled]="!profileForm.valid" mat-flat-button
           color="primary">Submit</button>
-        <button class="btn-pad" type="button"  mat-flat-button color="primary">Delete</button>
+          <button class="btn-pad" type="button" (click)="delete()" mat-flat-button color="primary">Delete</button>
       </div>
     </form>
   </div>

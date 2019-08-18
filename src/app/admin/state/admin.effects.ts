@@ -57,4 +57,12 @@ export class AdminEffects {
     mergeMap((profile: IProfileExtended) => this.adminService.updateUser(profile).pipe(
       map((res: IResponse) => new UserActions.UpdateUserSuccess(res)),
       catchError(err => of(new UserActions.UpdateUserFail('Unable to deactivate User -' + profile.username))))));
+
+  @Effect()
+  deleteUser$ = this.actions$.pipe(
+    ofType(UserActions.userActionTypes.DeleteUser),
+    map((action: UserActions.DeleteUser) => action.payload),
+    mergeMap((username: string) => this.adminService.deleteUser(username).pipe(
+      map((res: IResponse) => new UserActions.DeleteUserSuccess(res)),
+      catchError(err => of(new UserActions.DeactivateUserFail('Unable to Delete User -' + username))))));
 }

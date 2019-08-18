@@ -87,8 +87,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AdminActions.UpdateUser(p));
 
   }
+  delete() {
+    this.store.dispatch(new AdminActions.DeleteUser(this.username));
+  }
   ngOnDestroy() {
     this.componentActive = false;
   }
 }
+
 

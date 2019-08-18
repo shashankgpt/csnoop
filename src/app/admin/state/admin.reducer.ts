@@ -137,6 +137,28 @@ export function reducer(state= initialState, action: UserActions): AdminState  {
             ...state,
             message: messageUpdateUserFail
       };
+      case userActionTypes.DeleteUserSuccess:
+        const messageDeleteUserSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Delete User',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/admin/allUsers'
+        };
+        return {
+            ...state,
+            message: messageDeleteUserSuccess
+      };
+      case userActionTypes.DeleteUserFail:
+        const messageDeleteUserFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Admin Delete User',
+          snackBarMessage: action.payload,
+          redirectUrl: ''
+        };
+        return {
+            ...state,
+            message: messageDeleteUserFail
+      };
     default:
       return state;
   }

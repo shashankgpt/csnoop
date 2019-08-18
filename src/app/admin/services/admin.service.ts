@@ -29,4 +29,7 @@ export class AdminService {
   updateUser(userProfile: IProfileExtended) {
     return this.baseRoute.put<IResponse, IProfile>(`admin/${userProfile.username}`, userProfile.profile);
   }
+  deleteUser(userName: string) {
+    return this.baseRoute.delete<IResponse>(`admin/${userName}`, {});
+  }
 }
