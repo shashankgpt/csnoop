@@ -34,8 +34,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   get f2() {
-    // TO DO: need to fix
-    return this.registerForm.controls.passwordForm['controls'];
+    return ( this.f.passwordForm as FormGroup).controls;
   }
 
   onSubmit() {
