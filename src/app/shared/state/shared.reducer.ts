@@ -5,7 +5,7 @@ import { sharedActionTypes, SharedActions } from './shared.action';
 
 
 
-export function reducer(state: SharedState = initialState, action: SharedActions): SharedState{
+export function reducer(state: SharedState = initialState, action: SharedActions): SharedState {
   // console.log('shared state' + JSON.stringify(state));
   // console.log('payload' + action.payload);
   switch (action.type) {

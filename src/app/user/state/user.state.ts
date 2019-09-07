@@ -1,5 +1,5 @@
 import { IProfile} from '../dataTypes';
-import {ISnackbar} from '../../dataTypes/snackbar'
+import {ISnackbar} from '../../dataTypes/snackbar';
 import {roleObject, role} from '../dataTypes/role-info';
 
 export interface UserState {
@@ -26,12 +26,12 @@ export const roleInitialState: RoleState = {
   roleCode: role.user,
   roleName: roleObject[role.user]
 };
-const message: ISnackbar ={
+const message: ISnackbar = {
   snackBarActive: false,
   snackBarAction: '',
   snackBarMessage: '',
   redirectUrl: ''
-}
+};
 export const initialState: UserState = {
   message,
   username: '',
