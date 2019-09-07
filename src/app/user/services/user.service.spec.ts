@@ -11,10 +11,10 @@ describe('UserService', () => {
 
   beforeEach(() => {
     mockHttp = jasmine.createSpyObj('mockHttp', ['getLoggedInUser',
-  'logoutUser', 'updateLoggedInUser', 'updatePassword', 'deleteUser', 'delete']);
+      'logoutUser', 'updateLoggedInUser', 'updatePassword', 'deleteUser', 'delete']);
     userService = new UserService(mockHttp);
     TestBed.configureTestingModule({});
-    }
+  }
   );
 
   it('should be created', () => {
@@ -23,17 +23,29 @@ describe('UserService', () => {
   });
 
   describe('deleteUser', () => {
-    it('should remove user ' , () => {
+    it('should remove user ', () => {
       // need to improve this
-    const res: IResponse = {
-      statusCode: 200,
-      data: 'User is deleted',
-      dateTime: 1,
-      Message: 'Done'
-    };
-    mockHttp.deleteUser.and.returnValue(of(res));
-    userService.deleteUser();
-    expect(res.statusCode).toBe(200);
+      const res: IResponse = {
+        statusCode: 200,
+        data: 'User is deleted',
+        dateTime: 1,
+        Message: 'Done'
+      };
+      mockHttp.deleteUser.and.returnValue(of(res));
+      userService.deleteUser();
+      expect(res.statusCode).toBe(200);
+    });
+    it('should call delete user with right url ', () => {
+      // need to improve this
+      const res: IResponse = {
+        statusCode: 200,
+        data: 'User is deleted',
+        dateTime: 1,
+        Message: 'Done'
+      };
+      mockHttp.deleteUser.and.returnValue(of(res));
+      userService.deleteUser();
+      expect(mockHttp.delete).toHaveBeenCalledWith('user', {});
+    });
   });
-});
 });
