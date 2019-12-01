@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 // For Development Only
 import {StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BlogModule } from './blog/blog.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument({
       name: 'codesnoop1',
       maxAge: 25,
-    })
+    }),
+    BlogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

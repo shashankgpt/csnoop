@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseRouteService } from '../../shared/services/base-route.service';
 import { IResponse } from '../../shared/dataTypes';
-import { ILogin, IRegister } from '../dataTypes/index';
+import {  IRegister } from '../dataTypes/register';
 import { HttpHeaders } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
 // import { tap } from 'rxjs/operators';

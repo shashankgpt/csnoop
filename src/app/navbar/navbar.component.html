@@ -7,6 +7,7 @@
     <mat-nav-list>
       <a mat-list-item routerLink="/contact" routerLinkActive="active">Contact Us</a>
       <a mat-list-item routerLink="/admin/allUsers" routerLinkActive="active">Admin</a>
+      <a mat-list-item routerLink="/blog" routerLinkActive="active">Blog</a>
       <span *ngIf="!logged">
       <a mat-list-item routerLink="/auth/login" routerLinkActive="active">Login</a>
       <a mat-list-item routerLink="/auth/register" routerLinkActive="active">Register</a>
@@ -23,7 +24,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">Menu</mat-icon>
       </button>
-      <span>CodeSnooper</span>
+      <span>CodeSnooper2</span>
       <div *ngIf="logged" class="move-right"><button mat-button [matMenuTriggerFor]="userMenu"><mat-icon aria-hidden="false" aria-label="Example face icon" class="icon-space">face</mat-icon>{{username}}</button>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item routerLink="/user/view">View</button>
