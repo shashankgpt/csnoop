@@ -8,14 +8,14 @@ import { of } from 'rxjs';
 import { IBlogReg } from '../dataTypes';
 
 @Injectable()
-export class AdminEffects {
+export class BlogEffects {
   constructor(private actions$: Actions, private blogService: BlogService) { }
 
   @Effect()
   loadAllBlogs$ = this.actions$.pipe(
     ofType(BlogActions.blogActionTypes.LoadAllBlog),
     exhaustMap((action: BlogActions.LoadAllBlog) => this.blogService.getAllBlogs().pipe(
-      map((res: IResponse) => new BlogActions.LoadAllBlogSuccess(res.data.Blogs)),
+      map((res: IResponse) => new BlogActions.LoadAllBlogSuccess(res.data.blogs)),
       catchError(err => of(new BlogActions.LoadAllBlogFail('Unable to load All Blog'))))));
 
   @Effect()
