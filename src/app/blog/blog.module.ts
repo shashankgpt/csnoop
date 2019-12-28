@@ -15,8 +15,10 @@ import * as fromBlog from './state';
 import { takeWhile } from 'rxjs/operators';
 import * as SharedActions from '../shared/state/shared.action';
 import * as BlogActions from './state/blog.action';
+import { RegisterBlogComponent } from './register-blog/register-blog.component';
+import { ViewBlogComponent } from './view-blog/view-blog.component';
 @NgModule({
-  declarations: [BlogsComponent],
+  declarations: [BlogsComponent, RegisterBlogComponent, ViewBlogComponent],
   imports: [
     CommonModule,
     BlogRoutingModule,
