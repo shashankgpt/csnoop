@@ -4,6 +4,7 @@ import * as fromBlog from '../state';
 import * as BlogActions from '../state/blog.action';
 import { Store } from '@ngrx/store';
 import { IBlogReg } from '../dataTypes';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-register-blog',
@@ -16,6 +17,7 @@ export class RegisterBlogComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  isEditable = false;
   registerFormGroup1 = new FormGroup({
     blogId: new FormControl('', [Validators.required]),
     blogName: new FormControl('', [Validators.required]),
@@ -43,4 +45,12 @@ export class RegisterBlogComponent implements OnInit {
   get f2() {
     return this.registerFormGroup2.controls;
   }
+
+goBack(stepper: MatStepper){
+    stepper.previous();
+}
+
+goForward(stepper: MatStepper){
+    stepper.next();
+}
 }

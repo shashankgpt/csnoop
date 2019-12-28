@@ -1,63 +1,66 @@
 <app-form-view [title]="head">
-  <div class="main-form">
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+    <div class="main-form">
+<button mat-raised-button (click)="isEditable = !isEditable">
+  {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
 </button>
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="registerFormGroup1" [optional]="'false'">
+
+<mat-horizontal-stepper linear #stepper>
+  <mat-step [stepControl]="registerFormGroup1" [editable]="isEditable">
     <form [formGroup]="registerFormGroup1">
       <ng-template matStepLabel>Fill out your name</ng-template>
+
       <mat-form-field>
-        <input matInput placeholder="blogId" formControlName="blogId" required>
-        <mat-error *ngIf="!(f.blogId.valid && f.blogId.touched)">
-          Username is Required
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="blogName" formControlName="blogName" required>
-        <mat-error *ngIf="!(f.blogName.valid && f.blogName.touched)">
-          Username is Required
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="category" formControlName="category" required>
-        <mat-error *ngIf="!(f.category.valid && f.category.touched)">
-          Username is Required
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="author" formControlName="author" required>
-        <mat-error *ngIf="!(f.author.valid && f.author.touched)">
-          Username is Required
-        </mat-error>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+          <input matInput placeholder="blogId" formControlName="blogId" required>
+          <mat-error *ngIf="!(f.blogId.valid && f.blogId.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="blogName" formControlName="blogName" required>
+          <mat-error *ngIf="!(f.blogName.valid && f.blogName.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="category" formControlName="category" required>
+          <mat-error *ngIf="!(f.category.valid && f.category.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="author" formControlName="author" required>
+          <mat-error *ngIf="!(f.author.valid && f.author.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-button (click)="goForward(stepper)" type="button">Next</button>
+        <!-- <button mat-button matStepperNext>Next</button> -->
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="registerFormGroup2">
+  <mat-step [stepControl]="registerFormGroup2" [editable]="isEditable">
     <form [formGroup]="registerFormGroup2">
       <ng-template matStepLabel>Fill out your address</ng-template>
       <mat-form-field>
-        <input matInput placeholder="blogHeading" formControlName="blogHeading" required>
-        <mat-error *ngIf="!(f2.blogHeading.valid && f2.blogHeading.touched)">
-          Username is Required
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="details" formControlName="details" required>
-        <mat-error *ngIf="!(f2.details.valid && f2.details.touched)">
-          Username is Required
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="tags" formControlName="tags" required>
-        <mat-error *ngIf="!(f2.tags.valid && f2.tags.touched)">
-          Username is Required
-        </mat-error>
-      </mat-form-field>
-      <div>
+          <input matInput placeholder="blogHeading" formControlName="blogHeading" required>
+          <mat-error *ngIf="!(f2.blogHeading.valid && f2.blogHeading.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="details" formControlName="details" required>
+          <mat-error *ngIf="!(f2.details.valid && f2.details.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="tags" formControlName="tags" required>
+          <mat-error *ngIf="!(f2.tags.valid && f2.tags.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+        <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
@@ -72,5 +75,5 @@
     </div>
   </mat-step>
 </mat-horizontal-stepper>
-  </div>
+</div>
 </app-form-view>
