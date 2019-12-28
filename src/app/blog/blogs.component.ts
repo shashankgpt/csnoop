@@ -50,26 +50,27 @@ export class BlogsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.componentActive = false;
   }
-  // lockUser(user: IProfileAdmin) {
-  //   if (user.lock) {
-  //     this.store.dispatch(new AdminActions.UnlockUser(user.username));
-  //     return true;
-  //   }
-  //   this.store.dispatch(new AdminActions.LockUser(user.username));
-  // }
-  // activeUser(user: IProfileAdmin) {
-  //   if (user.active) {
-  //     this.store.dispatch(new AdminActions.DeactivateUser(user.username));
-  //     return true;
-  //   }
-  //   this.store.dispatch(new AdminActions.ActivateUser(user.username));
-  // }
+  lockBlog(blog: IBlogReg) {
+    if (blog.flagged) {
+      this.store.dispatch(new BlogActions.UnFlaggedBlog(blog.blogId));
+      return true;
+    }
+    this.store.dispatch(new BlogActions.FlaggedBlog(blog.blogId));
+  }
+  activeBlog(blog: IBlogReg) {
+    //alert(blog.active);
+    if (blog.active) {
+      this.store.dispatch(new BlogActions.DeactivateBlog(blog.blogId));
+      return true;
+    }
+    this.store.dispatch(new BlogActions.ActivateBlog(blog.blogId));
+  }
   loadAllBlogs() {
     this.store.dispatch(new BlogActions.LoadAllBlog());
   }
-  // moveToEditUser(user: IProfileAdmin) {
-  //   this.store.dispatch(new AdminActions.SetActiveUsername(user.username));
-  //   this.router.navigate([`admin/editUser/${user.username}`]);
-  // }
+  moveToEditBlog(blog: IBlogReg) {
+    this.store.dispatch(new BlogActions.LoadBlog(blog.blogId));
+    this.router.navigate([`blog/view/${blog.blogId}`]);
+  }
 }
 

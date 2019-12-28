@@ -2,12 +2,14 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestro
 import { IBlogReg,IBlog } from '../dataTypes';
 import { Store, select } from '@ngrx/store';
 import * as fromBlog from '../state';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as BlogActions from '../state/blog.action';
 import { takeWhile } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import * as fromShared from '../../shared/state';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-view-blog',
@@ -15,54 +17,102 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   styleUrls: ['./view-blog.component.scss']
 })
 export class ViewBlogComponent implements OnInit, OnDestroy {
+  isEditable = false;
   componentActive = true;
-  head = 'All Blogs';
+  head = 'Blog Details';
+  blogReg: IBlogReg;
+  filteredProfile: IBlogReg;
+  updateProfile: IBlogReg;
   error = '';
   errorMessage$: Observable<string>;
-  expandedElement: IBlog | null;
-  columnsToDisplay: string[] = ['blogId', 'blogName', 'category', 'createdAt'];
-  lock = false;
-  dataSource: Observable<IBlogReg[]>;
-  constructor(private store: Store<fromBlog.State>, private shareStore: Store<fromShared.State>, private router: Router
-    ,         private cd: ChangeDetectorRef) { }
+  blog: string;
+  blogForm = new FormGroup({
+    blogName: new FormControl('', [Validators.required]),
+    category: new FormControl('', [Validators.required]),
+  });
+  blogFormDetails = new FormGroup({
+    blogHeading: new FormControl('', [Validators.required]),
+    details: new FormControl('', [Validators.required]),
+    pageNo: new FormControl('', [Validators.required]),
+  });
+  constructor(private store: Store<fromBlog.State>, private shareStore: Store<fromShared.State>, private router: Router,
+              private cd: ChangeDetectorRef, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadAllBlogs();
-    this.store.pipe(select(fromBlog.getBlogsData),
-      takeWhile(() => this.componentActive)).subscribe((blogs) => {
-        console.log("blogs",blogs)
-        if (blogs[0].blogId) {
-          this.dataSource = of(blogs);
-          this.cd.detectChanges();
+    this.store.pipe(select(fromBlog.getActiveBlogID),
+      takeWhile(() => this.componentActive)).subscribe((blog) => {
+        this.blogReg = blog;
+        console.log("myblog",blog);
+        this.f.blogName.setValue (blog.blogName);
+        this.f.category.setValue (blog.category);
+        if (!blog) {
+          if (this.route.snapshot.paramMap.has('blogId')) {
+            this.blog = this.route.snapshot.paramMap.get('blogId');
+            this.getBlog(this.blog);
+          }
+
+          //this.moveToAllUsers();
         }
       });
   }
-  moveToEdit() {
-    this.router.navigate(['/user/edit']);
+  get f() {
+    return this.blogForm.controls;
+  }
+  get f2() {
+    return this.blogFormDetails.controls;
+  }
+  goBack(stepper: MatStepper){
+    stepper.previous();
+}
+
+goForward(stepper: MatStepper){
+    stepper.next();
+}
+  moveToAllUsers() {
+    this.router.navigate(['/admin/allUsers']);
+  }
+  // onSubmit() {
+  //   const profile: IProfile = {
+  //     firstName: this.profileForm.value.firstName,
+  //     lastName: this.profileForm.value.lastName,
+  //     email: this.profileForm.value.email,
+  //     gender: this.profileForm.value.gender,
+  //     location: this.profileForm.value.location,
+  //     website: this.profileForm.value.website
+  //   };
+  //   const p: IProfileExtended = { username: this.blog, profile: { ...profile } };
+  //   this.store.dispatch(new AdminActions.UpdateUser(p));
+
+  // }
+  delete() {
+    this.store.dispatch(new BlogActions.DeleteBlog(this.blog));
+  }
+  // killAllSessions() {
+  //   this.store.dispatch(new AdminActions.LogoutUser(this.blog));
+  // }
+  getBlog(blogId: string) {
+    this.store.dispatch(new BlogActions.LoadBlog(blogId));
   }
   ngOnDestroy() {
     this.componentActive = false;
   }
-  // lockUser(user: IProfileAdmin) {
-  //   if (user.lock) {
-  //     this.store.dispatch(new AdminActions.UnlockUser(user.username));
-  //     return true;
-  //   }
-  //   this.store.dispatch(new AdminActions.LockUser(user.username));
-  // }
-  // activeUser(user: IProfileAdmin) {
-  //   if (user.active) {
-  //     this.store.dispatch(new AdminActions.DeactivateUser(user.username));
-  //     return true;
-  //   }
-  //   this.store.dispatch(new AdminActions.ActivateUser(user.username));
-  // }
-  loadAllBlogs() {
-    this.store.dispatch(new BlogActions.LoadBlog('alpha2'));
+  onSubmit() {
+    // console.log(this.f.email);
+    const { blogName, category } = this.blogForm.value;
+    const { blogHeading, details, pageNo } = this.blogFormDetails.value;
+    const blogVal: IBlog = {
+      blogHeading,
+      details,
+      pageNo,
+    };
+    let blog = this.blogReg.blog;
+    blog.push(blogVal);
+    this.blogReg.blogName = blogName;
+    this.blogReg.category = category;
+    this.blogReg.blog = blog ;
+    this.blogReg.details = "test" ;
+    this.store.dispatch(new BlogActions.UpdateBlog(this.blogReg));
   }
-  // moveToEditUser(user: IProfileAdmin) {
-  //   this.store.dispatch(new AdminActions.SetActiveUsername(user.username));
-  //   this.router.navigate([`admin/editUser/${user.username}`]);
-  // }
 }
+
 

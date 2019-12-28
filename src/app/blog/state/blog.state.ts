@@ -3,7 +3,7 @@ import {ISnackbar} from '../../dataTypes/snackbar';
 
 export interface BlogState {
   blogs: IBlogReg[];
-  activeBlog: {};
+  activeBlog: IBlogReg;
   message: ISnackbar;
 }
 export const blogPage: IBlog = {

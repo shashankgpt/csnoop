@@ -66,11 +66,11 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
             ...state,
             message: messageRegisterBlogFail
       };
-      case blogActionTypes.FlaggedBlog:
+      case blogActionTypes.FlaggedBlogSuccess:
         const messageFlaggedBlogSuccess: ISnackbar = {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
-          snackBarMessage: action.payload,
+          snackBarMessage: action.payload.Message,
           redirectUrl: '/blog/allBlogs'
         };
         return {
