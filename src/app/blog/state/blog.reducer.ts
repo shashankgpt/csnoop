@@ -10,6 +10,23 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
             ...state,
             activeBlog: action.payload,
       };
+      case blogActionTypes.LoadBlogSuccess:
+        return {
+          ...state,
+          activeBlog: action.payload.data.blog,
+    };
+    case blogActionTypes.LoadBlogFail:
+        const messageBlogFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'View All Blog',
+          snackBarMessage: action.payload,
+          redirectUrl: ''
+        };
+        return {
+          ...state,
+          activeBlog: {},
+          message: messageBlogFail
+    };
       case blogActionTypes.LoadAllBlogSuccess:
           return {
             ...state,
@@ -25,7 +42,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           return {
             ...state,
             blogs: InitialStateBlogs,
-            message: messageLoadBlogFail
+            message: messageBlogFail
       };
       case blogActionTypes.RegisterBlogSuccess:
         const messageRegisterBlogSuccess: ISnackbar = {

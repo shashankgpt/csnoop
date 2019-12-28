@@ -24,6 +24,14 @@ export class BlogEffects {
     exhaustMap((action: BlogActions.LoadAllBlog) => this.blogService.getAllBlogs().pipe(
       map((res: IResponse) => new BlogActions.LoadAllBlogSuccess(res.data.blogs)),
       catchError(err => of(new BlogActions.LoadAllBlogFail('Unable to load All Blog'))))));
+  @Effect()
+    loadBlog$ = this.actions$.pipe(
+      ofType(BlogActions.blogActionTypes.LoadBlog),
+      map((action: BlogActions.LoadBlog) => action.payload),
+      mergeMap((blogId: string) => this.blogService.loadBlog(blogId).pipe(
+        map((res: IResponse) => new BlogActions.LoadBlogSuccess(res)),
+        catchError(err => of(new BlogActions.LoadBlogFail('Unable to Load Blog-'+ blogId))))));
+
 
   @Effect()
   FlaggedBlog$ = this.actions$.pipe(
