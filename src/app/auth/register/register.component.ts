@@ -21,7 +21,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       confirmPassword: new FormControl('', [Validators.required]),
     })
   });
-
   hide = true;
   componentActive = true;
   constructor(private store: Store<fromAuth.State>) { }

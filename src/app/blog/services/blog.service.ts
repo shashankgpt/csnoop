@@ -30,4 +30,7 @@ export class BlogService {
   deleteBlog(BlogId: string) {
     return this.baseRoute.delete<IResponse>(`blog/deleteBlogId/${BlogId}`, {});
   }
+  registerBlog(blog:IBlogReg){
+    return this.baseRoute.post<IResponse>(`blog`, blog);
+  }
 }

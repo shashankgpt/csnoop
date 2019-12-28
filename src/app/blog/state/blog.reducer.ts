@@ -27,6 +27,28 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
             blogs: InitialStateBlogs,
             message: messageLoadBlogFail
       };
+      case blogActionTypes.RegisterBlogSuccess:
+        const messageRegisterBlogSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'blog register success',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: '/blog/allBlogs'
+        };
+        return {
+            ...state,
+            message: messageRegisterBlogSuccess
+      };
+      case blogActionTypes.RegisterBlogFail:
+        const messageRegisterBlogFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'blog register fail',
+          snackBarMessage: action.payload,
+          redirectUrl: '/blog/allBlogs'
+        };
+        return {
+            ...state,
+            message: messageRegisterBlogFail
+      };
       case blogActionTypes.FlaggedBlog:
         const messageFlaggedBlogSuccess: ISnackbar = {
           snackBarActive: true,
@@ -80,7 +102,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
         };
         return {
             ...state,
-            message: messageActivateBlogSuccess
+            message: messageRegisterBlogSuccess
       };
       case blogActionTypes.ActivateBlogFail:
         const messageActivateBlogFail: ISnackbar = {
@@ -91,7 +113,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
         };
         return {
             ...state,
-            message: messageActivateBlogFail
+            message: messageRegisterBlogFail
       };
       case blogActionTypes.DeactivateBlogSuccess:
         const messageDeactivateBlogSuccess: ISnackbar = {

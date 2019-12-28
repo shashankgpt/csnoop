@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
 import * as fromBlog from '../state';
 import * as BlogActions from '../state/blog.action';
 import { Store } from '@ngrx/store';
-import { IBlogReg } from '../dataTypes';
+import { IBlogReg, IBlog } from '../dataTypes';
 import { MatStepper } from '@angular/material/stepper';
 
 @Component({
@@ -29,15 +29,11 @@ export class RegisterBlogComponent implements OnInit {
     details: new FormControl('', [Validators.required]),
     tags: new FormControl('', [Validators.required]),
   });
-  constructor(private _formBuilder: FormBuilder) {}
+  hide = true;
+  componentActive = true;
+  constructor(private store: Store<fromBlog.State>) {}
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
   }
   get f() {
     return this.registerFormGroup1.controls;
@@ -52,5 +48,31 @@ goBack(stepper: MatStepper){
 
 goForward(stepper: MatStepper){
     stepper.next();
+}
+ngOnDestroy() {
+  this.componentActive = false;
+}
+onSubmit() {
+  // console.log(this.f.email);
+  const { blogId, blogName, category,author } = this.registerFormGroup1.value;
+  const { blogHeading, details, tags } = this.registerFormGroup2.value;
+  const blog: IBlog[] =[ {
+    blogHeading,
+    details,
+    pageNo:"1"
+  }];
+  const reg: IBlogReg = {
+    blogId,
+    blogName,
+    category,
+    tags,
+    blog,
+    author:'shanky',
+    userName:'shanky',
+    flagged:false,
+    active:true,
+    details
+  };
+  this.store.dispatch(new BlogActions.RegisterBlog(reg));
 }
 }

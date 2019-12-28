@@ -4,6 +4,9 @@ import { IResponse } from 'src/app/shared/dataTypes';
 
 export enum blogActionTypes {
   SetActiveBlog = '[Blog] Set Active Blog',
+  RegisterBlog = '[Blog] Register Blog',
+  RegisterBlogSuccess = '[Blog] register Blog Success',
+  RegisterBlogFail = '[Blog] Register Blog Fail',
   LoadAllBlog = '[Blog] Load All Blog',
   LoadAllBlogSuccess = '[Blog] Load All Blog Success',
   LoadAllBlogFail = '[Blog] Load All Blog Fail',
@@ -46,6 +49,20 @@ export class LoadAllBlogSuccess implements Action {
 
 export class LoadAllBlogFail implements Action {
   readonly type = blogActionTypes.LoadAllBlogFail;
+  constructor(public payload: string) { }
+}
+export class RegisterBlog implements Action {
+  readonly type = blogActionTypes.RegisterBlog;
+  constructor(public payload: IBlogReg) {}
+}
+
+export class RegisterBlogSuccess implements Action {
+  readonly type = blogActionTypes.RegisterBlogSuccess;
+  constructor(public payload: IResponse) {}
+}
+
+export class RegisterBlogFail implements Action {
+  readonly type = blogActionTypes.RegisterBlogFail;
   constructor(public payload: string) { }
 }
 
@@ -156,6 +173,9 @@ export type BlogActions = SetActiveBlogname |
 LoadAllBlog |
 LoadAllBlogSuccess |
 LoadAllBlogFail |
+RegisterBlog |
+RegisterBlogSuccess |
+RegisterBlogFail |
 FlaggedBlog |
 FlaggedBlogSuccess |
 FlaggedBlogFail |

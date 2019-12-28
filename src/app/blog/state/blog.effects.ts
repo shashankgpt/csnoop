@@ -10,6 +10,13 @@ import { IBlogReg } from '../dataTypes';
 @Injectable()
 export class BlogEffects {
   constructor(private actions$: Actions, private blogService: BlogService) { }
+  @Effect()
+  registerBlog$ = this.actions$.pipe(
+    ofType(BlogActions.blogActionTypes.RegisterBlog),
+    map((action: BlogActions.RegisterBlog) => action.payload),
+    mergeMap((blog: IBlogReg) => this.blogService.registerBlog(blog).pipe(
+      map((res: IResponse) => new BlogActions.RegisterBlogSuccess(res)),
+      catchError(err => of(new BlogActions.RegisterBlogFail('Unable to register Blog'))))));
 
   @Effect()
   loadAllBlogs$ = this.actions$.pipe(
