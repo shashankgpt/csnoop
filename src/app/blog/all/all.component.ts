@@ -26,6 +26,7 @@ export class AllComponent implements OnInit, OnDestroy {
   componentActive = true;
   head = 'All Blogs';
   error = '';
+  blogs:IBlogReg[];
   errorMessage$: Observable<string>;
   expandedElement: IBlog | null;
   columnsToDisplay: string[] = ['blogId', 'blogName', 'category', 'createdAt'];
@@ -38,6 +39,7 @@ export class AllComponent implements OnInit, OnDestroy {
     this.loadAllBlogs();
     this.store.pipe(select(fromBlog.getBlogsData),
       takeWhile(() => this.componentActive)).subscribe((blogs) => {
+        this.blogs = blogs;
         console.log("blogs",blogs)
         if (blogs[0].blogId) {
           this.dataSource = of(blogs);
