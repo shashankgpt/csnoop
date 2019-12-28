@@ -17,8 +17,10 @@ import * as SharedActions from '../shared/state/shared.action';
 import * as BlogActions from './state/blog.action';
 import { RegisterBlogComponent } from './register-blog/register-blog.component';
 import { ViewBlogComponent } from './view-blog/view-blog.component';
+import { DetailComponent } from './detail/detail.component';
+import { AllComponent } from './all/all.component';
 @NgModule({
-  declarations: [BlogsComponent, RegisterBlogComponent, ViewBlogComponent],
+  declarations: [BlogsComponent, RegisterBlogComponent, ViewBlogComponent, DetailComponent, AllComponent],
   imports: [
     CommonModule,
     BlogRoutingModule,
