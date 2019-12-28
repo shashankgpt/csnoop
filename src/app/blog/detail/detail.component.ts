@@ -17,10 +17,12 @@ import { MatStepper } from '@angular/material/stepper';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit, OnDestroy {
+  initalVal = 0;
   isEditable = false;
   componentActive = true;
   head = 'Blog Details';
   blogReg: IBlogReg;
+  blogDisplay:IBlog;
   filteredProfile: IBlogReg;
   updateProfile: IBlogReg;
   error = '';
@@ -42,6 +44,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.store.pipe(select(fromBlog.getActiveBlogID),
       takeWhile(() => this.componentActive)).subscribe((blog) => {
         this.blogReg = blog;
+        if(this.blogReg)
+          this.blogDisplay = this.blogReg.blog[this.initalVal]
         this.cd.detectChanges();
         console.log("myblog",this.blogReg);
         this.f.blogName.setValue (blog.blogName);
@@ -113,6 +117,10 @@ goForward(stepper: MatStepper){
     this.blogReg.blog = blog ;
     this.blogReg.details = "test" ;
     this.store.dispatch(new BlogActions.UpdateBlog(this.blogReg));
+  }
+  next(){
+    this.initalVal++;
+    this.blogDisplay = this.blogReg.blog[this.initalVal]
   }
 }
 

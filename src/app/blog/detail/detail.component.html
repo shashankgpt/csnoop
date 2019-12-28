@@ -1,6 +1,6 @@
 <app-form-view [title]="head">
     <div class="main-form">
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="blogReg.blogName">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{blogReg.blogName}}</mat-card-title>
@@ -9,12 +9,14 @@
     <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
     <mat-card-content>
       <p>
-          {{blogReg.blogName}}
+          {{blogDisplay.blogHeading}}
+          <br>
+          {{blogDisplay.details}}
       </p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+      <button mat-button (click)="next()">Next</button>
     </mat-card-actions>
   </mat-card>
     </div>
