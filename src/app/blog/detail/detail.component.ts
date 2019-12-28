@@ -42,13 +42,14 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.store.pipe(select(fromBlog.getActiveBlogID),
       takeWhile(() => this.componentActive)).subscribe((blog) => {
         this.blogReg = blog;
-        console.log("myblog",blog);
+        this.cd.detectChanges();
+        console.log("myblog",this.blogReg);
         this.f.blogName.setValue (blog.blogName);
         this.f.category.setValue (blog.category);
         if (!blog) {
           if (this.route.snapshot.paramMap.has('blogId')) {
             this.blog = this.route.snapshot.paramMap.get('blogId');
-            this.getBlog(this.blog);
+           // this.getBlog(this.blog);
           }
 
           //this.moveToAllUsers();

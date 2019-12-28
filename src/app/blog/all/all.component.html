@@ -20,8 +20,7 @@
               </p>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
+              <button mat-button (click)="viewBlog(blogs[i])">VIEW</button>
             </mat-card-actions>
           </mat-card>
           <mat-card class="example-card">
@@ -37,8 +36,7 @@
                 </p>
               </mat-card-content>
               <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
+                <button mat-button (click)="viewBlog(blogs[i+1])">VIEW</button>
               </mat-card-actions>
             </mat-card>
             <mat-card class="example-card">
@@ -54,8 +52,7 @@
                   </p>
                 </mat-card-content>
                 <mat-card-actions>
-                  <button mat-button>LIKE</button>
-                  <button mat-button>SHARE</button>
+                  <button mat-button (click)="viewBlog(blogs[i+2])">VIEW</button>
                 </mat-card-actions>
               </mat-card>
       </div>
