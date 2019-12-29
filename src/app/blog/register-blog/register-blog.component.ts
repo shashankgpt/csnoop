@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup,FormArray } from '@angular/forms';
 import * as fromBlog from '../state';
 import * as BlogActions from '../state/blog.action';
@@ -20,7 +20,9 @@ export class RegisterBlogComponent implements OnInit {
   isEditable = false;
   orderForm: FormGroup;
 items: FormArray;
-
+formGroup : FormGroup;
+  form: FormArray;
+  @ViewChild('stepper',{static: false}) stepper: MatStepper;
   registerFormGroup1 = new FormGroup({
     blogId: new FormControl('', [Validators.required]),
     blogName: new FormControl('', [Validators.required]),
@@ -37,11 +39,37 @@ items: FormArray;
   constructor(private store: Store<fromBlog.State>,private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.orderForm = this.formBuilder.group({
-      customerName: '',
-      email: '',
-      items: this.formBuilder.array([ this.createItem() ])
-    });
+    this.formGroup = this.formBuilder.group({
+      cont :new FormControl('', [Validators.required]),
+      blogId: new FormControl('', [Validators.required]),
+      blogName: new FormControl('', [Validators.required]),
+      category: new FormControl('', [Validators.required]),
+      author: new FormControl('', [Validators.required]),
+      form : this.formBuilder.array([this.init2()])
+    })
+    //this.addItem();
+  }
+  init(){
+    return this.formBuilder.group({
+      cont :new FormControl('', [Validators.required]),
+      blogId: new FormControl('', [Validators.required]),
+      blogName: new FormControl('', [Validators.required]),
+      category: new FormControl('', [Validators.required]),
+      author: new FormControl('', [Validators.required]),
+    })
+  }
+  init2(){
+    return this.formBuilder.group({
+      cont :new FormControl('', [Validators.required]),
+      blogHeading: new FormControl('', [Validators.required]),
+      details: new FormControl('', [Validators.required]),
+      tags: new FormControl('', [Validators.required]),
+    })
+  }
+
+  addItem(){
+    this.form = this.formGroup.get('form') as FormArray;
+    this.form.push(this.init2());
   }
   createItem(): FormGroup {
     return this.formBuilder.group({
@@ -50,10 +78,10 @@ items: FormArray;
       price: ''
     });
   }
-  addItem(): void {
-    this.items = this.orderForm.get('items') as FormArray;
-    this.items.push(this.createItem());
-  }
+  // addItem(): void {
+  //   this.items = this.orderForm.get('items') as FormArray;
+  //   this.items.push(this.createItem());
+  // }
   get f() {
     return this.registerFormGroup1.controls;
   }
@@ -66,10 +94,26 @@ items: FormArray;
 
 goBack(stepper: MatStepper){
     stepper.previous();
+    this.formGroup.statusChanges.subscribe(
+      status => {
+        if (status === 'VALID') {
+          this.stepper.next();
+        }
+  console.log(status);
+}
+)
 }
 
 goForward(stepper: MatStepper){
-    stepper.next();
+  stepper.next();
+  this.formGroup.statusChanges.subscribe(
+    status => {
+      if (status === 'VALID') {
+
+      }
+console.log(status);
+}
+)
 }
 ngOnDestroy() {
   this.componentActive = false;
@@ -77,6 +121,7 @@ ngOnDestroy() {
 onSubmit() {
   // console.log(this.f.email);
   const { blogId, blogName, category,author } = this.registerFormGroup1.value;
+  console.log()
   const { blogHeading, details, tags } = this.registerFormGroup2.value;
   const blog: IBlog[] =[ {
     blogHeading,
