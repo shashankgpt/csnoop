@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup,FormArray } from '@angular/forms';
 import * as fromBlog from '../state';
 import * as BlogActions from '../state/blog.action';
@@ -17,22 +17,24 @@ export class RegisterBlogComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  isEditable = false;
   orderForm: FormGroup;
 items: FormArray;
 formGroup : FormGroup;
   form: FormArray;
-  @ViewChild('stepper',{static: false}) stepper: MatStepper;
+  isEditable = false;
+  showPage = true;
   registerFormGroup1 = new FormGroup({
     blogId: new FormControl('', [Validators.required]),
     blogName: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required]),
     author: new FormControl('', [Validators.required]),
+    detail: new FormControl('', [Validators.required]),
+    tags: new FormControl('', [Validators.required]),
   });
   registerFormGroup2 = new FormGroup({
     blogHeading: new FormControl('', [Validators.required]),
     details: new FormControl('', [Validators.required]),
-    tags: new FormControl('', [Validators.required]),
+
   });
   hide = true;
   componentActive = true;
@@ -40,23 +42,12 @@ formGroup : FormGroup;
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      cont :new FormControl('', [Validators.required]),
-      blogId: new FormControl('', [Validators.required]),
-      blogName: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required]),
-      author: new FormControl('', [Validators.required]),
       form : this.formBuilder.array([this.init2()])
     })
-    //this.addItem();
   }
-  init(){
-    return this.formBuilder.group({
-      cont :new FormControl('', [Validators.required]),
-      blogId: new FormControl('', [Validators.required]),
-      blogName: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required]),
-      author: new FormControl('', [Validators.required]),
-    })
+  addItem(){
+    this.form = this.formGroup.get('form') as FormArray;
+    this.form.push(this.init2());
   }
   init2(){
     return this.formBuilder.group({
@@ -66,80 +57,67 @@ formGroup : FormGroup;
       tags: new FormControl('', [Validators.required]),
     })
   }
-
-  addItem(){
-    this.form = this.formGroup.get('form') as FormArray;
-    this.form.push(this.init2());
-  }
-  createItem(): FormGroup {
-    return this.formBuilder.group({
-      name: '',
-      description: '',
-      price: ''
-    });
-  }
-  // addItem(): void {
-  //   this.items = this.orderForm.get('items') as FormArray;
-  //   this.items.push(this.createItem());
-  // }
   get f() {
     return this.registerFormGroup1.controls;
   }
   get f2() {
     return this.registerFormGroup2.controls;
   }
-  get f3() {
-    return this.orderForm.controls;
+  get formsValue(){
+    return this.formGroup.get('form') as FormArray;
   }
+  fetchFormVal():IBlog[]{
+   //alert(this.formsValue.length);
+    const { blogHeading, details, tags } = this.registerFormGroup2.value;
 
+    console.log(this.formsValue.at(0));
+    const blog: IBlog[] =[ {
+      blogHeading,
+      details,
+      pageNo:1
+    }];
+    for(let i =0;i<this.formsValue.length;i++){
+      if(this.formsValue.at(i).value.blogHeading){
+      blog.push({
+        blogHeading: this.formsValue.at(i).value.blogHeading,
+        details: this.formsValue.at(i).value.details,
+        pageNo: i+2,
+      })
+    }
+    }
+    return blog;
+  }
 goBack(stepper: MatStepper){
     stepper.previous();
-    this.formGroup.statusChanges.subscribe(
-      status => {
-        if (status === 'VALID') {
-          this.stepper.next();
-        }
-  console.log(status);
-}
-)
 }
 
 goForward(stepper: MatStepper){
-  stepper.next();
-  this.formGroup.statusChanges.subscribe(
-    status => {
-      if (status === 'VALID') {
-
-      }
-console.log(status);
-}
-)
+    stepper.next();
 }
 ngOnDestroy() {
   this.componentActive = false;
 }
 onSubmit() {
   // console.log(this.f.email);
-  const { blogId, blogName, category,author } = this.registerFormGroup1.value;
-  console.log()
+  const { blogId, blogName, category,author,detail } = this.registerFormGroup1.value;
   const { blogHeading, details, tags } = this.registerFormGroup2.value;
-  const blog: IBlog[] =[ {
-    blogHeading,
-    details,
-    pageNo:"1"
-  }];
+  const blog = this.fetchFormVal()
+
+
   const reg: IBlogReg = {
     blogId,
     blogName,
     category,
     tags,
     blog,
-    author:'shanky',
+    author,
     userName:'shanky',
     flagged:false,
     active:true,
-    details
+    details:detail
   };
+  console.log("rehistra",reg)
+  //return;
   this.store.dispatch(new BlogActions.RegisterBlog(reg));
 }
 }

@@ -8,10 +8,11 @@ category: string;
 active: boolean;
 userName: string;
 flagged: boolean;
+details: string
 }
 
 export interface IBlog {
   blogHeading: string;
   details: string;
-  pageNo: string;
+  pageNo: Number;
 }
