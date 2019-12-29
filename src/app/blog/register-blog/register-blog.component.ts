@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, Validators, FormGroup,FormArray } from '@angular/forms';
 import * as fromBlog from '../state';
 import * as BlogActions from '../state/blog.action';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,9 @@ export class RegisterBlogComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isEditable = false;
+  orderForm: FormGroup;
+items: FormArray;
+
   registerFormGroup1 = new FormGroup({
     blogId: new FormControl('', [Validators.required]),
     blogName: new FormControl('', [Validators.required]),
@@ -31,15 +34,34 @@ export class RegisterBlogComponent implements OnInit {
   });
   hide = true;
   componentActive = true;
-  constructor(private store: Store<fromBlog.State>) {}
+  constructor(private store: Store<fromBlog.State>,private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.orderForm = this.formBuilder.group({
+      customerName: '',
+      email: '',
+      items: this.formBuilder.array([ this.createItem() ])
+    });
+  }
+  createItem(): FormGroup {
+    return this.formBuilder.group({
+      name: '',
+      description: '',
+      price: ''
+    });
+  }
+  addItem(): void {
+    this.items = this.orderForm.get('items') as FormArray;
+    this.items.push(this.createItem());
   }
   get f() {
     return this.registerFormGroup1.controls;
   }
   get f2() {
     return this.registerFormGroup2.controls;
+  }
+  get f3() {
+    return this.orderForm.controls;
   }
 
 goBack(stepper: MatStepper){

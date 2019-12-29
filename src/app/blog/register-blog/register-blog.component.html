@@ -1,5 +1,16 @@
 <app-form-view [title]="head">
     <div class="main-form">
+        <!-- <div formArrayName="items"
+        *ngFor="let item of orderForm.get('items').controls; let i = index;">
+        <div [formGroupName]="i">
+          <input formControlName="name" placeholder="Item name">
+          <input formControlName="description" placeholder="Item description">
+          <input formControlName="price" placeholder="Item price">
+        </div>
+
+        Chosen name: {{ orderForm.controls.items.controls[i].controls.name.value }}
+      </div>
+      <button (click)="addItem()">Test</button> -->
 <button mat-raised-button (click)="isEditable = !isEditable">
   {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
 </button>
@@ -66,6 +77,37 @@
       </div>
     </form>
   </mat-step>
+  <mat-step [stepControl]="orderForm" [editable]="isEditable">
+      <form [formGroup]="orderForm">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field>
+            <input matInput placeholder="customerName" formControlName="customerName" required>
+            <mat-error *ngIf="!(f3.customerName.valid && f3.customerName.touched)">
+              Username is Required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="email" formControlName="email" required>
+            <mat-error *ngIf="!(f3.email.valid && f3.email.touched)">
+              Username is Required
+            </mat-error>
+          </mat-form-field>
+          <div formArrayName="items"
+          *ngFor="let item of orderForm.get('items').controls; let i = index;">
+          <div [formGroupName]="i">
+            <input formControlName="name" placeholder="Item name">
+            <input formControlName="description" placeholder="Item description">
+            <input formControlName="price" placeholder="Item price">
+          </div>
+
+          Chosen name: {{ orderForm.controls.items.controls[i].controls.name.value }}
+        </div>
+          <div>
+          <button mat-button matStepperPrevious (click)="addItem()">Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     You are now done.
