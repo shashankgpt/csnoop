@@ -60,6 +60,10 @@ export class DetailComponent implements OnInit, OnDestroy {
         }
       });
   }
+  addItem(){
+    this.form = this.formGroup.get('form') as FormArray;
+    this.form.push(this.init2());
+  }
   get f() {
     return this.blogForm.controls;
   }

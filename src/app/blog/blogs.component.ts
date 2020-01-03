@@ -70,7 +70,7 @@ export class BlogsComponent implements OnInit, OnDestroy {
   }
   moveToEditBlog(blog: IBlogReg) {
     this.store.dispatch(new BlogActions.LoadBlog(blog.blogId));
-    this.router.navigate([`blog/view/${blog.blogId}`]);
+    this.router.navigate([`blog/edit/${blog.blogId}`]);
   }
 }
 

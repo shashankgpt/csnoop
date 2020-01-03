@@ -34,6 +34,6 @@ export class BlogService {
     return this.baseRoute.get<IResponse>(`blog/${BlogId}`, {});
   }
   registerBlog(blog:IBlogReg){
-    return this.baseRoute.post<IResponse>(`blog`, blog);
+    return this.baseRoute.post<IResponse, object>(`blog`, blog);
   }
 }

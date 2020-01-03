@@ -9,7 +9,7 @@ export interface BlogState {
 export const blogPage: IBlog = {
   blogHeading: '',
   details: '',
-  pageNo: '',
+  pageNo: 0,
 };
 export const InitialStateBlogs: IBlogReg[] = [{
   author: '', // Username
@@ -21,7 +21,20 @@ export const InitialStateBlogs: IBlogReg[] = [{
   active: false,
   userName: '',
   flagged: false,
+  details: '',
 }];
+export const blog:IBlogReg = {
+  author: "",
+blogId: "",
+blogName: "",
+blog: [blogPage],
+tags: "",
+category: "",
+active: true,
+userName: "",
+flagged: false,
+details: ""
+}
 
 const message: ISnackbar = {
   snackBarActive: false,
@@ -31,6 +44,6 @@ const message: ISnackbar = {
 };
 export const initialState: BlogState = {
   message,
-  activeBlog: '',
+  activeBlog: blog,
   blogs: InitialStateBlogs,
 };

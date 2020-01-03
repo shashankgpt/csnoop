@@ -35,7 +35,7 @@ export enum blogActionTypes {
 
 export class SetActiveBlogname implements Action {
   readonly type = blogActionTypes.SetActiveBlog;
-  constructor(public payload: string) { }
+  constructor(public payload: IBlogReg) { }
 }
 
 export class LoadAllBlog implements Action {

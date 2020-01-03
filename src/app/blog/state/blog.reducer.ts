@@ -1,4 +1,4 @@
-import { BlogState, InitialStateBlogs, initialState } from './blog.state';
+import { BlogState, InitialStateBlogs, initialState,blog } from './blog.state';
 import { BlogActions as BlogActions, blogActionTypes } from './blog.action';
 import { ISnackbar } from '../../dataTypes/snackbar';
 
@@ -24,7 +24,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
         };
         return {
           ...state,
-          activeBlog: {},
+          activeBlog: blog,
           message: messageBlogFail
     };
       case blogActionTypes.LoadAllBlogSuccess:
@@ -198,7 +198,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
             ...state,
             message: messageDeleteBlogFail
       };
-      case blogActionTypes.LogoutBlogSuccess:
+      case blogActionTypes.LoadBlogSuccess:
         const messageLogoutBlogSuccess: ISnackbar = {
           snackBarActive: true,
           snackBarAction: 'blog Logout Blog',
@@ -209,7 +209,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
             ...state,
             message: messageLogoutBlogSuccess
       };
-      case blogActionTypes.LogoutBlogFail:
+      case blogActionTypes.LoadBlogFail:
         const messageLogoutBlogFail: ISnackbar = {
           snackBarActive: true,
           snackBarAction: 'blog Logout Blog',
