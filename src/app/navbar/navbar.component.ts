@@ -9,6 +9,10 @@ import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, Naviga
 import { ISnackbar } from '../dataTypes/snackbar';
 import * as SharedActions from '../shared/state/shared.action';
 import * as AuthActions from '../auth/state/auth.action';
+import {AuthCheckService} from '../auth/services/auth-check.service';
+import * as UserActions from '../user/state/user.action';
+import * as fromUser from '../user/state';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -25,7 +29,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
               private snackBar: MatSnackBar,
               private sharedStore: Store<fromShared.State>,
               private router: Router,
+              private authCheckService: AuthCheckService,
+              private userStore: Store<fromUser.State>
   ) {
+    if(this.authCheckService.isLoggedIn() &&  !this.logged){
+      this.userStore.dispatch(new UserActions.LoadUser());
+      this.logged = true;
+    }
     this.router.events.subscribe((routerEvent: Event) => {
       if (routerEvent instanceof NavigationStart) {
         this.showSpinner = true;
@@ -65,7 +75,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.sharedStore.pipe(select(fromShared.getLoggedUserName),
       takeWhile(() => this.componentActive)).subscribe((message) => {
           this.username = message;
-          this.logged = message ? true : false;
+          // this.logged = message ? true : false;
       });
   }
 

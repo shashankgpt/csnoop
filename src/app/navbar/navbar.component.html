@@ -5,9 +5,11 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
+      <span *ngIf="logged">
       <a mat-list-item routerLink="/contact" routerLinkActive="active">Contact Us</a>
       <a mat-list-item routerLink="/admin/allUsers" routerLinkActive="active">Admin</a>
       <a mat-list-item routerLink="/blog" routerLinkActive="active">Blog</a>
+      </span>
       <span *ngIf="!logged">
       <a mat-list-item routerLink="/auth/login" routerLinkActive="active">Login</a>
       <a mat-list-item routerLink="/auth/register" routerLinkActive="active">Register</a>
@@ -32,9 +34,9 @@
         </mat-menu>
       </div>
     </mat-toolbar>
-    <!-- <div *ngIf="showSpinner || globalSpinner" class="spinner-center">
+    <div *ngIf="showSpinner || globalSpinner" class="spinner-center">
     <mat-spinner ></mat-spinner>
-  </div> -->
+  </div>
     <router-outlet ></router-outlet>
     <!-- Add Content Here -->
     <mat-toolbar color="primary" class="footer"  >  <mat-toolbar-row class="name_head">

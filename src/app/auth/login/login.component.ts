@@ -7,6 +7,7 @@ import * as AuthActions from '../state/auth.action';
 import * as SharedActions from '../../shared/state/shared.action';
 import { ILogin } from '../dataTypes';
 import { takeWhile } from 'rxjs/operators';
+import { SpinnerService } from '../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
   componentActive = true;
   constructor(private store: Store<fromAuth.State>,
-              private shareStore: Store<fromShared.State>) { }
+              private shareStore: Store<fromShared.State>,
+              private spinService: SpinnerService) { }
 
   ngOnInit() {
   }
@@ -40,10 +42,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: this.f.password.value
     };
     this.store.dispatch(new AuthActions.LoginUser(credential));
+    this.spinService.activeSpinner();
     this.store.pipe(select(fromAuth.getToken),
       takeWhile(() => this.componentActive)).subscribe((response) => {
         if (response.toString() !== '0') {
           localStorage.setItem('login', response.toString());
+          this.spinService.deactiveSpinner();
           this.shareStore.dispatch(new SharedActions.IsLoggedIn(credential.username));
           return true;
         }
@@ -52,5 +56,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.componentActive = false;
+    this.spinService.deactiveSpinner();
   }
 }
