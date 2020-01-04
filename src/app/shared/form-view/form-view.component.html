@@ -1,0 +1,14 @@
+<div class="example-container"
+fxLayout="row" fxLayoutAlign="center center"
+fxLayoutGap="10px"
+fxLayoutGap.xs="0">
+<div fxFlex="50" fxFlex.sm="70" fxFlex.xs="100">
+<mat-card>
+   <mat-card-title><div class="head-div">{{title}}</div></mat-card-title>
+    <mat-divider></mat-divider>
+    <div class="form-space">
+  <ng-content select=".main-form"></ng-content>
+  </div>
+</mat-card>
+</div>
+</div>

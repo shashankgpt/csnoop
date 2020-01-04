@@ -1,0 +1,26 @@
+.ln-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+}
+.name-head{
+  font-size: 36px;
+  padding: 4px;
+  font-family: "Segoe UI",Arial,sans-serif
+}
+.name-bottom{
+  font-size: 15px;
+  padding: 4px;
+  font-family: "Segoe UI",Arial,sans-serif
+}
+.email-Id{
+  font-size: 18px;
+  padding: 4px;
+  font-family: "Segoe UI",Arial,sans-serif;
+  color: grey
+}
+.img-profile {
+  height: 40vh;
+  width: 100%;
+}

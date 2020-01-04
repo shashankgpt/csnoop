@@ -1,0 +1,32 @@
+<app-form-view [title]="value" *ngIf="!spinner">
+  <div class="main-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Enter your username" formControlName="username">
+          <mat-error *ngIf="!(f.username.valid && f.username.touched)">
+            Username is Required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput formControlName="password" placeholder="Enter your password"
+            [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="!(f.password.valid && f.password.touched)">
+            Password is Required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="btn-div">
+        <button class="btn-pad" type="submit" [disabled]="!loginForm.valid" mat-flat-button
+          color="primary">Submit</button>
+        <button type="reset" mat-flat-button color="primary">Reset</button>
+      </div>
+    </form>
+  </div>
+</app-form-view>

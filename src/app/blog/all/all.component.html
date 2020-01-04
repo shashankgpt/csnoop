@@ -1,0 +1,59 @@
+<ng-container *ngFor="let item of blogs; let i = index">
+    <div  class="container Pad-Table"
+    fxLayout
+    fxLayout.xs="column"
+    fxLayoutAlign="center"
+    fxLayoutGap="10px"
+    fxLayoutGap.xs="0"
+    *ngIf="i%3==0"
+    >
+        <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{blogs[i].blogName}}</mat-card-title>
+              <mat-card-subtitle>{{blogs[i].author}}</mat-card-subtitle>
+            </mat-card-header>
+            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+            <mat-card-content>
+              <p>
+                  {{blogs[i].blogName}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="viewBlog(blogs[i])">VIEW</button>
+            </mat-card-actions>
+          </mat-card>
+          <mat-card class="example-card">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>{{blogs[i+1].blogName}}</mat-card-title>
+                <mat-card-subtitle>{{blogs[i+1].author}}</mat-card-subtitle>
+              </mat-card-header>
+              <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+              <mat-card-content>
+                <p>
+                    {{blogs[i+1].blogName}}
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button (click)="viewBlog(blogs[i+1])">VIEW</button>
+              </mat-card-actions>
+            </mat-card>
+            <mat-card class="example-card">
+                <mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>{{blogs[i+2].blogName}}</mat-card-title>
+                  <mat-card-subtitle>{{blogs[i+2].author}}</mat-card-subtitle>
+                </mat-card-header>
+                <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+                <mat-card-content>
+                  <p>
+                      {{blogs[i+2].blogName}}
+                  </p>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button (click)="viewBlog(blogs[i+2])">VIEW</button>
+                </mat-card-actions>
+              </mat-card>
+      </div>
+</ng-container>
