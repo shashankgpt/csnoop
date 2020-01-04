@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 // For Development Only
 import {StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BlogModule } from './blog/blog.module';
+import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BlogModule } from './blog/blog.module';
     NavbarComponent,
     HomeComponent,
     ContactUsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SliderComponent
   ],
   imports: [
     AppRoutingModule,

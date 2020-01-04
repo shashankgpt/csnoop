@@ -5,7 +5,7 @@ import { MatInputModule, MatCardModule, MatMenuModule, MatRadioModule, MatTableM
   MatFormFieldModule, MatToolbarModule, MatSnackBarModule, MatProgressSpinnerModule,
    MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCheckbox, MatCheckboxModule,
    MatGridListModule } from '@angular/material';
-
+import { UiCarouselModule } from 'ngx-ui-carousel';
 
 
 @NgModule({
@@ -14,6 +14,7 @@ import { MatInputModule, MatCardModule, MatMenuModule, MatRadioModule, MatTableM
     CommonModule
   ],
   exports: [
+    UiCarouselModule,
     LayoutModule,
     MatRadioModule,
     MatToolbarModule,

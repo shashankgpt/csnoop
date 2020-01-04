@@ -1,0 +1,7 @@
+.card-slider {
+  margin: 5%;
+  min-height: 60px;
+}
+:host ::ng-deep .ui-carousel-item {
+background-color: whitesmoke !important;
+}
