@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { IBlogReg,IBlog } from '../dataTypes';
+import { IBlogReg, IBlog } from '../dataTypes';
 import { Store, select } from '@ngrx/store';
 import * as fromBlog from '../state';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,7 +8,7 @@ import { takeWhile } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import * as fromShared from '../../shared/state';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 @Component({
@@ -22,7 +22,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   componentActive = true;
   head = 'Blog Details';
   blogReg: IBlogReg;
-  blogDisplay:IBlog;
+  blogDisplay: IBlog;
+  form: FormArray;
   filteredProfile: IBlogReg;
   updateProfile: IBlogReg;
   error = '';
@@ -44,10 +45,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.store.pipe(select(fromBlog.getActiveBlogID),
       takeWhile(() => this.componentActive)).subscribe((blog) => {
         this.blogReg = blog;
-        if(this.blogReg)
-          this.blogDisplay = this.blogReg.blog[this.initalVal]
+        if (this.blogReg) {
+          this.blogDisplay = this.blogReg.blog[this.initalVal];
+        }
         this.cd.detectChanges();
-        console.log("myblog",this.blogReg);
+        console.log('myblog', this.blogReg);
         this.f.blogName.setValue (blog.blogName);
         this.f.category.setValue (blog.category);
         if (!blog) {
@@ -56,25 +58,25 @@ export class DetailComponent implements OnInit, OnDestroy {
            // this.getBlog(this.blog);
           }
 
-          //this.moveToAllUsers();
+          // this.moveToAllUsers();
         }
       });
   }
-  addItem(){
-    this.form = this.formGroup.get('form') as FormArray;
-    this.form.push(this.init2());
-  }
+  // addItem(){
+  //   this.form = this.formGroup.get('form') as FormArray;
+  //   this.form.push(this.init2());
+  // }
   get f() {
     return this.blogForm.controls;
   }
   get f2() {
     return this.blogFormDetails.controls;
   }
-  goBack(stepper: MatStepper){
+  goBack(stepper: MatStepper) {
     stepper.previous();
 }
 
-goForward(stepper: MatStepper){
+goForward(stepper: MatStepper) {
     stepper.next();
 }
   moveToAllUsers() {
@@ -114,17 +116,17 @@ goForward(stepper: MatStepper){
       details,
       pageNo,
     };
-    let blog = this.blogReg.blog;
+    const blog = this.blogReg.blog;
     blog.push(blogVal);
     this.blogReg.blogName = blogName;
     this.blogReg.category = category;
     this.blogReg.blog = blog ;
-    this.blogReg.details = "test" ;
+    this.blogReg.details = 'test' ;
     this.store.dispatch(new BlogActions.UpdateBlog(this.blogReg));
   }
-  next(){
+  next() {
     this.initalVal++;
-    this.blogDisplay = this.blogReg.blog[this.initalVal]
+    this.blogDisplay = this.blogReg.blog[this.initalVal];
   }
 }
 

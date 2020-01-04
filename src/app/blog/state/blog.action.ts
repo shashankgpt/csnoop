@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IBlog,IBlogReg } from '../dataTypes';
+import { IBlog, IBlogReg } from '../dataTypes';
 import { IResponse } from 'src/app/shared/dataTypes';
 
 export enum blogActionTypes {

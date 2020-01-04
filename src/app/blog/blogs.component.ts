@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { IBlogReg,IBlog } from './dataTypes';
+import { IBlogReg, IBlog } from './dataTypes';
 import { Store, select } from '@ngrx/store';
 import * as fromBlog from './state';
 import { Router } from '@angular/router';
@@ -37,7 +37,7 @@ export class BlogsComponent implements OnInit, OnDestroy {
     this.loadAllBlogs();
     this.store.pipe(select(fromBlog.getBlogsData),
       takeWhile(() => this.componentActive)).subscribe((blogs) => {
-        console.log("blogs",blogs)
+        console.log('blogs', blogs);
         if (blogs[0].blogId) {
           this.dataSource = of(blogs);
           this.cd.detectChanges();
@@ -58,7 +58,7 @@ export class BlogsComponent implements OnInit, OnDestroy {
     this.store.dispatch(new BlogActions.FlaggedBlog(blog.blogId));
   }
   activeBlog(blog: IBlogReg) {
-    //alert(blog.active);
+    // alert(blog.active);
     if (blog.active) {
       this.store.dispatch(new BlogActions.DeactivateBlog(blog.blogId));
       return true;

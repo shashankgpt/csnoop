@@ -30,7 +30,7 @@ export class BlogEffects {
       map((action: BlogActions.LoadBlog) => action.payload),
       mergeMap((blogId: string) => this.blogService.loadBlog(blogId).pipe(
         map((res: IResponse) => new BlogActions.LoadBlogSuccess(res)),
-        catchError(err => of(new BlogActions.LoadBlogFail('Unable to Load Blog-'+ blogId))))));
+        catchError(err => of(new BlogActions.LoadBlogFail('Unable to Load Blog-' + blogId))))));
 
 
   @Effect()

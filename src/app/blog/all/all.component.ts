@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { IBlogReg,IBlog } from '../dataTypes';
+import { IBlogReg, IBlog } from '../dataTypes';
 import { Store, select } from '@ngrx/store';
 import * as fromBlog from '../state';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class AllComponent implements OnInit, OnDestroy {
   componentActive = true;
   head = 'All Blogs';
   error = '';
-  blogs:IBlogReg[];
+  blogs: IBlogReg[];
   errorMessage$: Observable<string>;
   expandedElement: IBlog | null;
   columnsToDisplay: string[] = ['blogId', 'blogName', 'category', 'createdAt'];
@@ -40,14 +40,14 @@ export class AllComponent implements OnInit, OnDestroy {
     this.store.pipe(select(fromBlog.getBlogsData),
       takeWhile(() => this.componentActive)).subscribe((blogs) => {
         this.blogs = blogs;
-        console.log("blogs",blogs)
+        console.log('blogs', blogs);
         if (blogs[0].blogId) {
           this.dataSource = of(blogs);
           this.cd.detectChanges();
         }
       });
   }
-  viewBlog(blog:IBlogReg){
+  viewBlog(blog: IBlogReg) {
     this.store.dispatch(new BlogActions.LoadBlog(blog.blogId));
     this.router.navigate([`blog/view/${blog.blogId}`]);
   }
@@ -65,7 +65,7 @@ export class AllComponent implements OnInit, OnDestroy {
     this.store.dispatch(new BlogActions.FlaggedBlog(blog.blogId));
   }
   activeBlog(blog: IBlogReg) {
-    //alert(blog.active);
+    // alert(blog.active);
     if (blog.active) {
       this.store.dispatch(new BlogActions.DeactivateBlog(blog.blogId));
       return true;

@@ -1,4 +1,4 @@
-import { BlogState, InitialStateBlogs, initialState,blog } from './blog.state';
+import { BlogState, InitialStateBlogs, initialState, blog } from './blog.state';
 import { BlogActions as BlogActions, blogActionTypes } from './blog.action';
 import { ISnackbar } from '../../dataTypes/snackbar';
 

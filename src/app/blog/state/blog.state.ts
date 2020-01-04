@@ -23,18 +23,18 @@ export const InitialStateBlogs: IBlogReg[] = [{
   flagged: false,
   details: '',
 }];
-export const blog:IBlogReg = {
-  author: "",
-blogId: "",
-blogName: "",
+export const blog: IBlogReg = {
+  author: '',
+blogId: '',
+blogName: '',
 blog: [blogPage],
-tags: "",
-category: "",
+tags: '',
+category: '',
 active: true,
-userName: "",
+userName: '',
 flagged: false,
-details: ""
-}
+details: ''
+};
 
 const message: ISnackbar = {
   snackBarActive: false,
