@@ -15,7 +15,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="mat-elevation-z6">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -24,7 +24,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">Menu</mat-icon>
       </button>
-      <span>CodeSnooper2</span>
+      <span  class="page-head">CodeSnooper</span>
       <div *ngIf="logged" class="move-right"><button mat-button [matMenuTriggerFor]="userMenu"><mat-icon aria-hidden="false" aria-label="Example face icon" class="icon-space">face</mat-icon>{{username}}</button>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item routerLink="/user/view">View</button>
@@ -37,5 +37,10 @@
   </div> -->
     <router-outlet ></router-outlet>
     <!-- Add Content Here -->
+    <mat-toolbar color="primary" class="footer"  >  <mat-toolbar-row class="name_head">
+      <span >CodeSnooper © 2020</span>
+    </mat-toolbar-row></mat-toolbar>
+
   </mat-sidenav-content>
+
 </mat-sidenav-container>

@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatInputModule, MatCardModule, MatMenuModule, MatRadioModule, MatTableModule, MatSlideToggleModule,
   MatFormFieldModule, MatToolbarModule, MatSnackBarModule, MatProgressSpinnerModule,
-   MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCheckbox, MatCheckboxModule } from '@angular/material';
+   MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCheckbox, MatCheckboxModule,
+   MatGridListModule } from '@angular/material';
 
 
 
@@ -28,7 +29,8 @@ import { MatInputModule, MatCardModule, MatMenuModule, MatRadioModule, MatTableM
     MatProgressSpinnerModule,
     MatMenuModule,
     MatTableModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatGridListModule
   ]
 })
 export class MaterialModule { }

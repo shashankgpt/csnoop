@@ -1,0 +1,37 @@
+.name_head
+{
+  justify-content: center;
+  min-height: 200px;
+}
+.xtra_large
+{
+  font-size: 30pt;
+}
+.mat-grid-list
+{
+  background: #f2f2f2;
+}
+mat-grid-tile {
+  /*background: #f2f2f2;*/
+  background: white;
+  color: black;
+  /*background: #3700B3;*/
+}
+.padd_grid
+{
+  padding: 10%;
+}
+.about_head
+{
+  display: block;
+  font-size: 20pt;
+  text-align: center;
+}
+.mat-grid-tile .mat-figure
+{
+  align-items: normal !important;
+}
+.mat-grid-tile .mat-grid-tile-header
+{
+  background:#3f51b5;
+}

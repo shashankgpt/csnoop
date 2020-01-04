@@ -8,6 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 value = 'Home';
+columnNum = 0;
+  rowHeight1="350px";
   constructor() { }
 
   ngOnInit() {

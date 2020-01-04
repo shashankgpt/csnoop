@@ -1,3 +1,27 @@
-<app-form-view [title]="value">
- <div class="main-form"> hello world</div>
-</app-form-view>
+<mat-toolbar color="primary" class="mat-elevation-z3">
+  Home
+</mat-toolbar>
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="name_head">
+    <span ><h1 class="xtra_large">Hi I'm Shashank Gupta</h1></span>
+  </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile><mat-grid-tile-header>About Me</mat-grid-tile-header>
+      <div class="padd_grid mat-elevation-z6">I’m an Techie who is passionate about learning new technologies like AI,Block-chain.<br><br>
+      I have penchant towards web development.I have proclivity towards various framework of javascript like Angular, Node , React, highcharts, d3.js.
+    </div>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile><mat-grid-tile-header>About This Site</mat-grid-tile-header>
+      <div class="padd_grid mat-elevation-z6">I Welcome all for visting us.
+        <br><br>
+        This Site is for people who want learn new technologies, write blog and, coalesce.
+        It is micro-blogging site with sole purpose of sharing knowledge.
+        <br>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
