@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ISnackbar } from 'src/app/dataTypes/snackbar';
-import { IProfileUser  } from '../../user/dataTypes/profile';
+import { IProfileLog  } from '../dataTypes/IProfile';
 
 export enum sharedActionTypes {
   SetCurrentUsername = '[Shared] Set Current Username',
@@ -20,7 +20,7 @@ export class LoadUserName implements Action {
 }
 export class LoadUserNameSuccess implements Action {
   readonly type = sharedActionTypes.LoadUserNameSuccess;
-  constructor(public payload: IProfileUser) {
+  constructor(public payload: IProfileLog) {
   }
 }
 export class LoadUserNameFail implements Action {

@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.shareStore.dispatch(new SharedActions.IsLoggedIn(credential.username));
           return true;
         }
+        this.spinService.deactiveSpinner();
       });
   }
 

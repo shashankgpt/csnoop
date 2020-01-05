@@ -60,7 +60,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
-    if(this.authCheckService.isLoggedIn() &&  !this.logged){
+    if (this.authCheckService.isLoggedIn() &&  !this.logged) {
       this.sharedStore.dispatch(new SharedActions.LoadUserName());
       // this.logged = true;
       this.sharedStore.pipe(select(fromShared.getLoggedUserName),
@@ -81,7 +81,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.openSnackBar(message.snackBarMessage, message.snackBarAction, message.redirectUrl);
         }
       });
-
+    this.sharedStore.pipe(select(fromShared.getLoggedUserName),
+      takeWhile(() => this.componentActive)).subscribe((message) => {
+          this.username = message;
+          this.logged = message ? true :  this.logged;
+          this.cd.detectChanges();
+      });
   }
 
   // logout() {
