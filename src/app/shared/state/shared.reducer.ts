@@ -46,7 +46,24 @@ export function reducer(state: SharedState = initialState, action: SharedActions
         ...state,
         username: action.payload,
       };
-
+      case sharedActionTypes.LoadUserNameSuccess:
+          return {
+            ...state,
+            loggedIn: true,
+            username: action.payload.username
+      };
+      case sharedActionTypes.LoadUserNameFail:
+        // const messageLoadUserFail: ISnackbar = {
+        //   snackBarActive: true,
+        //   snackBarAction: 'Login Required',
+        //   snackBarMessage: action.payload,
+        //   redirectUrl: '/auth/login'
+        // };
+        return {
+          ...state,
+        username: null,
+        loggedIn: false,
+    };
     // case 'LOGGED_IN':
     //   return {
     //     ...state,

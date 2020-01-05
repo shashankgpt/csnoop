@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, from } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
@@ -30,12 +30,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
               private sharedStore: Store<fromShared.State>,
               private router: Router,
               private authCheckService: AuthCheckService,
-              private userStore: Store<fromUser.State>
+              private userStore: Store<fromUser.State>,
+              private cd: ChangeDetectorRef
   ) {
-    if(this.authCheckService.isLoggedIn() &&  !this.logged){
-      this.userStore.dispatch(new UserActions.LoadUser());
-      this.logged = true;
-    }
+
     this.router.events.subscribe((routerEvent: Event) => {
       if (routerEvent instanceof NavigationStart) {
         this.showSpinner = true;
@@ -62,6 +60,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+    if(this.authCheckService.isLoggedIn() &&  !this.logged){
+      this.sharedStore.dispatch(new SharedActions.LoadUserName());
+      // this.logged = true;
+      this.sharedStore.pipe(select(fromShared.getLoggedUserName),
+      takeWhile(() => this.componentActive)).subscribe((message) => {
+          this.username = message;
+          this.logged = message ? true : false;
+          this.cd.detectChanges();
+      });
+    }
+
     this.sharedStore.pipe(select(fromShared.Spinner),
       takeWhile(() => this.componentActive)).subscribe((message) => {
         this.globalSpinner = message;
@@ -72,11 +81,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.openSnackBar(message.snackBarMessage, message.snackBarAction, message.redirectUrl);
         }
       });
-    this.sharedStore.pipe(select(fromShared.getLoggedUserName),
-      takeWhile(() => this.componentActive)).subscribe((message) => {
-          this.username = message;
-          // this.logged = message ? true : false;
-      });
+
   }
 
   // logout() {

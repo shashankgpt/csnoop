@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ISnackbar } from 'src/app/dataTypes/snackbar';
+import { IProfileUser  } from '../../user/dataTypes/profile';
 
 export enum sharedActionTypes {
   SetCurrentUsername = '[Shared] Set Current Username',
@@ -7,10 +8,25 @@ export enum sharedActionTypes {
   DeactivateSpinner = '[Shared] Deactivate Spinner',
   ActivateSnackBar = '[Shared] Activate Snack bar',
   DeactivateSnackBar = '[Shared] Deactivate Snack bar',
+  LoadUserName = '[Shared] Load Current User',
+  LoadUserNameSuccess = '[Shared] Load Current User Success',
+  LoadUserNameFail = '[Shared] Load Current User Fail',
   IsLoggedIn = '[Shared] Set Logged In',
   IsLoggedOut = '[Shared] Set Logged Out',
 }
 
+export class LoadUserName implements Action {
+  readonly type = sharedActionTypes.LoadUserName;
+}
+export class LoadUserNameSuccess implements Action {
+  readonly type = sharedActionTypes.LoadUserNameSuccess;
+  constructor(public payload: IProfileUser) {
+  }
+}
+export class LoadUserNameFail implements Action {
+  readonly type = sharedActionTypes.LoadUserNameFail;
+  constructor(public payload: string) { }
+}
 export class SetCurrentUsername implements Action {
   readonly type = sharedActionTypes.SetCurrentUsername;
   constructor(public payload: string) { }
@@ -42,4 +58,7 @@ export type SharedActions = SetCurrentUsername
 | IsLoggedIn
 | IsLoggedOut
 | ActivateSnackBar
-| DeactivateSnackBar;
+| DeactivateSnackBar
+| LoadUserName
+| LoadUserNameSuccess
+| LoadUserNameFail;
