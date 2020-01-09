@@ -7,12 +7,12 @@ import { IProfile, IPasswordChange } from '../dataTypes';
 import { ISnackbar } from '../../dataTypes/snackbar';
 import * as fromUser from '../state';
 import * as fromShared from '../../shared/state';
-import { Router } from '@angular/router';
+import { Router, RoutesRecognized } from '@angular/router';
 import * as UserActions from '../state/user.action';
 import { takeWhile } from 'rxjs/operators';
 import { IProfileExtended } from '../dataTypes/profile';
 import * as SharedActions from '../../shared/state/shared.action';
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -39,7 +39,7 @@ export class EditComponent implements OnInit, OnDestroy {
   });
   componentActive = true;
   constructor(private userService: UserService, private store: Store<fromUser.State>, private snackBar: MatSnackBar,
-              private shareStore: Store<fromShared.State>, private router: Router,
+              private shareStore: Store<fromShared.State>, private router: Router,private locationVal:Location,
               private cd: ChangeDetectorRef) { }
 
   openSnackBar(msg, action) {
@@ -52,6 +52,7 @@ export class EditComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe(
         profile => {
           const { firstName, lastName, email, gender, location, website } = profile;
+          if(!email){this.moveToView();}
           this.f.firstName.setValue(firstName);
           this.f.lastName.setValue(lastName);
           this.f.email.setValue(email);
@@ -100,5 +101,8 @@ export class EditComponent implements OnInit, OnDestroy {
       newPassword: this.passwordForm.value.newPassword
     };
     this.store.dispatch(new UserActions.UpdateUserPassword(password));
+  }
+  moveToView() {
+    this.router.navigate(['/user/view']);
   }
 }
