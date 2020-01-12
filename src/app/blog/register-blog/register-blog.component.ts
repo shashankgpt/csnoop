@@ -2,9 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { FormBuilder, FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import * as fromBlog from '../state';
 import * as BlogActions from '../state/blog.action';
-import { Store } from '@ngrx/store';
-import { IBlogReg, IBlog } from '../dataTypes';
+import { Store, select } from '@ngrx/store';
+import { IBlogReg, IBlog, IBlogCheck } from '../dataTypes';
 import { MatStepper } from '@angular/material/stepper';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register-blog',
@@ -41,6 +42,7 @@ formGroup: FormGroup;
   constructor(private store: Store<fromBlog.State>, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+
     this.formGroup = this.formBuilder.group({
       form : this.formBuilder.array([this.init2()])
     });
@@ -92,7 +94,17 @@ goBack(stepper: MatStepper) {
 }
 
 goForward(stepper: MatStepper) {
-    stepper.next();
+  const { blogId, blogName } = this.registerFormGroup1.value;
+  const checkName: IBlogCheck = {
+    blogId,
+    blogName
+  }
+  this.store.dispatch(new BlogActions.CheckNameBlogExist(checkName));
+    //stepper.next();
+  this.store.pipe(select(fromBlog.getCheckBlogID),
+      takeWhile(() => this.componentActive)).subscribe((message) => {
+          if(message) {stepper.next();}
+      });
 }
 ngOnDestroy() {
   this.componentActive = false;

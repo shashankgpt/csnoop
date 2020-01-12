@@ -5,6 +5,7 @@ export interface BlogState {
   blogs: IBlogReg[];
   activeBlog: IBlogReg;
   message: ISnackbar;
+  noNameExist: boolean;
 }
 export const blogPage: IBlog = {
   blogHeading: '',
@@ -46,4 +47,5 @@ export const initialState: BlogState = {
   message,
   activeBlog: blog,
   blogs: InitialStateBlogs,
+  noNameExist: false,
 };

@@ -44,6 +44,30 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
             blogs: InitialStateBlogs,
             message: messageBlogFail
       };
+      case blogActionTypes.CheckNameBlogExistSuccess:
+        const messageCheckBlogSuccess: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Blog Check success',
+          snackBarMessage: action.payload.Message,
+          redirectUrl: ''
+        };
+        return {
+            ...state,
+            noNameExist: true,
+            message: messageCheckBlogSuccess
+      };
+      case blogActionTypes.CheckNameBlogExistFail:
+        const messageCheckBlogFail: ISnackbar = {
+          snackBarActive: true,
+          snackBarAction: 'Blog Check fail',
+          snackBarMessage: action.payload,
+          redirectUrl: ''
+        };
+        return {
+            ...state,
+            noNameExist: false,
+            message: messageCheckBlogFail
+      };
       case blogActionTypes.RegisterBlogSuccess:
         const messageRegisterBlogSuccess: ISnackbar = {
           snackBarActive: true,

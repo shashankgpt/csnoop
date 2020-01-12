@@ -17,3 +17,6 @@ export const getBlogsMessage = createSelector(getBlogFeatureState,
 export const getActiveBlogID = createSelector(getBlogFeatureState,
   state => state.activeBlog
 );
+export const getCheckBlogID = createSelector(getBlogFeatureState,
+  state => state.noNameExist
+);

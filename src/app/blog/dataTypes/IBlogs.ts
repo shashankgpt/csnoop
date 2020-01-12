@@ -16,3 +16,8 @@ export interface IBlog {
   details: string;
   pageNo: number;
 }
+
+export interface IBlogCheck {
+  blogId: string;
+  blogName: string;
+}

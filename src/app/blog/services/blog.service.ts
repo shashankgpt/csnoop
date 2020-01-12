@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseRouteService } from '../../shared/services/base-route.service';
 import { IResponse } from '../../shared/dataTypes';
-import {IBlog, IBlogReg} from '../dataTypes';
+import {IBlog, IBlogReg, IBlogCheck} from '../dataTypes';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +26,9 @@ export class BlogService {
   }
   updateBlog(BlogProfile: IBlogReg) {
     return this.baseRoute.put<IResponse, IBlogReg>(`blog/${BlogProfile.blogId}`, BlogProfile);
+  }
+  checkBlog(Blog: IBlogCheck) {
+    return this.baseRoute.post<IResponse, IBlogCheck>(`blog/existBlogName`, Blog);
   }
   deleteBlog(BlogId: string) {
     return this.baseRoute.delete<IResponse>(`blog/deleteBlogId/${BlogId}`, {});

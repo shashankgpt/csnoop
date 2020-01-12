@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IBlog, IBlogReg } from '../dataTypes';
+import { IBlog, IBlogReg, IBlogCheck } from '../dataTypes';
 import { IResponse } from 'src/app/shared/dataTypes';
 
 export enum blogActionTypes {
@@ -10,6 +10,9 @@ export enum blogActionTypes {
   LoadAllBlog = '[Blog] Load All Blog',
   LoadAllBlogSuccess = '[Blog] Load All Blog Success',
   LoadAllBlogFail = '[Blog] Load All Blog Fail',
+  CheckNameBlogExist = '[Blog] Check Blog Name',
+  CheckNameBlogExistSuccess = '[Blog] Check Blog Name Success',
+  CheckNameBlogExistFail = '[Blog] Check Blog Name Fail',
   FlaggedBlog = '[Blog] Flagged Blog',
   FlaggedBlogSuccess = '[Blog] Flagged Blog Success',
   FlaggedBlogFail = '[Blog] Flagged Blog Fail',
@@ -49,6 +52,21 @@ export class LoadAllBlogSuccess implements Action {
 
 export class LoadAllBlogFail implements Action {
   readonly type = blogActionTypes.LoadAllBlogFail;
+  constructor(public payload: string) { }
+}
+
+export class CheckNameBlogExist implements Action {
+  readonly type = blogActionTypes.CheckNameBlogExist;
+  constructor(public payload: IBlogCheck) {}
+}
+
+export class CheckNameBlogExistSuccess implements Action {
+  readonly type = blogActionTypes.CheckNameBlogExistSuccess;
+  constructor(public payload: IResponse) {}
+}
+
+export class CheckNameBlogExistFail implements Action {
+  readonly type = blogActionTypes.CheckNameBlogExistFail;
   constructor(public payload: string) { }
 }
 export class RegisterBlog implements Action {
@@ -196,5 +214,8 @@ DeleteBlogSuccess |
 DeleteBlogFail |
 LoadBlog |
 LoadBlogSuccess |
-LoadBlogFail;
+LoadBlogFail |
+CheckNameBlogExist |
+CheckNameBlogExistSuccess |
+CheckNameBlogExistFail ;
 

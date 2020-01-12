@@ -5,7 +5,7 @@ import * as BlogActions from './blog.action';
 import { mergeMap, map, catchError, exhaustMap } from 'rxjs/operators';
 import { IResponse } from 'src/app/shared/dataTypes';
 import { of } from 'rxjs';
-import { IBlogReg } from '../dataTypes';
+import { IBlogReg, IBlogCheck } from '../dataTypes';
 
 @Injectable()
 export class BlogEffects {
@@ -24,6 +24,15 @@ export class BlogEffects {
     exhaustMap((action: BlogActions.LoadAllBlog) => this.blogService.getAllBlogs().pipe(
       map((res: IResponse) => new BlogActions.LoadAllBlogSuccess(res.data.blogs)),
       catchError(err => of(new BlogActions.LoadAllBlogFail('Unable to load All Blog'))))));
+
+    @Effect()
+    checkBlogName$ = this.actions$.pipe(
+      ofType(BlogActions.blogActionTypes.CheckNameBlogExist),
+      map((action: BlogActions.CheckNameBlogExist) => action.payload),
+      mergeMap((blog: IBlogCheck) => this.blogService.checkBlog(blog).pipe(
+        map((res: IResponse) => new BlogActions.CheckNameBlogExistSuccess(res)),
+        catchError(err => of(new BlogActions.CheckNameBlogExistFail('Please Pick Another Name for your Blog'))))));
+
   @Effect()
     loadBlog$ = this.actions$.pipe(
       ofType(BlogActions.blogActionTypes.LoadBlog),
