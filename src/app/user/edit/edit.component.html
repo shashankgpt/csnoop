@@ -26,7 +26,7 @@
             </mat-error>
         </mat-form-field>
       </div>
-      <div class="pad-next">
+      <!-- <div class="pad-next">
         <div class="pad-div">
           <label  id="example-radio-group-label">Select your Gender</label>
         </div>
@@ -38,7 +38,17 @@
                 required
               </mat-error>
 
-      </div>
+      </div> -->
+      <mat-form-field>
+    <mat-select aria-label="Select an option" formControlName="gender">
+        <mat-option value="1" >Male</mat-option>
+        <mat-option value="2" >Female</mat-option>
+    </mat-select>
+    <mat-label>Select your Gender</mat-label>
+    <mat-error *ngIf="!(f.gender.valid && f.gender.touched)">
+        required
+      </mat-error>
+  </mat-form-field>
       <div>
         <mat-form-field>
           <input matInput placeholder="Enter your location" formControlName="location">

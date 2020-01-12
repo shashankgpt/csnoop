@@ -52,7 +52,7 @@ export class EditComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe(
         profile => {
           const { firstName, lastName, email, gender, location, website } = profile;
-          if(!email){this.moveToView();}
+          if (!email) { this.moveToView(); }
           this.f.firstName.setValue(firstName);
           this.f.lastName.setValue(lastName);
           this.f.email.setValue(email);

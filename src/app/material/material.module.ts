@@ -4,7 +4,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatInputModule, MatCardModule, MatMenuModule, MatRadioModule, MatTableModule, MatSlideToggleModule,
   MatFormFieldModule, MatToolbarModule, MatSnackBarModule, MatProgressSpinnerModule,
    MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCheckbox, MatCheckboxModule,
-   MatGridListModule } from '@angular/material';
+   MatGridListModule, MatSelectModule } from '@angular/material';
 import { UiCarouselModule } from 'ngx-ui-carousel';
 
 
@@ -31,7 +31,8 @@ import { UiCarouselModule } from 'ngx-ui-carousel';
     MatMenuModule,
     MatTableModule,
     MatSlideToggleModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }
