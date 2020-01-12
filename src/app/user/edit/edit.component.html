@@ -1,44 +1,24 @@
 <app-form-view [title]="head" *ngIf="!editPassword">
   <div class="main-form">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <div>
         <mat-form-field>
           <input matInput placeholder="Enter your First name" formControlName="firstName">
           <mat-error *ngIf="!(f.firstName.valid && f.firstName.touched)">
             First Name is required
           </mat-error>
         </mat-form-field>
-      </div>
-      <div>
         <mat-form-field>
-          <input matInput placeholder="Enter your lastName" formControlName="lastName">
+          <input matInput placeholder="Enter your Last Name" formControlName="lastName">
           <mat-error *ngIf="!(f.lastName.valid && f.lastName.touched)">
               Last Name is required
           </mat-error>
         </mat-form-field>
-      </div>
-      <div>
         <mat-form-field>
-          <input matInput placeholder="Enter your email" formControlName="email">
-          <mat-error *ngIf="!(f.email.valid && f.email.touched)">
-              <!-- <span *ngIf="(f.email.errors.required)">Email is required</span>
-              <span *ngIf="(f.email.errors.email)">Email format is incorrect</span> -->
-            </mat-error>
+          <input id="email" matInput placeholder="Enter your email" formControlName="email">
+           <mat-error *ngIf="!(f.email.valid && f.email.touched)">
+            Please enter correct email format
+          </mat-error>
         </mat-form-field>
-      </div>
-      <!-- <div class="pad-next">
-        <div class="pad-div">
-          <label  id="example-radio-group-label">Select your Gender</label>
-        </div>
-          <mat-radio-group aria-label="Select an option" formControlName="gender">
-              <mat-radio-button value="1" >Male</mat-radio-button>
-              <mat-radio-button value="2" >Female</mat-radio-button>
-            </mat-radio-group>
-            <mat-error *ngIf="!(f.gender.valid && f.gender.touched)">
-                required
-              </mat-error>
-
-      </div> -->
       <mat-form-field>
     <mat-select aria-label="Select an option" formControlName="gender">
         <mat-option value="1" >Male</mat-option>
@@ -46,17 +26,15 @@
     </mat-select>
     <mat-label>Select your Gender</mat-label>
     <mat-error *ngIf="!(f.gender.valid && f.gender.touched)">
-        required
+        Gender is required
       </mat-error>
   </mat-form-field>
-      <div>
         <mat-form-field>
           <input matInput placeholder="Enter your location" formControlName="location">
           <mat-error *ngIf="!(f.location.valid && f.location.touched)">
-            required
+            Location is required
           </mat-error>
         </mat-form-field>
-      </div>
       <div>
         <mat-form-field>
           <input matInput placeholder="Enter your website" formControlName="website">

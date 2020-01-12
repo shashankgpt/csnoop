@@ -61,3 +61,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
+.btn-pad {
+  margin-right: 5px;
+}
+.btn-div {
+  padding: 0% 43% 0% 40%;
+}

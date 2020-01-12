@@ -1,3 +1,8 @@
+<app-form-view [title]="head">
+    <div class="main-form">
+        <div class="btn-div">
+<button mat-raised-button class="btn-pad" (click)="moveToCreateBlog()" color="primary">Create Blog</button>
+</div>
 <ng-container *ngFor="let item of blogs; let i = index">
     <div  class="container Pad-Table"
     fxLayout
@@ -7,7 +12,7 @@
     fxLayoutGap.xs="0"
     *ngIf="i%3==0"
     >
-        <mat-card class="example-card">
+        <mat-card class="example-card" *ngIf="blogs && blogs[i] && blogs[i].blogName" >
             <mat-card-header>
               <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{blogs[i].blogName}}</mat-card-title>
@@ -23,7 +28,7 @@
               <button mat-button (click)="viewBlog(blogs[i])">VIEW</button>
             </mat-card-actions>
           </mat-card>
-          <mat-card class="example-card">
+          <mat-card class="example-card" *ngIf="blogs && blogs[i+1] && blogs[i+1].blogName">
               <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>{{blogs[i+1].blogName}}</mat-card-title>
@@ -39,7 +44,7 @@
                 <button mat-button (click)="viewBlog(blogs[i+1])">VIEW</button>
               </mat-card-actions>
             </mat-card>
-            <mat-card class="example-card">
+            <mat-card class="example-card" *ngIf="blogs && blogs[i+2] && blogs[i+2].blogName">
                 <mat-card-header>
                   <div mat-card-avatar class="example-header-image"></div>
                   <mat-card-title>{{blogs[i+2].blogName}}</mat-card-title>
@@ -57,3 +62,5 @@
               </mat-card>
       </div>
 </ng-container>
+    </div>
+</app-form-view>

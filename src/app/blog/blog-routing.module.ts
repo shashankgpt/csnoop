@@ -7,10 +7,10 @@ import { DetailComponent } from './detail/detail.component';
 import { AllComponent } from './all/all.component';
 
 const routes: Routes = [
-  { path: '', component: BlogsComponent },
+  { path: '', component: AllComponent },
   { path: 'edit/:blogId', component: ViewBlogComponent },
   { path: 'view/:blogId', component: DetailComponent },
-  { path: 'all', component: AllComponent },
+  { path: 'all', component: BlogsComponent },
   { path: 'register', component: RegisterBlogComponent },
 ];
 

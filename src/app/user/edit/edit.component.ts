@@ -53,10 +53,11 @@ export class EditComponent implements OnInit, OnDestroy {
         profile => {
           const { firstName, lastName, email, gender, location, website } = profile;
           if (!email) { this.moveToView(); }
+          const genderVal = gender && (gender === 'Male' || gender == '1') ? '1' : '2';
           this.f.firstName.setValue(firstName);
           this.f.lastName.setValue(lastName);
           this.f.email.setValue(email);
-          this.f.gender.setValue(gender);
+          this.f.gender.setValue(genderVal);
           this.f.location.setValue(location);
           this.f.website.setValue(website);
           this.cd.detectChanges();

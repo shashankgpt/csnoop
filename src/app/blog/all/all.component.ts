@@ -77,7 +77,10 @@ export class AllComponent implements OnInit, OnDestroy {
   }
   moveToEditBlog(blog: IBlogReg) {
     this.store.dispatch(new BlogActions.LoadBlog(blog.blogId));
-    this.router.navigate([`blog/view/${blog.blogId}`]);
+    this.router.navigate([`/blog/view/${blog.blogId}`]);
+  }
+  moveToCreateBlog() {
+    this.router.navigate(['/blog/register']);
   }
 }
 
