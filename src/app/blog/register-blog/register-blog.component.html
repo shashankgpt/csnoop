@@ -1,48 +1,48 @@
 <app-form-view [title]="head">
     <div class="main-form">
-<button mat-raised-button (click)="isEditable = !isEditable">
+<!-- <button mat-raised-button (click)="isEditable = !isEditable">
   {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
-</button>
+</button> -->
 
 <mat-horizontal-stepper linear #stepper *ngIf="showPage">
   <mat-step [stepControl]="registerFormGroup1" [editable]="isEditable">
     <form [formGroup]="registerFormGroup1">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+      <ng-template matStepLabel>Fill Blog Details</ng-template>
 
       <mat-form-field>
-          <input matInput placeholder="blogId" formControlName="blogId" required>
+          <input matInput placeholder="Blog ID" formControlName="blogId" required>
           <mat-error *ngIf="!(f.blogId.valid && f.blogId.touched)">
-            Username is Required
+            Blog ID is Required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="blogName" formControlName="blogName" required>
+          <input matInput placeholder="Blog Name" formControlName="blogName" required>
           <mat-error *ngIf="!(f.blogName.valid && f.blogName.touched)">
-            Username is Required
+            Blog Name is Required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="category" formControlName="category" required>
+          <input matInput placeholder="Category" formControlName="category" required>
           <mat-error *ngIf="!(f.category.valid && f.category.touched)">
-            Username is Required
+              Category is Required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="author" formControlName="author" required>
+          <input matInput placeholder="Author" formControlName="author" required>
           <mat-error *ngIf="!(f.author.valid && f.author.touched)">
-            Username is Required
+              Author is Required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="detail" formControlName="detail" required>
+            <input matInput placeholder="Detail" formControlName="detail" required>
             <mat-error *ngIf="!(f.detail.valid && f.detail.touched)">
-              Username is Required
+                Detail is Required
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-              <input matInput placeholder="tags" formControlName="tags" required>
+              <input matInput placeholder="Tags" formControlName="tags" required>
               <mat-error *ngIf="!(f.tags.valid && f.tags.touched)">
-                Username is Required
+                  Tags is Required
               </mat-error>
             </mat-form-field>
         <div>
@@ -53,15 +53,15 @@
   </mat-step>
   <mat-step [stepControl]="registerFormGroup2" [editable]="isEditable">
     <form [formGroup]="registerFormGroup2">
-      <ng-template matStepLabel>Fill out your address</ng-template>
+      <ng-template matStepLabel>Blog Page 1</ng-template>
       <mat-form-field>
-          <input matInput placeholder="blogHeading" formControlName="blogHeading" required>
+          <input matInput placeholder="Heading" formControlName="blogHeading" required>
           <mat-error *ngIf="!(f2.blogHeading.valid && f2.blogHeading.touched)">
             Username is Required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="details" formControlName="details" required>
+          <input matInput placeholder="Details" formControlName="details" required>
           <mat-error *ngIf="!(f2.details.valid && f2.details.touched)">
             Username is Required
           </mat-error>
@@ -91,15 +91,15 @@
    <form [formGroup]="formGroup" *ngIf="!showPage">
       <mat-horizontal-stepper  formArrayName="form">
       <mat-step [formGroupName]="i" *ngFor="let customerGroup of formGroup.controls.form.controls; let i = index">
-        <ng-template matStepLabel>Step {{i + 1}}</ng-template>
+        <ng-template matStepLabel>Blog Page {{i + 2}}</ng-template>
         <mat-form-field>
-            <input matInput placeholder="blogHeading" formControlName="blogHeading" required>
+            <input matInput placeholder="Heading" formControlName="blogHeading" required>
             <mat-error *ngIf="!(f2.blogHeading.valid && f2.blogHeading.touched)">
               Username is Required
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="details" formControlName="details" required>
+            <input matInput placeholder="Details" formControlName="details" required>
             <mat-error *ngIf="!(f2.details.valid && f2.details.touched)">
               Username is Required
             </mat-error>

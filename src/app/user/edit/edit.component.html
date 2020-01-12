@@ -2,25 +2,25 @@
   <div class="main-form">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-          <input matInput placeholder="Enter your First name" formControlName="firstName">
+          <input matInput placeholder="Enter your First name" formControlName="firstName" required>
           <mat-error *ngIf="!(f.firstName.valid && f.firstName.touched)">
             First Name is required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Enter your Last Name" formControlName="lastName">
+          <input matInput placeholder="Enter your Last Name" formControlName="lastName" required>
           <mat-error *ngIf="!(f.lastName.valid && f.lastName.touched)">
               Last Name is required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input id="email" matInput placeholder="Enter your email" formControlName="email">
+          <input id="email" matInput placeholder="Enter your email" formControlName="email" required>
            <mat-error *ngIf="!(f.email.valid && f.email.touched)">
             Please enter correct email format
           </mat-error>
         </mat-form-field>
       <mat-form-field>
-    <mat-select aria-label="Select an option" formControlName="gender">
+    <mat-select aria-label="Select an option" formControlName="gender" required>
         <mat-option value="1" >Male</mat-option>
         <mat-option value="2" >Female</mat-option>
     </mat-select>
@@ -30,7 +30,7 @@
       </mat-error>
   </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Enter your location" formControlName="location">
+          <input matInput placeholder="Enter your location" formControlName="location" required>
           <mat-error *ngIf="!(f.location.valid && f.location.touched)">
             Location is required
           </mat-error>
@@ -58,9 +58,9 @@
       <div>
         <mat-form-field>
           <input [type]="hide ? 'password' : 'text'" matInput placeholder="Enter your Old Password"
-            formControlName="oldPassword">
+            formControlName="oldPassword" required>
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
+            [attr.aria-pressed]="hide" required>
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="!(f2.oldPassword.valid && f2.oldPassword.touched)">
