@@ -65,6 +65,7 @@ formGroup: FormGroup;
 
     this.store.pipe(select(fromBlog.getActiveBlogID),
       takeWhile(() => this.componentActive)).subscribe((blog) => {
+        if(!blog.blogName){this.moveToView();}
         this.blogReg = blog;
         console.log('myblog', blog);
         this.formGroup = this.formBuilder.group({
@@ -98,9 +99,9 @@ formGroup: FormGroup;
 goForward(stepper: MatStepper) {
     stepper.next();
 }
-  moveToAllUsers() {
-    this.router.navigate(['/admin/allUsers']);
-  }
+moveToView() {
+  this.router.navigate(['/blog']);
+}
   // onSubmit() {
   //   const profile: IProfile = {
   //     firstName: this.profileForm.value.firstName,

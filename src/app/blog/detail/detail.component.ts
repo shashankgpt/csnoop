@@ -44,6 +44,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store.pipe(select(fromBlog.getActiveBlogID),
       takeWhile(() => this.componentActive)).subscribe((blog) => {
+        if(!blog.blogName){this.moveToView();}
         this.blogReg = blog;
         if (this.blogReg) {
           this.blogDisplay = this.blogReg.blog[this.initalVal];
@@ -127,6 +128,9 @@ goForward(stepper: MatStepper) {
   next() {
     this.initalVal++;
     this.blogDisplay = this.blogReg.blog[this.initalVal];
+  }
+  moveToView() {
+    this.router.navigate(['/blog']);
   }
 }
 
