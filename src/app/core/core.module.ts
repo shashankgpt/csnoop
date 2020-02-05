@@ -4,6 +4,7 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatStepperModule} from '@angular/material/stepper';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [],
@@ -14,7 +15,9 @@ import {MatStepperModule} from '@angular/material/stepper';
     MaterialModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MatStepperModule
+    MatStepperModule,
+    FroalaEditorModule,
+    FroalaViewModule
   ]
 })
 export class CoreModule { }

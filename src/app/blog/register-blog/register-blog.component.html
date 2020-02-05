@@ -61,7 +61,9 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Details" formControlName="details" required>
+          <textarea matInput [froalaEditor] formControlName="details">Hello, Froala!</textarea>
+
+
           <mat-error *ngIf="!(f2.details.valid && f2.details.touched)">
             Username is Required
           </mat-error>
@@ -99,7 +101,9 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Details" formControlName="details" required>
+
+            <textarea matInput [froalaEditor] formControlName="details">Hello, Froala!</textarea>
+
             <mat-error *ngIf="!(f2.details.valid && f2.details.touched)">
               Username is Required
             </mat-error>

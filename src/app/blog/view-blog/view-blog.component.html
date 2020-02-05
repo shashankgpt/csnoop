@@ -34,7 +34,7 @@
                </mat-error>
              </mat-form-field>
              <mat-form-field>
-               <input matInput placeholder="details" formControlName="details" required>
+                <textarea matInput [froalaEditor] formControlName="details"></textarea>
                <mat-error *ngIf="!(f2.details.valid && f2.details.touched)">
                  Username is Required
                </mat-error>
