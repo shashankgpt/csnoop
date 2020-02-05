@@ -6,6 +6,7 @@ import { Store, select } from '@ngrx/store';
 import { IBlogReg, IBlog, IBlogCheck } from '../dataTypes';
 import { MatStepper } from '@angular/material/stepper';
 import { takeWhile } from 'rxjs/operators';
+import * as fromShared from '../../shared/state';
 
 @Component({
   selector: 'app-register-blog',
@@ -14,6 +15,7 @@ import { takeWhile } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterBlogComponent implements OnInit, OnDestroy {
+  creator:string;
   head = 'Register Blog';
   isLinear = false;
   firstFormGroup: FormGroup;
@@ -39,10 +41,13 @@ formGroup: FormGroup;
   });
   hide = true;
   componentActive = true;
-  constructor(private store: Store<fromBlog.State>, private formBuilder: FormBuilder) {}
+  constructor(private store: Store<fromBlog.State>, private sharedStore: Store<fromShared.State>,private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-
+    this.sharedStore.pipe(select(fromShared.getLoggedUserName),
+    takeWhile(() => this.componentActive)).subscribe((userName) => {
+      this.creator = userName;
+    });
     this.formGroup = this.formBuilder.group({
       form : this.formBuilder.array([this.init2()])
     });
@@ -123,7 +128,7 @@ onSubmit() {
     tags,
     blog,
     author,
-    userName: 'shanky',
+    userName: this.creator,
     flagged: false,
     active: true,
     details: detail
