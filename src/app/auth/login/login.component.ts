@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import * as fromShared from '../../shared/state';
@@ -17,8 +17,7 @@ import { SpinnerService } from '../../shared/services/spinner.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   value = 'Login';
-  durationInSeconds = 5;
-  spinner = false;
+  loading = false;
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
@@ -27,9 +26,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   componentActive = true;
   constructor(private store: Store<fromAuth.State>,
               private shareStore: Store<fromShared.State>,
-              private spinService: SpinnerService) { }
+              private spinService: SpinnerService,
+              private cd: ChangeDetectorRef,) { }
 
   ngOnInit() {
+    this.shareStore.pipe(select(fromShared.BtnSpinner),
+      takeWhile(() => this.componentActive)).subscribe((activate) => {
+        this.loading = activate;
+        this.cd.detectChanges();
+      });
   }
 
   get f() {
@@ -42,21 +47,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: this.f.password.value
     };
     this.store.dispatch(new AuthActions.LoginUser(credential));
-    this.spinService.activeSpinner();
+    this.spinService.activeBtnSpinner();
     this.store.pipe(select(fromAuth.getToken),
       takeWhile(() => this.componentActive)).subscribe((response) => {
         if (response.toString() !== '0') {
           localStorage.setItem('login', response.toString());
-          this.spinService.deactiveSpinner();
           this.shareStore.dispatch(new SharedActions.IsLoggedIn(credential.username));
           return true;
         }
-        this.spinService.deactiveSpinner();
       });
   }
 
   ngOnDestroy() {
     this.componentActive = false;
-    this.spinService.deactiveSpinner();
+    this.spinService.deactiveBtnSpinner();
   }
 }

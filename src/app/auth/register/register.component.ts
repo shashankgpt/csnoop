@@ -7,6 +7,7 @@ import { IRegister } from '../dataTypes';
 import * as fromShared from '../../shared/state';
 import { takeWhile } from 'rxjs/operators';
 import * as SharedActions from '../../shared/state/shared.action';
+import { SpinnerService } from 'src/app/shared/services/spinner.service';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   });
   hide = true;
   componentActive = true;
-  constructor(private store: Store<fromAuth.State>, private sharedStore: Store<fromShared.State>,private cd: ChangeDetectorRef,) { }
+  constructor(private store: Store<fromAuth.State>,
+              private spinService: SpinnerService,
+              private sharedStore: Store<fromShared.State>,
+              private cd: ChangeDetectorRef, ) { }
 
   ngOnInit() {
     this.sharedStore.pipe(select(fromShared.BtnSpinner),
@@ -53,12 +57,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
       username,
       password: passwordForm.password
     };
-    this.sharedStore.dispatch(new SharedActions.ActivateBtnSpinner());
+    this.spinService.activeBtnSpinner();
     this.store.dispatch(new AuthActions.RegisterUser(reg));
   }
 
   ngOnDestroy() {
     this.componentActive = false;
+    this.spinService.deactiveBtnSpinner();
   }
 }
 

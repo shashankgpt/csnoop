@@ -15,4 +15,10 @@ export class SpinnerService {
   deactiveSpinner() {
     return this.shareStore.dispatch(new SharedActions.DeactivateSpinner());
   }
+  activeBtnSpinner() {
+    return this.shareStore.dispatch(new SharedActions.ActivateBtnSpinner());
+  }
+  deactiveBtnSpinner() {
+    return this.shareStore.dispatch(new SharedActions.DeactivateBtnSpinner());
+  }
 }

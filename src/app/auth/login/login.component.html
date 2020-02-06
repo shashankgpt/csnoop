@@ -1,4 +1,4 @@
-<app-form-view [title]="value" *ngIf="!spinner">
+<app-form-view [title]="value" >
   <div class="main-form">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
@@ -23,8 +23,8 @@
         </mat-form-field>
       </div>
       <div class="btn-div">
-        <button class="btn-pad" type="submit" [disabled]="!loginForm.valid" mat-flat-button
-          color="primary">Submit</button>
+        <button class="btn-pad" [class.spinner]="loading" type="submit" [disabled]="!loginForm.valid|| loading" mat-flat-button
+          color="primary">{{loading ? 'Submitting':'Submit'}}</button>
         <button type="reset" mat-flat-button color="primary">Reset</button>
       </div>
     </form>
