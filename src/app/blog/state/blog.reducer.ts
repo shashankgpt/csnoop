@@ -20,7 +20,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'View All Blog',
           snackBarMessage: action.payload,
-          redirectUrl: ''
+          redirectUrl: '/blog'
         };
         return {
           ...state,
@@ -37,7 +37,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
             snackBarActive: true,
             snackBarAction: 'View All Blog',
             snackBarMessage: action.payload,
-            redirectUrl: ''
+            redirectUrl: '/blog'
           };
           return {
             ...state,
@@ -73,7 +73,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog register success',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: '/blog'
         };
         return {
             ...state,
@@ -84,7 +84,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog register fail',
           snackBarMessage: action.payload,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -95,7 +95,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -106,7 +106,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -117,7 +117,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -128,7 +128,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -139,7 +139,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: '/blog'
         };
         return {
             ...state,
@@ -150,7 +150,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -161,7 +161,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -172,7 +172,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Edit Blog',
           snackBarMessage: action.payload,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -183,7 +183,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Update Blog',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: '/blog'
         };
         return {
             ...state,
@@ -194,7 +194,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Update Blog',
           snackBarMessage: action.payload,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: ''
         };
         return {
             ...state,
@@ -205,7 +205,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Delete Blog',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: '/blog'
         };
         return {
             ...state,
@@ -227,7 +227,7 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           snackBarActive: true,
           snackBarAction: 'blog Logout Blog',
           snackBarMessage: action.payload.Message,
-          redirectUrl: '/blog/allBlogs'
+          redirectUrl: '/blog'
         };
         return {
             ...state,
