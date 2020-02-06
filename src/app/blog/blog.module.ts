@@ -42,7 +42,7 @@ export class BlogModule {
     takeWhile(() => this.componentActive)).subscribe((snackResponse) => {
       if (snackResponse.snackBarActive) {
         this.shareStore.dispatch(new SharedActions.ActivateSnackBar(snackResponse));
-        this.store.dispatch(new BlogActions.LoadAllBlog());
+        // this.store.dispatch(new BlogActions.LoadAllBlog());
       }
     });
   }

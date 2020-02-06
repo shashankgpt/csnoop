@@ -11,6 +11,9 @@ const getBlogFeatureState = createFeatureSelector<BlogState>('blogs');
 export const getBlogsData = createSelector(getBlogFeatureState,
   state => state.blogs
 );
+export const getMyBlogsData = createSelector(getBlogFeatureState,
+  state => state.myBlogs
+);
 export const getBlogsMessage = createSelector(getBlogFeatureState,
   state => state.message
 );

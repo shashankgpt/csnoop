@@ -31,9 +31,12 @@ export enum blogActionTypes {
   DeleteBlog = '[Admin Api] Delete Blog',
   DeleteBlogSuccess = '[Admin Api] Delete Blog Success',
   DeleteBlogFail = '[Admin Api] Delete Blog Fail',
-  LoadBlog = '[Admin Api] Logout Blog',
-  LoadBlogSuccess = '[Admin Api] Logout Blog Success',
-  LoadBlogFail = '[Admin Api] Logout Blog Fail',
+  LoadBlog = '[Admin Api] Load Blog',
+  LoadBlogSuccess = '[Admin Api] Load Blog Success',
+  LoadBlogFail = '[Admin Api] Load Blog Fail',
+  LoadMyBlog = '[Admin Api] Load My Blog',
+  LoadMyBlogSuccess = '[Admin Api] Load My Blog Success',
+  LoadMyBlogFail = '[Admin Api] Load My Blog Fail',
 }
 
 export class SetActiveBlogname implements Action {
@@ -47,7 +50,7 @@ export class LoadAllBlog implements Action {
 
 export class LoadAllBlogSuccess implements Action {
   readonly type = blogActionTypes.LoadAllBlogSuccess;
-  constructor(public payload: IBlogReg[]) {}
+  constructor(public payload: IResponse) {}
 }
 
 export class LoadAllBlogFail implements Action {
@@ -186,6 +189,20 @@ export class LoadBlogFail implements Action {
   constructor(public payload: string) { }
 }
 
+export class LoadMyBlog implements Action {
+  readonly type = blogActionTypes.LoadMyBlog;
+}
+
+export class LoadMyBlogSuccess implements Action {
+  readonly type = blogActionTypes.LoadMyBlogSuccess;
+  constructor(public payload: IResponse) {}
+}
+
+export class LoadMyBlogFail implements Action {
+  readonly type = blogActionTypes.LoadMyBlogFail;
+  constructor(public payload: string) { }
+}
+
 
 export type BlogActions = SetActiveBlogname |
 LoadAllBlog |
@@ -215,6 +232,9 @@ DeleteBlogFail |
 LoadBlog |
 LoadBlogSuccess |
 LoadBlogFail |
+LoadMyBlog |
+LoadMyBlogSuccess |
+LoadMyBlogFail |
 CheckNameBlogExist |
 CheckNameBlogExistSuccess |
 CheckNameBlogExistFail ;

@@ -27,23 +27,54 @@ export function reducer(state= initialState, action: BlogActions): BlogState  {
           activeBlog: blog,
           message: messageBlogFail
     };
-      case blogActionTypes.LoadAllBlogSuccess:
-          return {
-            ...state,
-            blogs: action.payload,
+    case blogActionTypes.LoadAllBlogSuccess:
+      const messageLoadBlogSuccess: ISnackbar = {
+        snackBarActive: true,
+        snackBarAction: 'View All Blog',
+        snackBarMessage: action.payload.Message,
+        redirectUrl: '/blog'
       };
-      case blogActionTypes.LoadAllBlogFail:
-          const messageLoadBlogFail: ISnackbar = {
-            snackBarActive: true,
-            snackBarAction: 'View All Blog',
-            snackBarMessage: action.payload,
-            redirectUrl: '/blog'
-          };
-          return {
-            ...state,
-            blogs: InitialStateBlogs,
-            message: messageBlogFail
+      return {
+          ...state,
+          blogs: action.payload.data.blogs,
+          message: messageLoadBlogSuccess
+    };
+    case blogActionTypes.LoadAllBlogFail:
+      const messageLoadBlogFail: ISnackbar = {
+        snackBarActive: true,
+        snackBarAction: 'Unable to load all blogs',
+        snackBarMessage: action.payload,
+        redirectUrl: '/blog'
       };
+      return {
+        ...state,
+        blogs: InitialStateBlogs,
+        message: messageLoadBlogFail
+  };
+  case blogActionTypes.LoadMyBlogSuccess:
+      const messageLoadMyBlogSuccess: ISnackbar = {
+        snackBarActive: true,
+        snackBarAction: 'View All My Blog',
+        snackBarMessage: action.payload.Message,
+        redirectUrl: '/blog/all'
+      };
+      return {
+          ...state,
+          myBlogs: action.payload.data.blogs,
+          message: messageLoadMyBlogSuccess
+    };
+    case blogActionTypes.LoadMyBlogFail:
+      const messageLoadMyBlogFail: ISnackbar = {
+        snackBarActive: true,
+        snackBarAction: 'Unable to load all blogs',
+        snackBarMessage: action.payload,
+        redirectUrl: '/blog/all'
+      };
+      return {
+        ...state,
+        myBlogs: InitialStateBlogs,
+        message: messageLoadMyBlogFail
+  };
       case blogActionTypes.CheckNameBlogExistSuccess:
         const messageCheckBlogSuccess: ISnackbar = {
           snackBarActive: true,

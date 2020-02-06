@@ -3,6 +3,7 @@ import {ISnackbar} from '../../dataTypes/snackbar';
 
 export interface BlogState {
   blogs: IBlogReg[];
+  myBlogs: IBlogReg[];
   activeBlog: IBlogReg;
   message: ISnackbar;
   noNameExist: boolean;
@@ -47,5 +48,6 @@ export const initialState: BlogState = {
   message,
   activeBlog: blog,
   blogs: InitialStateBlogs,
+  myBlogs: InitialStateBlogs,
   noNameExist: false,
 };

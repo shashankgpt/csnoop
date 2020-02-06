@@ -22,8 +22,15 @@ export class BlogEffects {
   loadAllBlogs$ = this.actions$.pipe(
     ofType(BlogActions.blogActionTypes.LoadAllBlog),
     exhaustMap((action: BlogActions.LoadAllBlog) => this.blogService.getAllBlogs().pipe(
-      map((res: IResponse) => new BlogActions.LoadAllBlogSuccess(res.data.blogs)),
+      map((res: IResponse) => new BlogActions.LoadAllBlogSuccess(res)),
       catchError(err => of(new BlogActions.LoadAllBlogFail('Unable to load All Blog'))))));
+
+  @Effect()
+  loadMyBlogs$ = this.actions$.pipe(
+    ofType(BlogActions.blogActionTypes.LoadMyBlog),
+    exhaustMap((action: BlogActions.LoadMyBlog) => this.blogService.getAllUserBlogs().pipe(
+      map((res: IResponse) => new BlogActions.LoadMyBlogSuccess(res)),
+      catchError(err => of(new BlogActions.LoadMyBlogFail('Unable to load my Blog'))))));
 
     @Effect()
     checkBlogName$ = this.actions$.pipe(

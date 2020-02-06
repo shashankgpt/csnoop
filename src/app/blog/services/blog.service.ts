@@ -12,6 +12,9 @@ export class BlogService {
   getAllBlogs() {
     return this.baseRoute.get<IResponse>('blog', {});
   }
+  getAllUserBlogs() {
+    return this.baseRoute.get<IResponse>('blog/myBlog', {});
+  }
   activeBlog(BlogId: string) {
     return this.baseRoute.patch<IResponse, object>(`blog/activate/${BlogId}`, {});
   }

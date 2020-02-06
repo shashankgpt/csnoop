@@ -35,7 +35,7 @@ export class BlogsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAllBlogs();
-    this.store.pipe(select(fromBlog.getBlogsData),
+    this.store.pipe(select(fromBlog.getMyBlogsData),
       takeWhile(() => this.componentActive)).subscribe((blogs) => {
         console.log('blogs', blogs);
         if (blogs[0].blogId) {
@@ -66,7 +66,7 @@ export class BlogsComponent implements OnInit, OnDestroy {
     this.store.dispatch(new BlogActions.ActivateBlog(blog.blogId));
   }
   loadAllBlogs() {
-    this.store.dispatch(new BlogActions.LoadAllBlog());
+    this.store.dispatch(new BlogActions.LoadMyBlog());
   }
   moveToEditBlog(blog: IBlogReg) {
     this.store.dispatch(new BlogActions.LoadBlog(blog.blogId));
