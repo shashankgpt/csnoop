@@ -13,6 +13,7 @@ import { IRegister } from '../dataTypes';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   head = 'Register';
+  loading = false;
   registerForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -44,6 +45,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       username,
       password: passwordForm.password
     };
+    this.loading = true;
     this.store.dispatch(new AuthActions.RegisterUser(reg));
   }
 

@@ -47,8 +47,8 @@
         </div>
       </div>
       <div class="btn-div">
-        <button type="submit" class="btn-pad" [disabled]="!registerForm.valid" mat-flat-button
-          color="primary">Submit</button>
+        <button type="submit" class="btn-pad" [class.spinner]="loading" [disabled]="!registerForm.valid || loading" mat-flat-button
+          color="primary">{{loading ? 'Submitting':'Submit'}}</button>
         <button type="reset" mat-flat-button color="primary">Reset</button>
       </div>
     </form>
