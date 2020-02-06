@@ -1,9 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import * as fromAuth from '../state';
 import * as AuthActions from '../state/auth.action';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { IRegister } from '../dataTypes';
+import * as fromShared from '../../shared/state';
+import { takeWhile } from 'rxjs/operators';
+import * as SharedActions from '../../shared/state/shared.action';
 
 @Component({
   selector: 'app-register',
@@ -24,9 +27,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   });
   hide = true;
   componentActive = true;
-  constructor(private store: Store<fromAuth.State>) { }
+  constructor(private store: Store<fromAuth.State>, private sharedStore: Store<fromShared.State>,private cd: ChangeDetectorRef,) { }
 
   ngOnInit() {
+    this.sharedStore.pipe(select(fromShared.BtnSpinner),
+      takeWhile(() => this.componentActive)).subscribe((activate) => {
+        this.loading = activate;
+        this.cd.detectChanges();
+      });
   }
 
   get f() {
@@ -45,7 +53,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       username,
       password: passwordForm.password
     };
-    this.loading = true;
+    this.sharedStore.dispatch(new SharedActions.ActivateBtnSpinner());
     this.store.dispatch(new AuthActions.RegisterUser(reg));
   }
 

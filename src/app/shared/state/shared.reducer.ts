@@ -19,6 +19,16 @@ export function reducer(state: SharedState = initialState, action: SharedActions
         ...state,
         spinnerActive: false
       };
+      case sharedActionTypes.ActivateBtnSpinner:
+      return {
+        ...state,
+        spinnerBtnActive: true
+      };
+      case sharedActionTypes.DeactivateBtnSpinner:
+      return {
+        ...state,
+        spinnerBtnActive: false
+      };
       case sharedActionTypes.ActivateSnackBar:
       return {
         ...state,

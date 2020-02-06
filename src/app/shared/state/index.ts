@@ -20,3 +20,6 @@ export const LoggedIn = createSelector(getSharedFeatureState,
 export const Spinner = createSelector(getSharedFeatureState,
   state => state.spinnerActive
 );
+export const BtnSpinner = createSelector(getSharedFeatureState,
+  state => state.spinnerBtnActive
+);

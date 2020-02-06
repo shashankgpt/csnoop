@@ -51,6 +51,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       duration: 2000,
     });
     this.sharedStore.dispatch(new SharedActions.DeactivateSnackBar());
+    this.sharedStore.dispatch(new SharedActions.DeactivateBtnSpinner());
     if (url) {
       this.router.navigate([url]);
     }
